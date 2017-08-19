@@ -39,6 +39,9 @@
 		84813A4E1F48504B00BD090D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84813A4D1F48504B00BD090D /* libz.tbd */; };
 		84813A501F48573E00BD090D /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A4F1F48573E00BD090D /* MyInfo.storyboard */; };
 		84813A521F4857F300BD090D /* Order.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A511F4857F300BD090D /* Order.storyboard */; };
+		BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */; };
+		BC6C3CF21F4864E20057F416 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */; };
+		BC6C3CF51F4865A10057F416 /* MyHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +117,12 @@
 		84813A4D1F48504B00BD090D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		84813A4F1F48573E00BD090D /* MyInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyInfo.storyboard; sourceTree = "<group>"; };
 		84813A511F4857F300BD090D /* Order.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Order.storyboard; sourceTree = "<group>"; };
+		BC6C3CEC1F4862FC0057F416 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
+		BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoViewController.m; sourceTree = "<group>"; };
+		BC6C3CF01F4864E20057F416 /* MyInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoTableViewCell.h; sourceTree = "<group>"; };
+		BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewCell.m; sourceTree = "<group>"; };
+		BC6C3CF31F4865A10057F416 /* MyHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotelViewController.h; sourceTree = "<group>"; };
+		BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotelViewController.m; sourceTree = "<group>"; };
 		BF3AE3CFAEACC0515F317F2B /* libPods-GetHotelsEasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotelsEasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -270,6 +279,7 @@
 		848139F01F484DEA00BD090D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BC6C3CEB1F4862B70057F416 /* MyInfoController */,
 				84813A3B1F484E4500BD090D /* ViewController.h */,
 				84813A3C1F484E4500BD090D /* ViewController.m */,
 			);
@@ -316,6 +326,7 @@
 		84813A211F484DEA00BD090D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BC6C3CEF1F4864900057F416 /* MyInfoView */,
 				848139BD1F4845F800BD090D /* Main.storyboard */,
 				848139C51F4845F800BD090D /* LaunchScreen.storyboard */,
 				848139C31F4845F800BD090D /* Assets.xcassets */,
@@ -323,6 +334,26 @@
 				84813A511F4857F300BD090D /* Order.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BC6C3CEB1F4862B70057F416 /* MyInfoController */ = {
+			isa = PBXGroup;
+			children = (
+				BC6C3CEC1F4862FC0057F416 /* MyInfoViewController.h */,
+				BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */,
+				BC6C3CF31F4865A10057F416 /* MyHotelViewController.h */,
+				BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */,
+			);
+			name = MyInfoController;
+			sourceTree = "<group>";
+		};
+		BC6C3CEF1F4864900057F416 /* MyInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				BC6C3CF01F4864E20057F416 /* MyInfoTableViewCell.h */,
+				BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */,
+			);
+			name = MyInfoView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -524,11 +555,14 @@
 				84813A3A1F484E3100BD090D /* GetHotelsEasy.xcdatamodeld in Sources */,
 				84813A341F484DEB00BD090D /* RequestAPI.m in Sources */,
 				84813A321F484DEB00BD090D /* NSDateFormatter+Category.m in Sources */,
+				BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */,
 				84813A2F1F484DEB00BD090D /* JSONS.m in Sources */,
 				848139B91F4845F800BD090D /* AppDelegate.m in Sources */,
 				84813A2E1F484DEB00BD090D /* ErrorHandler.m in Sources */,
 				848139B61F4845F800BD090D /* main.m in Sources */,
+				BC6C3CF21F4864E20057F416 /* MyInfoTableViewCell.m in Sources */,
 				84813A311F484DEB00BD090D /* NSDate+Utility.m in Sources */,
+				BC6C3CF51F4865A10057F416 /* MyHotelViewController.m in Sources */,
 				84813A371F484DEB00BD090D /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
