@@ -435,7 +435,7 @@
         <scene sceneID="4f8-vy-Kgq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QfG-ow-Loq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" image="航空" id="B2z-pa-Gnv"/>
+                    <tabBarItem key="tabBarItem" title="我的" image="我的-选中" id="B2z-pa-Gnv"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vpa-O6-swE">
@@ -454,6 +454,6 @@
     </scenes>
     <resources>
         <image name="icon" width="100" height="100"/>
-        <image name="航空" width="30" height="30"/>
+        <image name="我的-选中" width="44" height="44"/>
     </resources>
 </document>
