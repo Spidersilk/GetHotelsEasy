@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MyInfoTableViewCell : UITableViewCell
-
+@property (strong, nonatomic) IBOutlet UIImageView *lefticon;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @end

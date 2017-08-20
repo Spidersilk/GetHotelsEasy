@@ -39,6 +39,11 @@
 		84813A4E1F48504B00BD090D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84813A4D1F48504B00BD090D /* libz.tbd */; };
 		84813A501F48573E00BD090D /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A4F1F48573E00BD090D /* MyInfo.storyboard */; };
 		84813A521F4857F300BD090D /* Order.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A511F4857F300BD090D /* Order.storyboard */; };
+		BC6030E41F493A6D00FDF90A /* MyAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E31F493A6D00FDF90A /* MyAirViewController.m */; };
+		BC6030E71F493A9100FDF90A /* MyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E61F493A9100FDF90A /* MyNewsViewController.m */; };
+		BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E91F493AB200FDF90A /* AccountSettingsViewController.m */; };
+		BC6030ED1F493AD000FDF90A /* UseAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030EC1F493AD000FDF90A /* UseAgreementViewController.m */; };
+		BC6030F01F493AFC00FDF90A /* ContactCustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030EF1F493AFC00FDF90A /* ContactCustomerServiceViewController.m */; };
 		BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */; };
 		BC6C3CF21F4864E20057F416 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */; };
 		BC6C3CF51F4865A10057F416 /* MyHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */; };
@@ -117,6 +122,16 @@
 		84813A4D1F48504B00BD090D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		84813A4F1F48573E00BD090D /* MyInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyInfo.storyboard; sourceTree = "<group>"; };
 		84813A511F4857F300BD090D /* Order.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Order.storyboard; sourceTree = "<group>"; };
+		BC6030E21F493A6D00FDF90A /* MyAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAirViewController.h; sourceTree = "<group>"; };
+		BC6030E31F493A6D00FDF90A /* MyAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAirViewController.m; sourceTree = "<group>"; };
+		BC6030E51F493A9100FDF90A /* MyNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNewsViewController.h; sourceTree = "<group>"; };
+		BC6030E61F493A9100FDF90A /* MyNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNewsViewController.m; sourceTree = "<group>"; };
+		BC6030E81F493AB200FDF90A /* AccountSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingsViewController.h; sourceTree = "<group>"; };
+		BC6030E91F493AB200FDF90A /* AccountSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingsViewController.m; sourceTree = "<group>"; };
+		BC6030EB1F493AD000FDF90A /* UseAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UseAgreementViewController.h; sourceTree = "<group>"; };
+		BC6030EC1F493AD000FDF90A /* UseAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UseAgreementViewController.m; sourceTree = "<group>"; };
+		BC6030EE1F493AFC00FDF90A /* ContactCustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCustomerServiceViewController.h; sourceTree = "<group>"; };
+		BC6030EF1F493AFC00FDF90A /* ContactCustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCustomerServiceViewController.m; sourceTree = "<group>"; };
 		BC6C3CEC1F4862FC0057F416 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
 		BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoViewController.m; sourceTree = "<group>"; };
 		BC6C3CF01F4864E20057F416 /* MyInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -343,6 +358,16 @@
 				BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */,
 				BC6C3CF31F4865A10057F416 /* MyHotelViewController.h */,
 				BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */,
+				BC6030E21F493A6D00FDF90A /* MyAirViewController.h */,
+				BC6030E31F493A6D00FDF90A /* MyAirViewController.m */,
+				BC6030E51F493A9100FDF90A /* MyNewsViewController.h */,
+				BC6030E61F493A9100FDF90A /* MyNewsViewController.m */,
+				BC6030E81F493AB200FDF90A /* AccountSettingsViewController.h */,
+				BC6030E91F493AB200FDF90A /* AccountSettingsViewController.m */,
+				BC6030EB1F493AD000FDF90A /* UseAgreementViewController.h */,
+				BC6030EC1F493AD000FDF90A /* UseAgreementViewController.m */,
+				BC6030EE1F493AFC00FDF90A /* ContactCustomerServiceViewController.h */,
+				BC6030EF1F493AFC00FDF90A /* ContactCustomerServiceViewController.m */,
 			);
 			name = MyInfoController;
 			sourceTree = "<group>";
@@ -546,16 +571,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				84813A301F484DEB00BD090D /* NSData+Base64.m in Sources */,
+				BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */,
 				84813A331F484DEB00BD090D /* NSString+Crypt.m in Sources */,
 				84813A231F484DEB00BD090D /* Order.m in Sources */,
+				BC6030ED1F493AD000FDF90A /* UseAgreementViewController.m in Sources */,
 				84813A2D1F484DEB00BD090D /* AppAPIClient.m in Sources */,
 				84813A3D1F484E4500BD090D /* ViewController.m in Sources */,
+				BC6030E41F493A6D00FDF90A /* MyAirViewController.m in Sources */,
 				84813A221F484DEB00BD090D /* BasicEncodingRules.m in Sources */,
 				84813A351F484DEB00BD090D /* StorageMgr.m in Sources */,
 				84813A3A1F484E3100BD090D /* GetHotelsEasy.xcdatamodeld in Sources */,
 				84813A341F484DEB00BD090D /* RequestAPI.m in Sources */,
 				84813A321F484DEB00BD090D /* NSDateFormatter+Category.m in Sources */,
 				BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */,
+				BC6030E71F493A9100FDF90A /* MyNewsViewController.m in Sources */,
+				BC6030F01F493AFC00FDF90A /* ContactCustomerServiceViewController.m in Sources */,
 				84813A2F1F484DEB00BD090D /* JSONS.m in Sources */,
 				848139B91F4845F800BD090D /* AppDelegate.m in Sources */,
 				84813A2E1F484DEB00BD090D /* ErrorHandler.m in Sources */,

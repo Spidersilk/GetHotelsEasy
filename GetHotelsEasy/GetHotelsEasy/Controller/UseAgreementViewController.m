@@ -1,18 +1,18 @@
 //
-//  MyHotelViewController.m
+//  UseAgreementViewController.m
 //  GetHotelsEasy
 //
-//  Created by admin7 on 2017/8/19.
+//  Created by admin7 on 2017/8/20.
 //  Copyright © 2017年 self. All rights reserved.
 //
 
-#import "MyHotelViewController.h"
+#import "UseAgreementViewController.h"
 
-@interface MyHotelViewController ()
+@interface UseAgreementViewController ()
 
 @end
 
-@implementation MyHotelViewController
+@implementation UseAgreementViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,6 +40,7 @@
 -(void)leftButtonAction:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 /*
 #pragma mark - Navigation
 

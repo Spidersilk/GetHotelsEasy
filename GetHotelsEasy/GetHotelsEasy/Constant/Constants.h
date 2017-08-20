@@ -19,7 +19,8 @@
 //颜色函数
 #define UIColorFromRGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 #define UIColorFromRGBA(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a/1.0]
-
+//头部框颜色
+#define HEAD_THEMECOLOR [UIColor colorWithRed:255/255.0 green:255/255.0 blue: 255/255.0 alpha:1.0]
 //屏幕尺寸
 #define UI_SCREEN_W [[UIScreen mainScreen] bounds].size.width
 #define UI_SCREEN_H [[UIScreen mainScreen] bounds].size.height
