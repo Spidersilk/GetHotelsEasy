@@ -17,15 +17,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //调用设置导航栏的方法
+    [self setNavigationItem];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+//当前页面将要显示的时候，显示导航栏
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
 //设置导航栏样式
 -(void)setNavigationItem{
-    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0, 128, 255)];
     //实例化一个button
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置button的位置大小

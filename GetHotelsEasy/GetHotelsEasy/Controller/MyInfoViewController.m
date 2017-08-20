@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *level;
 @property (weak, nonatomic) IBOutlet UITableView *myInfoTableView;
 @property (strong,nonatomic) NSArray *myInfoArr;
+@property (strong,nonatomic) NSArray *myInfoArr2;
 
 @end
 
@@ -27,7 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _myInfoArr = @[@{@"lefticon":@"酒店",@"title":@"我的酒店"},@{@"lefticon":@"航空",@"title":@"我的航空"},@{@"lefticon":@"信息",@"title":@"我的消息"},@{@"lefticon":@"设置",@"title":@"账户设置"},@{@"lefticon":@"协议",@"title":@"使用协议"},@{@"lefticon":@"电话",@"title":@"联系客服"}];
+    _myInfoArr = @[@{@"lefticon":@"酒店",@"title":@"我的酒店"},@{@"lefticon":@"航空",@"title":@"我的航空"},@{@"lefticon":@"信息",@"title":@"我的消息"}];
+    _myInfoArr2 = @[@{@"lefticon":@"设置",@"title":@"账户设置"},@{@"lefticon":@"协议",@"title":@"使用协议"},@{@"lefticon":@"电话",@"title":@"联系客服"}];
+    _myInfoTableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,7 +55,7 @@
 #pragma mark - table view
 //细胞有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _myInfoArr.count;
+    return 2;
 }
 
 //每组细胞多少行
@@ -63,9 +66,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MyInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myInfoCell" forIndexPath:indexPath];
     //根据行号拿到数组中对应的数据
-    NSDictionary *dict = _myInfoArr[indexPath.section];
-    cell.lefticon.image = [UIImage imageNamed:dict[@"lefticon"]];
-    cell.titleLabel.text = dict[@"title"];
+   if (indexPath.section == 0) {
+       NSDictionary *dict = _myInfoArr[indexPath.row];
+       cell.lefticon.image = [UIImage imageNamed:dict[@"lefticon"]];
+       cell.titleLabel.text = dict[@"title"];
+   }else{
+       NSDictionary *dict = _myInfoArr2[indexPath.row];
+       cell.lefticon.image = [UIImage imageNamed:dict[@"lefticon"]];
+       cell.titleLabel.text = dict[@"title"];
+   }
     return cell;
 }
 //设置组的底部视图高度
@@ -83,28 +92,35 @@
 //细胞选中后调用
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+                [self performSegueWithIdentifier:@"myInfoToMyHotel"sender:self];
+                break;
+            case 1:
+                [self performSegueWithIdentifier:@"myInfoToMyAir"sender:self];
+                break;
+            case 2:
+                [self performSegueWithIdentifier:@"myInfoToMyNews"sender:self];
+                break;
+            default:
+                break;
+        }
+    }else{
+        switch (indexPath.row) {
     
-    switch (indexPath.section) {
-        case 0:
-            [self performSegueWithIdentifier:@"myInfoToMyHotel"sender:self];
-            break;
-        case 1:
-            [self performSegueWithIdentifier:@"myInfoToMyAir"sender:self];
-            break;
-        case 2:
-            [self performSegueWithIdentifier:@"myInfoToMyNews"sender:self];
-            break;
-        case 3:
-            [self performSegueWithIdentifier:@"myInfoToAccountSettings"sender:self];
-            break;
-        case 4:
-            [self performSegueWithIdentifier:@"myInfoToUseAgreement"sender:self];
-            break;
-        case 5:
-            [self performSegueWithIdentifier:@"myInfoToContactCustomerService"sender:self];
-            break;
-        default:
-            break;
+            case 0:
+                [self performSegueWithIdentifier:@"myInfoToAccountSettings"sender:self];
+                break;
+            case 1:
+                [self performSegueWithIdentifier:@"myInfoToUseAgreement"sender:self];
+                break;
+            case 2:
+                [self performSegueWithIdentifier:@"myInfoToContactCustomerService"sender:self];
+                break;
+            default:
+                break;
+        }
     }
 }
 
