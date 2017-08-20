@@ -123,7 +123,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jD1-TR-mG5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1795" y="222"/>
+            <point key="canvasLocation" x="1797" y="230"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Th4-T2-NsV">
@@ -135,24 +135,24 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="ceQ-5f-QM1" kind="relationship" relationship="viewControllers" id="iak-0Z-kS5"/>
                         <segue destination="TcH-UD-jZT" kind="relationship" relationship="viewControllers" id="Jl7-Gt-wrC"/>
                         <segue destination="ikq-b9-Hbe" kind="relationship" relationship="viewControllers" id="nId-qg-ubT"/>
-                        <segue destination="5QQ-0x-4EG" kind="relationship" relationship="viewControllers" id="EdN-8W-udw"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZO0-a5-4AW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1246" y="-65"/>
         </scene>
-        <!--Order-->
-        <scene sceneID="Tij-iv-7Qi">
+        <!--Hotel-->
+        <scene sceneID="ywC-4g-75c">
             <objects>
-                <viewControllerPlaceholder storyboardName="Order" id="5QQ-0x-4EG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="pf3-Xv-MLH"/>
+                <viewControllerPlaceholder storyboardName="Hotel" id="ceQ-5f-QM1" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="R09-hc-Lc5"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4xS-k0-n3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zP4-ZY-cXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="-380"/>
+            <point key="canvasLocation" x="1880" y="-492"/>
         </scene>
         <!--Item-->
         <scene sceneID="EOK-v8-jNN">
