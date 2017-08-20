@@ -33,6 +33,7 @@
 //设置导航栏样式
 -(void)setNavigationItem{
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0, 128, 255)];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     //实例化一个button
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置button的位置大小
