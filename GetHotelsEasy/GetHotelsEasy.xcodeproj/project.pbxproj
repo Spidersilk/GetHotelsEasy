@@ -40,6 +40,7 @@
 		84813A501F48573E00BD090D /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A4F1F48573E00BD090D /* MyInfo.storyboard */; };
 		84813A521F4857F300BD090D /* Order.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A511F4857F300BD090D /* Order.storyboard */; };
 		84B27C541F4AFDCB00800D9C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B27C531F4AFDCB00800D9C /* LoginViewController.m */; };
+		84B3095E1F4B128200AF8C24 /* HotelOrdelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B3095D1F4B128200AF8C24 /* HotelOrdelViewController.m */; };
 		84EA3D8C1F49525B00EA2605 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EA3D8B1F49525B00EA2605 /* Hotel.storyboard */; };
 		BC6030E41F493A6D00FDF90A /* MyAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E31F493A6D00FDF90A /* MyAirViewController.m */; };
 		BC6030E71F493A9100FDF90A /* MyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E61F493A9100FDF90A /* MyNewsViewController.m */; };
@@ -127,6 +128,8 @@
 		84813A511F4857F300BD090D /* Order.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Order.storyboard; sourceTree = "<group>"; };
 		84B27C521F4AFDCB00800D9C /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		84B27C531F4AFDCB00800D9C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		84B3095C1F4B128200AF8C24 /* HotelOrdelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrdelViewController.h; sourceTree = "<group>"; };
+		84B3095D1F4B128200AF8C24 /* HotelOrdelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrdelViewController.m; sourceTree = "<group>"; };
 		84EA3D8B1F49525B00EA2605 /* Hotel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
 		BC6030E21F493A6D00FDF90A /* MyAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAirViewController.h; sourceTree = "<group>"; };
 		BC6030E31F493A6D00FDF90A /* MyAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAirViewController.m; sourceTree = "<group>"; };
@@ -303,6 +306,7 @@
 		848139F01F484DEA00BD090D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				84B3095B1F4B124400AF8C24 /* HotelOrdelViewController */,
 				84B27C511F4AFD7500800D9C /* LoginViewController */,
 				BC6C3CEB1F4862B70057F416 /* MyInfoController */,
 				84813A3B1F484E4500BD090D /* ViewController.h */,
@@ -369,6 +373,15 @@
 				84B27C531F4AFDCB00800D9C /* LoginViewController.m */,
 			);
 			name = LoginViewController;
+			sourceTree = "<group>";
+		};
+		84B3095B1F4B124400AF8C24 /* HotelOrdelViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84B3095C1F4B128200AF8C24 /* HotelOrdelViewController.h */,
+				84B3095D1F4B128200AF8C24 /* HotelOrdelViewController.m */,
+			);
+			name = HotelOrdelViewController;
 			sourceTree = "<group>";
 		};
 		BC6C3CEB1F4862B70057F416 /* MyInfoController */ = {
@@ -600,6 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B3095E1F4B128200AF8C24 /* HotelOrdelViewController.m in Sources */,
 				84813A301F484DEB00BD090D /* NSData+Base64.m in Sources */,
 				BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */,
 				84B27C541F4AFDCB00800D9C /* LoginViewController.m in Sources */,
