@@ -16,6 +16,7 @@
 - (IBAction)loginAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIButton *createUserBtn;
 - (IBAction)createUserAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 
 @end
 
@@ -28,9 +29,13 @@
     _loginBtn.enabled = NO;
     _loginBtn.backgroundColor =UIColorFromRGB(200, 200, 200);
     //判断有值&&不为空，使用沙盒保存的用户名
-    if (![[Utilities getUserDefaults:@"username"] isKindOfClass:[NSNull class]] && [Utilities getUserDefaults:@"username"] != nil) {
-        _phoneTextField.text = [Utilities getUserDefaults:@"username"];
+    if (![[Utilities getUserDefaults:@"tel"] isKindOfClass:[NSNull class]] && [Utilities getUserDefaults:@"tel"] != nil) {
+        _phoneTextField.text = [Utilities getUserDefaults:@"tel"];
     }
+    self.backView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+    self.backView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    self.backView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+    self.backView.layer.shadowRadius = 4;//阴影半径，默认3
     //添加事件监听当输入框的内容改变时调用textChange:方法
     [_phoneTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [_pwdTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
@@ -86,10 +91,10 @@
     //创建菊花膜（点击按钮的时候，并显示在当前页面）
     UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
     //参数
-    NSDictionary *para = @{@"username" : _phoneTextField.text,@"password" : _pwdTextField.text};
+    NSDictionary *para = @{@"tel" : _phoneTextField.text,@"pwd" : _pwdTextField.text};
     //网络请求
-    [RequestAPI requestURL:@"/api/session" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+    [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
+        NSLog(@"哈哈:%@",responseObject);
         //当网络请求成功时停止动画
         [avi stopAnimating];
         if ([responseObject[@"flag"] isEqualToString:@"success"]) {
@@ -108,9 +113,9 @@
             [[StorageMgr singletonStorageMgr]addKey:@"showPhone" andValue:@(showPhone)];
             
             //保存用户名
-            [Utilities removeUserDefaults:@"username"];
+            [Utilities removeUserDefaults:@"tel"];
             //退出登录，或者返回桌面退出。回到软件保存用户名
-            [Utilities setUserDefaults:@"username" content:_phoneTextField.text];
+            [Utilities setUserDefaults:@"tel" content:_phoneTextField.text];
             
             //清空用户名和密码(网络请求成功之后再执行，不然网络请求不到用户名和密码)
             //_userNameTextField.text = @"";

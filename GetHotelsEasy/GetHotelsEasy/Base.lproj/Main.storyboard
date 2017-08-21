@@ -243,6 +243,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="会员登录" id="3e7-3z-hrJ"/>
                     <connections>
+                        <outlet property="backView" destination="5kh-Oa-v96" id="Tg5-F6-DZM"/>
                         <outlet property="createUserBtn" destination="EGV-15-ITJ" id="MMe-km-4hV"/>
                         <outlet property="imageView" destination="yIj-Gr-1YI" id="PLu-gX-4ru"/>
                         <outlet property="loginBtn" destination="S21-Qd-vYe" id="3Y3-GN-qsc"/>
