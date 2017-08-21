@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		616C597CA487DC6448CD57BC /* libPods-GetHotelsEasy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3AE3CFAEACC0515F317F2B /* libPods-GetHotelsEasy.a */; };
+		844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844D27BC1F4B153F00026E12 /* CreateUserViewController.m */; };
 		848139B61F4845F800BD090D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 848139B51F4845F800BD090D /* main.m */; };
 		848139B91F4845F800BD090D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 848139B81F4845F800BD090D /* AppDelegate.m */; };
 		848139BF1F4845F800BD090D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848139BD1F4845F800BD090D /* Main.storyboard */; };
@@ -73,6 +74,8 @@
 /* Begin PBXFileReference section */
 		76D5A7FA4D178068D2ED6442 /* Pods-GetHotelsEasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotelsEasy.release.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotelsEasy/Pods-GetHotelsEasy.release.xcconfig"; sourceTree = "<group>"; };
 		7BC1A352D32C2578F60726DF /* Pods-GetHotelsEasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotelsEasy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotelsEasy/Pods-GetHotelsEasy.debug.xcconfig"; sourceTree = "<group>"; };
+		844D27BB1F4B153F00026E12 /* CreateUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateUserViewController.h; sourceTree = "<group>"; };
+		844D27BC1F4B153F00026E12 /* CreateUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateUserViewController.m; sourceTree = "<group>"; };
 		848139B11F4845F800BD090D /* GetHotelsEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetHotelsEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848139B51F4845F800BD090D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		848139B71F4845F800BD090D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -211,6 +214,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		844D27BA1F4B150D00026E12 /* CreateUserController */ = {
+			isa = PBXGroup;
+			children = (
+				844D27BB1F4B153F00026E12 /* CreateUserViewController.h */,
+				844D27BC1F4B153F00026E12 /* CreateUserViewController.m */,
+			);
+			name = CreateUserController;
+			sourceTree = "<group>";
+		};
 		848139A81F4845F800BD090D = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +318,7 @@
 		848139F01F484DEA00BD090D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				844D27BA1F4B150D00026E12 /* CreateUserController */,
 				84B3095B1F4B124400AF8C24 /* HotelOrdelViewController */,
 				84B27C511F4AFD7500800D9C /* LoginViewController */,
 				BC6C3CEB1F4862B70057F416 /* MyInfoController */,
@@ -616,6 +629,7 @@
 				84B3095E1F4B128200AF8C24 /* HotelOrdelViewController.m in Sources */,
 				84813A301F484DEB00BD090D /* NSData+Base64.m in Sources */,
 				BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */,
+				844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */,
 				84B27C541F4AFDCB00800D9C /* LoginViewController.m in Sources */,
 				84813A331F484DEB00BD090D /* NSString+Crypt.m in Sources */,
 				84813A231F484DEB00BD090D /* Order.m in Sources */,
