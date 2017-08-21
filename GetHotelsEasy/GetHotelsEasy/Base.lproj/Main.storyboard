@@ -108,7 +108,7 @@
         <!--会员登录-->
         <scene sceneID="yKN-bH-9qb">
             <objects>
-                <viewController title="会员登录" id="28X-0y-u2n" sceneMemberID="viewController">
+                <viewController title="会员登录" id="28X-0y-u2n" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bIU-S9-909"/>
                         <viewControllerLayoutGuide type="bottom" id="tbN-aH-YlN"/>
@@ -164,6 +164,9 @@
                                         <rect key="frame" x="248" y="168.5" width="67" height="28"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="注册新用户"/>
+                                        <connections>
+                                            <action selector="createUserAction:forEvent:" destination="28X-0y-u2n" eventType="touchUpInside" id="j7a-Sy-Ppr"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -218,6 +221,9 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginAction:forEvent:" destination="28X-0y-u2n" eventType="touchUpInside" id="l6K-kF-yJQ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -236,6 +242,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="会员登录" id="3e7-3z-hrJ"/>
+                    <connections>
+                        <outlet property="createUserBtn" destination="EGV-15-ITJ" id="MMe-km-4hV"/>
+                        <outlet property="imageView" destination="yIj-Gr-1YI" id="PLu-gX-4ru"/>
+                        <outlet property="loginBtn" destination="S21-Qd-vYe" id="3Y3-GN-qsc"/>
+                        <outlet property="phoneTextField" destination="lGu-WC-1CO" id="Zrp-ZD-qvw"/>
+                        <outlet property="pwdTextField" destination="8Kf-Hg-mAs" id="MNl-6V-2MY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uSf-Jo-VmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
