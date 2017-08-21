@@ -1,14 +1,14 @@
 //
-//  expiredTableViewCell.m
+//  ExpiredTableViewCell.m
 //  GetHotelsEasy
 //
-//  Created by admin on 2017/8/21.
+//  Created by admin7 on 2017/8/21.
 //  Copyright © 2017年 self. All rights reserved.
 //
 
-#import "expiredTableViewCell.h"
+#import "ExpiredTableViewCell.h"
 
-@implementation expiredTableViewCell
+@implementation ExpiredTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

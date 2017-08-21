@@ -1,14 +1,14 @@
 //
-//  allOrdersTableViewCell.m
+//  AllOrdersTableViewCell.m
 //  GetHotelsEasy
 //
-//  Created by admin on 2017/8/21.
+//  Created by admin7 on 2017/8/21.
 //  Copyright © 2017年 self. All rights reserved.
 //
 
-#import "allOrdersTableViewCell.h"
+#import "AllOrdersTableViewCell.h"
 
-@implementation allOrdersTableViewCell
+@implementation AllOrdersTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

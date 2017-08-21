@@ -1,14 +1,14 @@
 //
-//  workableTableViewCell.m
+//  WorkableTableViewCell.m
 //  GetHotelsEasy
 //
-//  Created by admin on 2017/8/21.
+//  Created by admin7 on 2017/8/21.
 //  Copyright © 2017年 self. All rights reserved.
 //
 
-#import "workableTableViewCell.h"
+#import "WorkableTableViewCell.h"
 
-@implementation workableTableViewCell
+@implementation WorkableTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
