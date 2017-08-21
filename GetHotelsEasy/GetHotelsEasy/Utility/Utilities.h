@@ -20,22 +20,44 @@
 //获得venderID的UUID字符串
 + (NSString *)uniqueVendor;
 //根据id获取控制器实例
-+ (id)getStoryboardInstance:(NSString *)sbName byIdentity:(NSString *)identity;
++ (id)getStoryboardInstanceByIdentity:(NSString*)identity;
 //弹出普通提示框
-+ (void)popUpAlertViewWithMsg:(NSString *)msg andTitle:(NSString* )title onView:(UIViewController *)vc;
++ (void)popUpAlertViewWithMsg:(NSString *)msg andTitle:(NSString* )title onView:(UIViewController *)vc onCompletion:(void (^)(void))completion;
 //获得保护膜
 + (UIActivityIndicatorView *)getCoverOnView:(UIView *)view;
 //将浮点数转化为保留小数点后若干位数的字符串
 + (NSString *)notRounding:(float)price afterPoint:(int)position;
 //根据URL下载图片并缓存
 + (UIImage *)imageUrl:(NSString *)url;
+//设置接口令牌权限
++ (NSDictionary *)makeHeaderForToken:(NSString *)token;
+//补0
++ (NSString *)checkZero:(NSInteger)num;
+//隐藏手机号中间四位
++ (NSString *)invisiblePhoneNo:(NSString *)rawPhone;
+//强制下线
++ (void)forceLogoutCheck:(NSInteger)code fromViewController:(UIViewController *)vc;
 //为空检查
-+ (NSString *)nullAndNilCheck:(id)target replaceBy:(NSString *)replacement;
-//检查是否已登录
-+ (BOOL)loginCheck;
-//字符串转毫秒时间戳
++ (id)nullAndNilCheck:(id)target replaceBy:(id)replacement;
+
+/**
+ *  字符串转时间戳
+ *
+ *  @param timeStr 字符串时间
+ *  @param format  转化格式 如yyyy-MM-dd HH:mm:ss,即2015-07-15 15:00:00
+ *
+ *  @return 返回时间戳的字符串
+ */
 + (NSTimeInterval)cTimestampFromString:(NSString *)timeStr format:(NSString *)format;
-//毫秒时间戳转字符串
+
+/**
+ *  时间戳转字符串
+ *
+ *  @param timeStamp 时间戳
+ *  @param format    转化格式 如yyyy-MM-dd HH:mm:ss,即2015-07-15 15:00:00
+ *
+ *  @return 返回字符串格式时间
+ */
 + (NSString *)dateStrFromCstampTime:(NSInteger)timeStamp withDateFormat:(NSString *)format;
 
 @end
