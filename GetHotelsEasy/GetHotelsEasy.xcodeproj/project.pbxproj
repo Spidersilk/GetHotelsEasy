@@ -48,6 +48,7 @@
 		BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */; };
 		BC6C3CF21F4864E20057F416 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */; };
 		BC6C3CF51F4865A10057F416 /* MyHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */; };
+		BCD208761F4AF16F003E523A /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD208751F4AF16F003E523A /* HMSegmentedControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,8 @@
 		BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewCell.m; sourceTree = "<group>"; };
 		BC6C3CF31F4865A10057F416 /* MyHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotelViewController.h; sourceTree = "<group>"; };
 		BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotelViewController.m; sourceTree = "<group>"; };
+		BCD208741F4AF16F003E523A /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		BCD208751F4AF16F003E523A /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		BF3AE3CFAEACC0515F317F2B /* libPods-GetHotelsEasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotelsEasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -271,6 +274,7 @@
 		848139EA1F484DEA00BD090D /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				BCD208731F4AF16F003E523A /* HMSegmentedControl */,
 				848139EB1F484DEA00BD090D /* SCZ-BasicEncodingRules */,
 			);
 			path = 3rd;
@@ -382,6 +386,15 @@
 				BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */,
 			);
 			name = MyInfoView;
+			sourceTree = "<group>";
+		};
+		BCD208731F4AF16F003E523A /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				BCD208741F4AF16F003E523A /* HMSegmentedControl.h */,
+				BCD208751F4AF16F003E523A /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -578,6 +591,7 @@
 				BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */,
 				84813A331F484DEB00BD090D /* NSString+Crypt.m in Sources */,
 				84813A231F484DEB00BD090D /* Order.m in Sources */,
+				BCD208761F4AF16F003E523A /* HMSegmentedControl.m in Sources */,
 				BC6030ED1F493AD000FDF90A /* UseAgreementViewController.m in Sources */,
 				84813A2D1F484DEB00BD090D /* AppAPIClient.m in Sources */,
 				84813A3D1F484E4500BD090D /* ViewController.m in Sources */,

@@ -265,17 +265,17 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9U-kQ-Wcv">
-                                <rect key="frame" x="0.0" y="109" width="375" height="509"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="504"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="181" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pgG-0C-gWf">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="509"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="504"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="181" id="S0Y-OL-dTg" customClass="AcquireTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="181"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S0Y-OL-dTg" id="7Rz-jm-Wnr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="180.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="181"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="希尔顿酒店套房" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4t-ZO-cXg">
@@ -302,14 +302,14 @@
                                         </prototypes>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="STB-tW-wnG">
-                                        <rect key="frame" x="375" y="0.0" width="375" height="509"/>
+                                        <rect key="frame" x="375" y="0.0" width="375" height="504"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notAcquireCell" id="Gtx-5d-tZ4" customClass="NotAcquireTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gtx-5d-tZ4" id="N1T-1V-HIb">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="项目" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5j-4S-LfZ">
@@ -349,14 +349,14 @@
                                         </prototypes>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cqK-PC-Il0">
-                                        <rect key="frame" x="750" y="0.0" width="375" height="509"/>
+                                        <rect key="frame" x="750" y="0.0" width="375" height="504"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followCell" id="CKa-qy-f0L" customClass="FollowTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CKa-qy-f0L" id="aLg-Bu-Mh1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="项目" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kp-fv-OZ2">
@@ -411,13 +411,16 @@
                                     <constraint firstAttribute="bottom" secondItem="STB-tW-wnG" secondAttribute="bottom" id="ykZ-Oy-DpG"/>
                                     <constraint firstItem="pgG-0C-gWf" firstAttribute="top" secondItem="t9U-kQ-Wcv" secondAttribute="top" id="z85-5q-R23"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="iEG-o2-LTD" id="K9l-ME-YDU"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ZVK-47-FDm" secondAttribute="trailing" id="0vs-xk-lEB"/>
                             <constraint firstItem="pgG-0C-gWf" firstAttribute="width" secondItem="c2I-7N-vf0" secondAttribute="width" id="1Nk-65-ese"/>
-                            <constraint firstItem="t9U-kQ-Wcv" firstAttribute="top" secondItem="ROJ-Y2-qcP" secondAttribute="bottom" constant="45" id="23h-l5-4uc"/>
+                            <constraint firstItem="t9U-kQ-Wcv" firstAttribute="top" secondItem="ROJ-Y2-qcP" secondAttribute="bottom" constant="50" id="23h-l5-4uc"/>
                             <constraint firstAttribute="trailing" secondItem="t9U-kQ-Wcv" secondAttribute="trailing" id="5hH-c8-X4C"/>
                             <constraint firstAttribute="bottomMargin" secondItem="ZVK-47-FDm" secondAttribute="bottom" id="72M-5J-cel"/>
                             <constraint firstItem="ZVK-47-FDm" firstAttribute="top" secondItem="ROJ-Y2-qcP" secondAttribute="bottom" id="N65-Rw-v9n"/>
@@ -427,6 +430,12 @@
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="allOrdersTableView" destination="pgG-0C-gWf" id="S9o-5r-LNu"/>
+                        <outlet property="expiredTableView" destination="cqK-PC-Il0" id="iD0-f3-yHg"/>
+                        <outlet property="scrollView" destination="t9U-kQ-Wcv" id="9d8-4x-e3p"/>
+                        <outlet property="workableTableView" destination="STB-tW-wnG" id="c8I-Jy-O1a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BAW-1F-ZVs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

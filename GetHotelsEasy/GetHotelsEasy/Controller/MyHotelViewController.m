@@ -7,8 +7,17 @@
 //
 
 #import "MyHotelViewController.h"
+#import "HMSegmentedControl.h"
 
-@interface MyHotelViewController ()
+@interface MyHotelViewController ()<UIScrollViewDelegate>{
+    NSInteger notAcquireFlag;
+    NSInteger followFlag;
+}
+@property (strong, nonatomic)HMSegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITableView *allOrdersTableView;
+@property (weak, nonatomic) IBOutlet UITableView *workableTableView;
+@property (weak, nonatomic) IBOutlet UITableView *expiredTableView;
 
 @end
 
@@ -17,8 +26,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    notAcquireFlag = 1;
+    followFlag = 1;
+    
     //调用设置导航栏的方法
     [self setNavigationItem];
+    [self setSegment];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,6 +43,67 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
+#pragma mark - setSegment设置菜单栏
+
+//初始化菜单栏的方法
+- (void)setSegment{
+    _segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"全部订单",@"可使用",@"已过期"]];
+    //设置位置
+    _segmentedControl.frame = CGRectMake(0, 64, UI_SCREEN_W, 50);
+    //设置默认选中的项
+    _segmentedControl.selectedSegmentIndex = 0;
+    //设置菜单栏的背景色
+    _segmentedControl.backgroundColor = [UIColor whiteColor];
+    //设置线的高度
+    _segmentedControl.selectionIndicatorHeight = 2.5f;
+    //设置选中状态的样式
+    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    //选中时的标记的位置
+    _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    //设置未选中的标题样式
+    _segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(230, 230, 230, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    //选中时的标题样式
+    _segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    
+    __weak typeof(self) weakSelf = self;
+    [_segmentedControl setIndexChangeBlock:^(NSInteger index) {
+        [weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
+    }];
+    
+    [self.view addSubview:_segmentedControl];
+}
+#pragma mark - scrollView
+
+//scrollView已经停止减速
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (scrollView == _scrollView) {
+        NSInteger page = [self scrollCheck:scrollView];
+        //NSLog(@"page = %ld", (long)page);
+        //将_segmentedControl设置选中的index为page（scrollView当前显示的tableview）
+        [_segmentedControl setSelectedSegmentIndex:page animated:YES];
+    }
+}
+//scrollView已经结束滑动的动画
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    if (scrollView == _scrollView) {
+        [self scrollCheck:scrollView];
+    }
+}
+//判断scrollView滑动到那里了
+- (NSInteger)scrollCheck: (UIScrollView *)scrollView{
+    NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
+    if (page == 0) {
+    }
+    if (notAcquireFlag == 1 && page == 1) {
+        NSLog(@"第一次滑动scollview来到未获取");
+    }
+    if (followFlag == 1 && page == 2) {
+        NSLog(@"第一次滑动scollview来到跟进");
+    }
+    
+    return page;
+}
+
 //设置导航栏样式
 -(void)setNavigationItem{
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0, 128, 255)];
