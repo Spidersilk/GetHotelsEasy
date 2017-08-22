@@ -152,13 +152,21 @@
                                     <constraint firstItem="MNw-bt-LPG" firstAttribute="top" secondItem="YtV-S0-oiM" secondAttribute="top" id="zUW-7E-5kR"/>
                                 </constraints>
                             </scrollView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a1p-Z3-QaT">
+                                <rect key="frame" x="0.0" y="274" width="375" height="393"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YtV-S0-oiM" firstAttribute="trailing" secondItem="ayz-Fd-boj" secondAttribute="trailing" id="3qC-sp-8Ae"/>
+                            <constraint firstAttribute="bottom" secondItem="a1p-Z3-QaT" secondAttribute="bottom" id="6OP-JU-L9M"/>
                             <constraint firstItem="YtV-S0-oiM" firstAttribute="top" secondItem="ayz-Fd-boj" secondAttribute="bottom" id="AjI-o9-kak"/>
+                            <constraint firstItem="a1p-Z3-QaT" firstAttribute="leading" secondItem="QMU-8W-6G5" secondAttribute="leading" id="F0l-6t-Wfr"/>
                             <constraint firstItem="n20-N5-Vu7" firstAttribute="width" secondItem="QMU-8W-6G5" secondAttribute="width" id="G9k-4y-QK6"/>
                             <constraint firstItem="YtV-S0-oiM" firstAttribute="leading" secondItem="QMU-8W-6G5" secondAttribute="leading" id="GbP-jx-n0g"/>
+                            <constraint firstItem="a1p-Z3-QaT" firstAttribute="top" secondItem="YtV-S0-oiM" secondAttribute="bottom" id="HW5-mc-Rlq"/>
+                            <constraint firstAttribute="trailing" secondItem="a1p-Z3-QaT" secondAttribute="trailing" id="U0x-2e-qaf"/>
                             <constraint firstAttribute="trailing" secondItem="ayz-Fd-boj" secondAttribute="trailing" id="XYa-eX-yqx"/>
                             <constraint firstItem="ayz-Fd-boj" firstAttribute="top" secondItem="QMU-8W-6G5" secondAttribute="top" id="eCc-M8-LIa"/>
                             <constraint firstItem="XTp-ta-uhV" firstAttribute="top" secondItem="YtV-S0-oiM" secondAttribute="bottom" constant="344" id="kJI-43-a4E"/>
@@ -167,6 +175,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="tbh-ky-YX9"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEc-I9-6SM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
