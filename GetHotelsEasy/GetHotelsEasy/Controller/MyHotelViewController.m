@@ -8,8 +8,11 @@
 
 #import "MyHotelViewController.h"
 #import "HMSegmentedControl.h"
+#import "AllOrdersTableViewCell.h"
+#import "WorkableTableViewCell.h"
+#import "ExpiredTableViewCell.h"
 
-@interface MyHotelViewController ()<UIScrollViewDelegate>{
+@interface MyHotelViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     NSInteger notAcquireFlag;
     NSInteger followFlag;
 }
@@ -18,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *allOrdersTableView;
 @property (weak, nonatomic) IBOutlet UITableView *workableTableView;
 @property (weak, nonatomic) IBOutlet UITableView *expiredTableView;
+@property (strong,nonatomic) NSMutableArray *allOrdersArr;
+@property (strong,nonatomic) NSMutableArray *workableArr;
+@property (strong,nonatomic) NSMutableArray *expiredArr;
 
 @end
 
@@ -28,6 +34,15 @@
     // Do any additional setup after loading the view.
     notAcquireFlag = 1;
     followFlag = 1;
+    
+    _allOrdersArr = [NSMutableArray new];
+    _workableArr = [NSMutableArray new];
+    _expiredArr = [NSMutableArray new];
+    
+    //去掉tableview底部多余的线
+    _allOrdersTableView.tableFooterView = [UIView new];
+    _workableTableView.tableFooterView = [UIView new];
+    _expiredTableView.tableFooterView = [UIView new];
     
     //调用设置导航栏的方法
     [self setNavigationItem];
@@ -131,5 +146,48 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+//#pragma mark - TableView
+////细胞都少行
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    if (tableView == _allOrdersTableView) {
+//        return _allOrdersArr.count;
+//    }else if (tableView == _workableTableView){
+//        return _workableArr.count;
+//    }else{
+//        return _expiredArr.count;
+//    }
+//}
+////细胞长啥样
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (tableView == _allOrdersTableView) {
+//        AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
+//        cell.roomLable.text = @"希尔顿套房";
+//        cell.typeLable.text = @"一人入住";
+//        cell.inTimeLable.text = @"2017-2-23";
+//        cell.outTimeLabel.text = @"2017-2-25";
+//        return cell;
+//    }else if(tableView == _workableTableView){
+//        WorkableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"workableCell" forIndexPath:indexPath];
+//        return cell;
+//    }else{
+//        ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expiredCell" forIndexPath:indexPath];
+//        return cell;
+//    }
+//    
+//}
+////细胞高度
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return 140.f;
+//}
+////细胞选中后调用
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//}
+////设置当一个细胞将要出现的时候要做的事情
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//}
 
 @end
