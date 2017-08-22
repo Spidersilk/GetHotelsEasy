@@ -17,4 +17,5 @@
 #import "StorageMgr.h"
 #import "RequestAPI.h"
 #import "ErrorHandler.h"
+#import <Foundation/Foundation.h>
 #endif /* PrefixHeader_pch */

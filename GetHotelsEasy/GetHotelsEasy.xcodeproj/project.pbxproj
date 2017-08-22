@@ -43,6 +43,15 @@
 		84B27C541F4AFDCB00800D9C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B27C531F4AFDCB00800D9C /* LoginViewController.m */; };
 		84B3095E1F4B128200AF8C24 /* HotelOrdelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B3095D1F4B128200AF8C24 /* HotelOrdelViewController.m */; };
 		84EA3D8C1F49525B00EA2605 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EA3D8B1F49525B00EA2605 /* Hotel.storyboard */; };
+		BC13EFDC1F4BBCB200B37EA3 /* GBAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFC91F4BBCB200B37EA3 /* GBAlipayManager.m */; };
+		BC13EFDD1F4BBCB200B37EA3 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFCC1F4BBCB200B37EA3 /* base64.m */; };
+		BC13EFDE1F4BBCB200B37EA3 /* DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFCF1F4BBCB200B37EA3 /* DataSigner.m */; };
+		BC13EFDF1F4BBCB200B37EA3 /* DataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFD11F4BBCB200B37EA3 /* DataVerifier.m */; };
+		BC13EFE01F4BBCB200B37EA3 /* MD5DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFD31F4BBCB200B37EA3 /* MD5DataSigner.m */; };
+		BC13EFE11F4BBCB200B37EA3 /* NSDataEx.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFD51F4BBCB200B37EA3 /* NSDataEx.m */; };
+		BC13EFE21F4BBCB200B37EA3 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFD71F4BBCB200B37EA3 /* openssl_wrapper.m */; };
+		BC13EFE31F4BBCB200B37EA3 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFD91F4BBCB200B37EA3 /* RSADataSigner.m */; };
+		BC13EFE41F4BBCB200B37EA3 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFDB1F4BBCB200B37EA3 /* RSADataVerifier.m */; };
 		BC6030E41F493A6D00FDF90A /* MyAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E31F493A6D00FDF90A /* MyAirViewController.m */; };
 		BC6030E71F493A9100FDF90A /* MyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E61F493A9100FDF90A /* MyNewsViewController.m */; };
 		BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E91F493AB200FDF90A /* AccountSettingsViewController.m */; };
@@ -137,6 +146,26 @@
 		84B3095C1F4B128200AF8C24 /* HotelOrdelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrdelViewController.h; sourceTree = "<group>"; };
 		84B3095D1F4B128200AF8C24 /* HotelOrdelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrdelViewController.m; sourceTree = "<group>"; };
 		84EA3D8B1F49525B00EA2605 /* Hotel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
+		BC13EFC71F4BBCB200B37EA3 /* GBAlipayConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAlipayConfig.h; sourceTree = "<group>"; };
+		BC13EFC81F4BBCB200B37EA3 /* GBAlipayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAlipayManager.h; sourceTree = "<group>"; };
+		BC13EFC91F4BBCB200B37EA3 /* GBAlipayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAlipayManager.m; sourceTree = "<group>"; };
+		BC13EFCB1F4BBCB200B37EA3 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		BC13EFCC1F4BBCB200B37EA3 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
+		BC13EFCD1F4BBCB200B37EA3 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		BC13EFCE1F4BBCB200B37EA3 /* DataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSigner.h; sourceTree = "<group>"; };
+		BC13EFCF1F4BBCB200B37EA3 /* DataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSigner.m; sourceTree = "<group>"; };
+		BC13EFD01F4BBCB200B37EA3 /* DataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataVerifier.h; sourceTree = "<group>"; };
+		BC13EFD11F4BBCB200B37EA3 /* DataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataVerifier.m; sourceTree = "<group>"; };
+		BC13EFD21F4BBCB200B37EA3 /* MD5DataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5DataSigner.h; sourceTree = "<group>"; };
+		BC13EFD31F4BBCB200B37EA3 /* MD5DataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5DataSigner.m; sourceTree = "<group>"; };
+		BC13EFD41F4BBCB200B37EA3 /* NSDataEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataEx.h; sourceTree = "<group>"; };
+		BC13EFD51F4BBCB200B37EA3 /* NSDataEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataEx.m; sourceTree = "<group>"; };
+		BC13EFD61F4BBCB200B37EA3 /* openssl_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openssl_wrapper.h; sourceTree = "<group>"; };
+		BC13EFD71F4BBCB200B37EA3 /* openssl_wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = openssl_wrapper.m; sourceTree = "<group>"; };
+		BC13EFD81F4BBCB200B37EA3 /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
+		BC13EFD91F4BBCB200B37EA3 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
+		BC13EFDA1F4BBCB200B37EA3 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
+		BC13EFDB1F4BBCB200B37EA3 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		BC6030E21F493A6D00FDF90A /* MyAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAirViewController.h; sourceTree = "<group>"; };
 		BC6030E31F493A6D00FDF90A /* MyAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAirViewController.m; sourceTree = "<group>"; };
 		BC6030E51F493A9100FDF90A /* MyNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNewsViewController.h; sourceTree = "<group>"; };
@@ -350,6 +379,8 @@
 		848139F41F484DEA00BD090D /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				BC13EFC61F4BBCB200B37EA3 /* AliMgr */,
+				BC13EFCA1F4BBCB200B37EA3 /* AliUtil */,
 				84813A0B1F484DEA00BD090D /* AppAPIClient.h */,
 				84813A0C1F484DEA00BD090D /* AppAPIClient.m */,
 				84813A0D1F484DEA00BD090D /* ErrorHandler.h */,
@@ -404,6 +435,40 @@
 				84B3095D1F4B128200AF8C24 /* HotelOrdelViewController.m */,
 			);
 			name = HotelOrdelViewController;
+			sourceTree = "<group>";
+		};
+		BC13EFC61F4BBCB200B37EA3 /* AliMgr */ = {
+			isa = PBXGroup;
+			children = (
+				BC13EFC71F4BBCB200B37EA3 /* GBAlipayConfig.h */,
+				BC13EFC81F4BBCB200B37EA3 /* GBAlipayManager.h */,
+				BC13EFC91F4BBCB200B37EA3 /* GBAlipayManager.m */,
+			);
+			path = AliMgr;
+			sourceTree = "<group>";
+		};
+		BC13EFCA1F4BBCB200B37EA3 /* AliUtil */ = {
+			isa = PBXGroup;
+			children = (
+				BC13EFCB1F4BBCB200B37EA3 /* base64.h */,
+				BC13EFCC1F4BBCB200B37EA3 /* base64.m */,
+				BC13EFCD1F4BBCB200B37EA3 /* config.h */,
+				BC13EFCE1F4BBCB200B37EA3 /* DataSigner.h */,
+				BC13EFCF1F4BBCB200B37EA3 /* DataSigner.m */,
+				BC13EFD01F4BBCB200B37EA3 /* DataVerifier.h */,
+				BC13EFD11F4BBCB200B37EA3 /* DataVerifier.m */,
+				BC13EFD21F4BBCB200B37EA3 /* MD5DataSigner.h */,
+				BC13EFD31F4BBCB200B37EA3 /* MD5DataSigner.m */,
+				BC13EFD41F4BBCB200B37EA3 /* NSDataEx.h */,
+				BC13EFD51F4BBCB200B37EA3 /* NSDataEx.m */,
+				BC13EFD61F4BBCB200B37EA3 /* openssl_wrapper.h */,
+				BC13EFD71F4BBCB200B37EA3 /* openssl_wrapper.m */,
+				BC13EFD81F4BBCB200B37EA3 /* RSADataSigner.h */,
+				BC13EFD91F4BBCB200B37EA3 /* RSADataSigner.m */,
+				BC13EFDA1F4BBCB200B37EA3 /* RSADataVerifier.h */,
+				BC13EFDB1F4BBCB200B37EA3 /* RSADataVerifier.m */,
+			);
+			path = AliUtil;
 			sourceTree = "<group>";
 		};
 		BC6C3CEB1F4862B70057F416 /* MyInfoController */ = {
@@ -649,15 +714,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC13EFE41F4BBCB200B37EA3 /* RSADataVerifier.m in Sources */,
+				BC13EFE31F4BBCB200B37EA3 /* RSADataSigner.m in Sources */,
 				84B3095E1F4B128200AF8C24 /* HotelOrdelViewController.m in Sources */,
 				84813A301F484DEB00BD090D /* NSData+Base64.m in Sources */,
+				BC13EFE21F4BBCB200B37EA3 /* openssl_wrapper.m in Sources */,
 				BCD208841F4B179B003E523A /* AllOrdersTableViewCell.m in Sources */,
 				BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */,
+				BC13EFE11F4BBCB200B37EA3 /* NSDataEx.m in Sources */,
 				844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */,
 				84B27C541F4AFDCB00800D9C /* LoginViewController.m in Sources */,
 				84813A331F484DEB00BD090D /* NSString+Crypt.m in Sources */,
+				BC13EFDE1F4BBCB200B37EA3 /* DataSigner.m in Sources */,
 				84813A231F484DEB00BD090D /* Order.m in Sources */,
 				BCD208761F4AF16F003E523A /* HMSegmentedControl.m in Sources */,
+				BC13EFE01F4BBCB200B37EA3 /* MD5DataSigner.m in Sources */,
 				BC6030ED1F493AD000FDF90A /* UseAgreementViewController.m in Sources */,
 				84813A2D1F484DEB00BD090D /* AppAPIClient.m in Sources */,
 				84813A3D1F484E4500BD090D /* ViewController.m in Sources */,
@@ -665,8 +736,10 @@
 				84813A221F484DEB00BD090D /* BasicEncodingRules.m in Sources */,
 				84813A351F484DEB00BD090D /* StorageMgr.m in Sources */,
 				84813A3A1F484E3100BD090D /* GetHotelsEasy.xcdatamodeld in Sources */,
+				BC13EFDC1F4BBCB200B37EA3 /* GBAlipayManager.m in Sources */,
 				84813A341F484DEB00BD090D /* RequestAPI.m in Sources */,
 				84813A321F484DEB00BD090D /* NSDateFormatter+Category.m in Sources */,
+				BC13EFDF1F4BBCB200B37EA3 /* DataVerifier.m in Sources */,
 				BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */,
 				BC6030E71F493A9100FDF90A /* MyNewsViewController.m in Sources */,
 				BCD2088A1F4B17CD003E523A /* ExpiredTableViewCell.m in Sources */,
@@ -678,6 +751,7 @@
 				BC6C3CF21F4864E20057F416 /* MyInfoTableViewCell.m in Sources */,
 				84813A311F484DEB00BD090D /* NSDate+Utility.m in Sources */,
 				BC6C3CF51F4865A10057F416 /* MyHotelViewController.m in Sources */,
+				BC13EFDD1F4BBCB200B37EA3 /* base64.m in Sources */,
 				84813A371F484DEB00BD090D /* Utilities.m in Sources */,
 				BCD208871F4B17B2003E523A /* WorkableTableViewCell.m in Sources */,
 			);
