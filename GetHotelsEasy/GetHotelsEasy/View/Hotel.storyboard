@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--酒店-->
         <scene sceneID="1rU-sI-zUv">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PgC-pu-d4H" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Mlo-pL-JQR"/>
+                    <tabBarItem key="tabBarItem" title="酒店" id="Mlo-pL-JQR"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6u1-pJ-3pX">
@@ -29,10 +29,10 @@
             </objects>
             <point key="canvasLocation" x="301.60000000000002" y="118.29085457271366"/>
         </scene>
-        <!--View Controller-->
+        <!--Hotel View Controller-->
         <scene sceneID="k0F-bi-zTe">
             <objects>
-                <viewController id="b14-Ja-HGo" sceneMemberID="viewController">
+                <viewController id="b14-Ja-HGo" customClass="HotelViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lfI-Zc-hX6"/>
                         <viewControllerLayoutGuide type="bottom" id="XTp-ta-uhV"/>
@@ -114,19 +114,19 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YtV-S0-oiM">
-                                <rect key="frame" x="0.0" y="100" width="375" height="174"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="223"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n20-N5-Vu7">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="航空" translatesAutoresizingMaskIntoConstraints="NO" id="n20-N5-Vu7">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="223"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kI9-zL-2qu">
-                                        <rect key="frame" x="375" y="0.0" width="375" height="174"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="我的大" translatesAutoresizingMaskIntoConstraints="NO" id="kI9-zL-2qu">
+                                        <rect key="frame" x="375" y="0.0" width="375" height="223"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MNw-bt-LPG">
-                                        <rect key="frame" x="750" y="0.0" width="375" height="174"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="酒店" translatesAutoresizingMaskIntoConstraints="NO" id="MNw-bt-LPG">
+                                        <rect key="frame" x="750" y="0.0" width="375" height="223"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-EH-XoF">
-                                        <rect key="frame" x="1125" y="0.0" width="375" height="174"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="飞机大" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-EH-XoF">
+                                        <rect key="frame" x="1125" y="0.0" width="375" height="223"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -153,7 +153,7 @@
                                 </constraints>
                             </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a1p-Z3-QaT">
-                                <rect key="frame" x="0.0" y="274" width="375" height="393"/>
+                                <rect key="frame" x="0.0" y="323" width="375" height="344"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -175,7 +175,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="tbh-ky-YX9"/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEc-I9-6SM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -185,5 +185,9 @@
     <resources>
         <image name="rain_mini" width="60" height="60"/>
         <image name="thunder_mini" width="60" height="60"/>
+        <image name="我的大" width="40" height="40"/>
+        <image name="航空" width="30" height="30"/>
+        <image name="酒店" width="30" height="30"/>
+        <image name="飞机大" width="40" height="40"/>
     </resources>
 </document>
