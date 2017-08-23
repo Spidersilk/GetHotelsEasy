@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *createUserBtn;
 - (IBAction)createUserAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) UIActivityIndicatorView *avi;
 
 @end
 
@@ -25,27 +26,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //让按钮初始不能点击
-    _loginBtn.enabled = NO;
-    _loginBtn.backgroundColor =UIColorFromRGB(200, 200, 200);
-    //判断有值&&不为空，使用沙盒保存的用户名
-    if (![[Utilities getUserDefaults:@"tel"] isKindOfClass:[NSNull class]] && [Utilities getUserDefaults:@"tel"] != nil) {
-        _phoneTextField.text = [Utilities getUserDefaults:@"tel"];
-    }
-    self.backView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
-    self.backView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
-    self.backView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
-    self.backView.layer.shadowRadius = 4;//阴影半径，默认3
-    //添加事件监听当输入框的内容改变时调用textChange:方法
-    [_phoneTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
-    [_pwdTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
+    [self naviConfig];
+    [self uiLayout];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+//这个方法专门做导航条的控制
+- (void)naviConfig{
+    
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //设置导航条是否被隐藏
+    self.navigationController.navigationBar.hidden = NO;
+    
+    //设置导航条上按钮的风格颜色
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //设置是否需要毛玻璃效果
+    self.navigationController.navigationBar.translucent = YES;
+    //为导航条左上角创建一个按钮
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
+    self.navigationItem.leftBarButtonItem = left;
+}
+//用model的方式返回上一页
+- (void)backAction{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self.navigationController popViewControllerAnimated:YES];//用push返回上一页
+}
+- (void)uiLayout{
+    self.backView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+    self.backView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    self.backView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+    self.backView.layer.shadowRadius = 4;//阴影半径，默认3
+    //添加事件监听当输入框的内容改变时调用textChange:方法
+    if(![[Utilities getUserDefaults:@"Username"] isKindOfClass:[NSNull class]]){
+        if([Utilities getUserDefaults:@"Username"] != nil){
+            //将它显示在用户名输入框中
+            _phoneTextField.text = [Utilities getUserDefaults:@"Username"];
+        }
+    }
+}
 /*
 #pragma mark - Navigation
 
@@ -55,18 +79,7 @@
     // Pass the selected object to the new view controller.
 }
 */
-//输入框内容改变的监听事件
-- (void) textChange: (UITextField *)textField {
-    //当文本框的内容改变时判断长度是否为0 是:禁用按钮 否:启用按钮
-    if (_phoneTextField.text.length != 0 && _pwdTextField.text.length != 0) {
-        _loginBtn.enabled = YES;
-        _loginBtn.backgroundColor =UIColorFromRGB(99, 163, 210);
-        [_loginBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-    }else{
-        _loginBtn.enabled = NO;
-        _loginBtn.backgroundColor =UIColorFromRGB(200, 200, 200);
-    }
-}
+
 //键盘收回
 - (void) touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     //让根视图结束编辑状态达到收起键盘的目的
@@ -74,13 +87,33 @@
 }
 //键盘收回
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (textField == _phoneTextField || textField == _pwdTextField) {
-        [textField resignFirstResponder];
-    }
+    [textField resignFirstResponder];
     return YES;
     
 }
 - (IBAction)loginAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    if(_phoneTextField.text.length == 0){
+        [Utilities popUpAlertViewWithMsg:@"请输入您的手机号" andTitle:nil onView:self onCompletion:^{
+        }];
+        return;
+    }
+    if(_pwdTextField.text.length == 0){
+        [Utilities popUpAlertViewWithMsg:@"请输入您的密码" andTitle:nil onView:self onCompletion:^{
+        }];
+        return;
+    }
+    if(_pwdTextField.text.length < 6 || _pwdTextField.text.length > 18){
+        [Utilities popUpAlertViewWithMsg:@"您的密码必须在6~18之间" andTitle:nil onView:self onCompletion:^{
+        }];
+        return;
+    }
+    //判断某个字符串中是否每个字符都是数字(invertedSet:反向设置，Digits：数字)
+    NSCharacterSet *notDigits = [[NSCharacterSet decimalDigitCharacterSet]invertedSet];
+    if(_phoneTextField.text.length < 11 || [_phoneTextField.text rangeOfCharacterFromSet:notDigits].location != NSNotFound){
+        [Utilities popUpAlertViewWithMsg:@"请输入有效的手机号码" andTitle:nil onView:self onCompletion:^{
+        }];
+        return;
+    }
     [self request];
 }
 - (IBAction)createUserAction:(UIButton *)sender forEvent:(UIEvent *)event {
@@ -89,47 +122,41 @@
 //登录
 - (void) request {
     //创建菊花膜（点击按钮的时候，并显示在当前页面）
-    UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
+    _avi = [Utilities getCoverOnView:self.view];
     //参数
     NSDictionary *para = @{@"tel" : _phoneTextField.text,@"pwd" : _pwdTextField.text};
     //网络请求
     [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
         NSLog(@"哈哈:%@",responseObject);
         //当网络请求成功时停止动画
-        [avi stopAnimating];
-        if ([responseObject[@"flag"] isEqualToString:@"success"]) {
-            NSDictionary *result = responseObject[@"result"];
-            NSString *token = result[@"token"];
+        [_avi stopAnimating];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *content = responseObject[@"content"];
+            NSString *token = content[@"token"];
             //NSLog(@"%@",token);
             //防范式(移除这个键)
             [[StorageMgr singletonStorageMgr] removeObjectForKey:@"token"];
             //把token存入单例化全局变量中
             [[StorageMgr singletonStorageMgr] addKey:@"token" andValue:token];
-            
-            //客户的电话号码是否要加密处理，根据接口返回的hidePhone判断。把hidePhone处理后存入单例化全局变量中，在其他有客户信息显示的页面上判断
-            NSDictionary *agent = result[@"agent"];
-            BOOL showPhone = [agent[@"hidePhone"] boolValue];
-            [[StorageMgr singletonStorageMgr] removeObjectForKey:@"showPhone"];
-            [[StorageMgr singletonStorageMgr]addKey:@"showPhone" andValue:@(showPhone)];
-            
             //保存用户名
-            [Utilities removeUserDefaults:@"tel"];
+            [Utilities removeUserDefaults:@"Username"];
             //退出登录，或者返回桌面退出。回到软件保存用户名
-            [Utilities setUserDefaults:@"tel" content:_phoneTextField.text];
+            [Utilities setUserDefaults:@"Username" content:_phoneTextField.text];
             
             //清空用户名和密码(网络请求成功之后再执行，不然网络请求不到用户名和密码)
             //_userNameTextField.text = @"";
             _pwdTextField.text = @"";
             
-            //登录成功跳页
-            [self performSegueWithIdentifier:@"loginToTask" sender:self];
+            //用model的方式返回上一页
+            [self dismissViewControllerAnimated:YES completion:nil];
         }else{
-            [Utilities popUpAlertViewWithMsg:responseObject[@"message"] andTitle:@"提示" onView:self onCompletion:^{
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
             }];
         }
         
     } failure:^(NSInteger statusCode, NSError *error) {
-        [avi stopAnimating];
+        [_avi stopAnimating];
         [Utilities popUpAlertViewWithMsg:@"网络似乎不太给力,请稍后再试" andTitle:@"提示" onView:self onCompletion:^{
         }];
         
