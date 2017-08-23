@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
@@ -130,7 +130,7 @@
         NSLog(@"哈哈:%@",responseObject);
         //当网络请求成功时停止动画
         [_avi stopAnimating];
-        if ([responseObject[@"result"] integerValue] == 1) {
+        if ([responseObject[@"result"] isEqualToString:@"1"]) {
             NSDictionary *content = responseObject[@"content"];
             NSString *token = content[@"token"];
             //NSLog(@"%@",token);
