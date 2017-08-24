@@ -13,6 +13,6 @@
 @property (strong, nonatomic) NSString *name;       //昵称
 @property (strong, nonatomic) NSString *picture;    //头像
 @property (nonatomic) NSInteger grade;      //等级
-
+@property (nonatomic) NSInteger Id;
 - (instancetype)initWithDict: (NSDictionary *)dict;
 @end

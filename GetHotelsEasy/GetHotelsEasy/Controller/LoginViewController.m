@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "MyInfoModel.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -133,12 +134,15 @@
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *content = responseObject[@"content"];
-            NSString *token = content[@"token"];
+
             //NSLog(@"%@",token);
-            //防范式(移除这个键)
-            [[StorageMgr singletonStorageMgr] removeObjectForKey:@"token"];
-            //把token存入单例化全局变量中
-            [[StorageMgr singletonStorageMgr] addKey:@"token" andValue:token];
+            MyInfoModel *usermodel = [[MyInfoModel alloc] initWithDict:content];
+            //将登录获取到的用户信息打包存储到单例化全局变量中
+            [[StorageMgr singletonStorageMgr]addKey:@"MemberInfo" andValue:usermodel];
+            //单独将用户的ID也存储进单例化全局变量来作为用户是否已经登录的判断依据，同时也方便其它所有页面更快捷地使用ID这个参数
+            [[StorageMgr singletonStorageMgr]addKey:@"MemberId" andValue:@(usermodel.Id)];
+            //让根视图结束编辑状态达到收起键盘的目的
+            [self.view endEditing:YES];
             //保存用户名
             [Utilities removeUserDefaults:@"Username"];
             //退出登录，或者返回桌面退出。回到软件保存用户名

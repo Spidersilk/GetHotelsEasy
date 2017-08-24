@@ -16,6 +16,7 @@
         self.grade = [[Utilities nullAndNilCheck:dict[@"grade"] replaceBy:0] integerValue];
         self.name = [Utilities nullAndNilCheck:dict[@"nick_name"] replaceBy:@""];
         self.picture = [Utilities nullAndNilCheck:dict[@"head_img"] replaceBy:@""];
+        _Id = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:@"0"] integerValue];
     }
     return self;
 }
