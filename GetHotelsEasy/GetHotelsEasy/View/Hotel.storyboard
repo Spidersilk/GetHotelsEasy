@@ -99,6 +99,9 @@
                                         <state key="normal" title="无锡">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="ctiyAction:forEvent:" destination="Bw0-wo-7uR" eventType="touchUpInside" id="drG-oJ-Iet"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -260,6 +263,9 @@
                     <navigationItem key="navigationItem" id="sks-DK-yik"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="cityBtn" destination="06Z-ZS-hnE" id="eBr-T5-nrG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBU-81-kOr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

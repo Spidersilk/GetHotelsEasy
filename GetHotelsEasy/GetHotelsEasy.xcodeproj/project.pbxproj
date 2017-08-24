@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		616C597CA487DC6448CD57BC /* libPods-GetHotelsEasy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3AE3CFAEACC0515F317F2B /* libPods-GetHotelsEasy.a */; };
 		84439AD91F4E7668000B5503 /* ZLImageViewDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84439AD81F4E7668000B5503 /* ZLImageViewDisplayView.m */; };
+		8443DC231F4EE6BD0023076C /* MyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443DC221F4EE6BD0023076C /* MyInfoModel.m */; };
 		844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844D27BC1F4B153F00026E12 /* CreateUserViewController.m */; };
 		848139B61F4845F800BD090D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 848139B51F4845F800BD090D /* main.m */; };
 		848139B91F4845F800BD090D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 848139B81F4845F800BD090D /* AppDelegate.m */; };
@@ -91,6 +92,8 @@
 		7BC1A352D32C2578F60726DF /* Pods-GetHotelsEasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotelsEasy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotelsEasy/Pods-GetHotelsEasy.debug.xcconfig"; sourceTree = "<group>"; };
 		84439AD71F4E7668000B5503 /* ZLImageViewDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLImageViewDisplayView.h; sourceTree = "<group>"; };
 		84439AD81F4E7668000B5503 /* ZLImageViewDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLImageViewDisplayView.m; sourceTree = "<group>"; };
+		8443DC211F4EE6BD0023076C /* MyInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoModel.h; sourceTree = "<group>"; };
+		8443DC221F4EE6BD0023076C /* MyInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoModel.m; sourceTree = "<group>"; };
 		844D27BB1F4B153F00026E12 /* CreateUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateUserViewController.h; sourceTree = "<group>"; };
 		844D27BC1F4B153F00026E12 /* CreateUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateUserViewController.m; sourceTree = "<group>"; };
 		848139B11F4845F800BD090D /* GetHotelsEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetHotelsEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -567,6 +570,8 @@
 		BCE662F61F4E6D3300447C28 /* MyInfoModel */ = {
 			isa = PBXGroup;
 			children = (
+				8443DC211F4EE6BD0023076C /* MyInfoModel.h */,
+				8443DC221F4EE6BD0023076C /* MyInfoModel.m */,
 			);
 			name = MyInfoModel;
 			sourceTree = "<group>";
@@ -780,6 +785,7 @@
 				BCD208761F4AF16F003E523A /* HMSegmentedControl.m in Sources */,
 				BC13EFE01F4BBCB200B37EA3 /* MD5DataSigner.m in Sources */,
 				BC6030ED1F493AD000FDF90A /* UseAgreementViewController.m in Sources */,
+				8443DC231F4EE6BD0023076C /* MyInfoModel.m in Sources */,
 				84813A2D1F484DEB00BD090D /* AppAPIClient.m in Sources */,
 				84813A3D1F484E4500BD090D /* ViewController.m in Sources */,
 				BC6030E41F493A6D00FDF90A /* MyAirViewController.m in Sources */,

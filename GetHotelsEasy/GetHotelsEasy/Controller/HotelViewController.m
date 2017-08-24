@@ -9,9 +9,15 @@
 #import "HotelViewController.h"
 #import "HotelTableViewCell.h"
 #import "HotelOrdelViewController.h"
-@interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import <CoreLocation/CoreLocation.h>//使用该框架才可以使用定位功能
+@interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate>
 
-
+@property (weak, nonatomic) IBOutlet UIButton *cityBtn;
+- (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (strong, nonatomic) NSDictionary *cities;
+@property (strong, nonatomic) NSArray *keys;
+@property (strong, nonatomic) CLLocationManager *locMgr;
+@property (strong, nonatomic) CLLocation *location;
 @end
 
 @implementation HotelViewController
@@ -30,6 +36,30 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
+}
+- (void) uilayout {
+    if (![[[StorageMgr singletonStorageMgr] objectForKey:@"LocCity"] isKindOfClass:[NSNull class]]) {
+        if ([[StorageMgr singletonStorageMgr] objectForKey:@"LocCity"] != nil) {
+            //已获取定位，将定位到的城市显示在按钮上
+            [_cityBtn setTitle:[[StorageMgr singletonStorageMgr] objectForKey:@"LocCity"] forState:UIControlStateNormal];
+            _cityBtn.enabled = YES;
+            return;
+        }
+    }
+    //当还没获取定位的情况下，去执行定位功能
+    [self locationStart];
+}
+- (void) locationStart {
+    //这个方法专门处理定位的基本设置
+    _locMgr = [CLLocationManager new];
+    //签协议
+    _locMgr.delegate = self;
+    //定位到的设备位移多少距离进行一次识别
+    _locMgr.distanceFilter = kCLHeadingFilterNone;
+    //设置把地球分割成边长多少精度的方块
+    _locMgr.desiredAccuracy = kCLLocationAccuracyBest;
+    //打开定位服务的开关（开始定位）
+    [_locMgr startUpdatingLocation];
 }
 /*
 #pragma mark - Navigation
@@ -70,4 +100,6 @@
     }
 }
 
+- (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end
