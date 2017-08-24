@@ -108,6 +108,7 @@
 - (NSInteger)scrollCheck: (UIScrollView *)scrollView{
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
     if (page == 0) {
+        [self request];
     }
     if (workableFlag == 1 && page == 1) {
         workableFlag = 0;
@@ -148,6 +149,28 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark - request
+//网络请求
+-(void)request{
+    //创建一个蒙层，并显示在当前页面
+    UIActivityIndicatorView *avi =[Utilities getCoverOnView:self.view];
+    NSDictionary *prarmeter = @{@"wxcord" : @15170445223, @"id" :@1 };
+    //获取token请求接口
+    NSString *token = [[StorageMgr singletonStorageMgr] objectForKey:@"token"];
+    NSArray *headers = @[[Utilities makeHeaderForToken:token]];
+    [RequestAPI requestURL:@"/findOrders" withParameters:prarmeter andHeader:headers byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        [avi stopAnimating];
+        if ([responseObject[@"flag"] isEqualToString:@"success"]) {
+            
+        }else{
+            
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [avi stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
+    }];
+}
 
 
 #pragma mark - TableView

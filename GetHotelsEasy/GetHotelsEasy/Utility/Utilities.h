@@ -21,6 +21,8 @@
 + (NSString *)uniqueVendor;
 //根据id获取控制器实例
 + (id)getStoryboardInstanceByIdentity:(NSString*)identity;
+//根据id获取控制器实例
++ (id)getStoryboardInstance:(NSString *)sbName byIdentity:(NSString *)identity;
 //弹出普通提示框
 + (void)popUpAlertViewWithMsg:(NSString *)msg andTitle:(NSString* )title onView:(UIViewController *)vc onCompletion:(void (^)(void))completion;
 //获得保护膜
@@ -39,7 +41,8 @@
 + (void)forceLogoutCheck:(NSInteger)code fromViewController:(UIViewController *)vc;
 //为空检查
 + (id)nullAndNilCheck:(id)target replaceBy:(id)replacement;
-
+//检查是否已登录
++ (BOOL)loginCheck;
 /**
  *  字符串转时间戳
  *

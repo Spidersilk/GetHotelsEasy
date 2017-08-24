@@ -38,27 +38,39 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小葵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbT-zN-M6n">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小葵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbT-zN-M6n">
                                         <rect key="frame" x="125" y="78.5" width="39" height="23"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                         <color key="textColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等级 : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLH-0O-gLU">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等级 : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLH-0O-gLU">
                                         <rect key="frame" x="125" y="111.5" width="43" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMY-Wv-iHs">
+                                        <rect key="frame" x="165.5" y="82.5" width="44" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <state key="normal" title="登 录">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginAction:forEvent:" destination="uEI-gL-Sgf" eventType="touchUpInside" id="aMb-Qp-mtD"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="sbT-zN-M6n" firstAttribute="centerY" secondItem="E3R-UV-7DT" secondAttribute="centerY" constant="-10" id="6Ul-1I-vkS"/>
                                     <constraint firstItem="Gmy-W4-mh6" firstAttribute="centerY" secondItem="E3R-UV-7DT" secondAttribute="centerY" id="8oN-Cs-4PQ"/>
+                                    <constraint firstItem="YMY-Wv-iHs" firstAttribute="centerX" secondItem="E3R-UV-7DT" secondAttribute="centerX" id="Gvl-CA-lij"/>
                                     <constraint firstItem="Gmy-W4-mh6" firstAttribute="centerY" secondItem="E3R-UV-7DT" secondAttribute="centerY" id="Mtd-k5-oYP"/>
                                     <constraint firstAttribute="height" constant="200" id="RB0-LE-Un3"/>
                                     <constraint firstItem="Gmy-W4-mh6" firstAttribute="centerY" secondItem="E3R-UV-7DT" secondAttribute="centerY" id="SqS-7S-S3m"/>
                                     <constraint firstItem="NLH-0O-gLU" firstAttribute="leading" secondItem="sbT-zN-M6n" secondAttribute="leading" id="UbI-sy-lfp"/>
+                                    <constraint firstItem="YMY-Wv-iHs" firstAttribute="centerY" secondItem="Gmy-W4-mh6" secondAttribute="centerY" id="Whj-Mi-uho"/>
                                     <constraint firstItem="Gmy-W4-mh6" firstAttribute="leading" secondItem="E3R-UV-7DT" secondAttribute="leading" constant="20" id="YQ5-n4-6Jl"/>
                                     <constraint firstItem="Gmy-W4-mh6" firstAttribute="width" secondItem="Gmy-W4-mh6" secondAttribute="height" multiplier="1:1" id="cf5-iS-p1f"/>
                                     <constraint firstItem="NLH-0O-gLU" firstAttribute="top" secondItem="sbT-zN-M6n" secondAttribute="bottom" constant="10" id="fvE-25-TN4"/>
@@ -140,6 +152,7 @@
                         <outlet property="cName" destination="sbT-zN-M6n" id="kkv-bk-PmU"/>
                         <outlet property="heardImageView" destination="Gmy-W4-mh6" id="T8d-eO-3bd"/>
                         <outlet property="level" destination="NLH-0O-gLU" id="ese-eU-IvB"/>
+                        <outlet property="loginBtn" destination="YMY-Wv-iHs" id="XXD-Qz-NT0"/>
                         <outlet property="myInfoTableView" destination="BwW-uZ-Cj5" id="EP7-kf-VfO"/>
                         <segue destination="wbj-4G-jsX" kind="show" identifier="myInfoToMyAir" id="fDF-YR-dtI"/>
                         <segue destination="j6s-yp-t40" kind="show" identifier="myInfoToMyNews" id="1ne-S4-kTq"/>

@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *myInfoTableView;
 @property (strong,nonatomic) NSArray *myInfoArr;
 @property (strong,nonatomic) NSArray *myInfoArr2;
+- (IBAction)loginAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 @end
 
@@ -41,6 +43,23 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    if([Utilities loginCheck]){
+        //已登录
+        _loginBtn.hidden = YES;
+        _cName.hidden = NO;
+        
+//        UserModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
+//        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:usermodel.avatarUrl] placeholderImage:[UIImage imageNamed:@"Avatar"]];
+//        _usernameLabel.text = usermodel.nickname;
+    }else{
+        //未登录
+        _loginBtn.hidden = NO;
+        _cName.hidden = YES;
+        
+//        _avatarImageView.image = [UIImage imageNamed:@"Avatar"];
+//        _usernameLabel.text = @"游客";
+    }
+
 }
 
 /*
@@ -125,4 +144,10 @@
 }
 
 
+- (IBAction)loginAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    //获取要跳转过去的那个页面
+    UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Main" byIdentity:@"SignNavi"];
+    //执行跳转
+    [self presentViewController:signNavi animated:YES completion:nil];
+}
 @end

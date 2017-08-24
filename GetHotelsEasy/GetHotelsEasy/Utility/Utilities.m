@@ -44,6 +44,12 @@
     return [storyboard instantiateViewControllerWithIdentifier:identity];
 }
 
++ (id)getStoryboardInstance:(NSString *)sbName byIdentity:(NSString *)identity
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:sbName bundle:[NSBundle mainBundle]];
+    return [storyboard instantiateViewControllerWithIdentifier:identity];
+}
+
 + (void)popUpAlertViewWithMsg:(NSString *)msg andTitle:(NSString* )title onView:(UIViewController *)vc onCompletion:(void (^)(void))completion
 {
     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:title == nil ? @"提示" : title message:msg == nil ? @"操作失败" : msg preferredStyle:UIAlertControllerStyleAlert];
@@ -108,6 +114,14 @@
 
 + (NSDictionary *)makeHeaderForToken:(NSString *)token {
     return @{@"key" : @"x-auth-token", @"value" : [Utilities nullAndNilCheck:token replaceBy:@""]};
+}
+
++ (BOOL)loginCheck {
+    if ([[[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"] isKindOfClass:[NSNull class]] || [[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"] == nil) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 /**
