@@ -34,19 +34,22 @@
 }
 //设置导航栏(返回按钮)的样式
 - (void)setNavigationItem{
-    //设置导航栏颜色
-    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    //设置一个button(实例化，类型为UIButtonTypeSystem)
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //设置button位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    //设置button的背景图片为@"返回"
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    //给按钮添加事件
-    //leftButtonAction:(定义入参方法要跟:)
-    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    //
-    self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    //设置导航条标题的文字
+    self.navigationItem.title = @"会员注册";
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //设置导航条是否被隐藏
+    self.navigationController.navigationBar.hidden = NO;
+    
+    //设置导航条上按钮的风格颜色
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //设置是否需要毛玻璃效果
+    self.navigationController.navigationBar.translucent = YES;
+    //为导航条左上角创建一个按钮
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(leftButtonAction:)];
+    self.navigationItem.leftBarButtonItem = left;
     
 }
 //自定义的返回按钮的事件
@@ -121,24 +124,24 @@
     //参数
     NSDictionary *para = @{@"tel" : _phoneTextField.text,@"pwd" : _pwdTextField.text};
     //网络请求
-    [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
+    [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"哈哈:%@",responseObject);
         //当网络请求成功时停止动画
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
-//            NSDictionary *content = responseObject[@"content"];
-//            NSString *token = content[@"token"];
-//            //NSLog(@"%@",token);
-//            //防范式(移除这个键)
-//            [[StorageMgr singletonStorageMgr] removeObjectForKey:@"token"];
-//            //把token存入单例化全局变量中
-//            [[StorageMgr singletonStorageMgr] addKey:@"token" andValue:token];
-//
-//            
-//            _phoneTextField.text = @"";
-//            _pwdTextField.text = @"";
-//            _confirmTextField.text = @"";
-//            [self.navigationController popViewControllerAnimated:YES];
+            NSDictionary *content = responseObject[@"content"];
+            NSString *token = content[@"token"];
+            //NSLog(@"%@",token);
+            //防范式(移除这个键)
+            [[StorageMgr singletonStorageMgr] removeObjectForKey:@"token"];
+            //把token存入单例化全局变量中
+            [[StorageMgr singletonStorageMgr] addKey:@"token" andValue:token];
+
+            
+            _phoneTextField.text = @"";
+            _pwdTextField.text = @"";
+            _confirmTextField.text = @"";
+            [self.navigationController popViewControllerAnimated:YES];
             
         }else{
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];

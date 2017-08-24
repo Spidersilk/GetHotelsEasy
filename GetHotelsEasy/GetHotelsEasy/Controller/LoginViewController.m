@@ -36,7 +36,8 @@
 }
 //这个方法专门做导航条的控制
 - (void)naviConfig{
-    
+    //设置导航条标题的文字
+    self.navigationItem.title = @"会员登录";
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
     //设置导航条标题颜色
@@ -126,11 +127,11 @@
     //参数
     NSDictionary *para = @{@"tel" : _phoneTextField.text,@"pwd" : _pwdTextField.text};
     //网络请求
-    [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
+    [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"哈哈:%@",responseObject);
         //当网络请求成功时停止动画
         [_avi stopAnimating];
-        if ([responseObject[@"result"] isEqualToString:@"1"]) {
+        if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *content = responseObject[@"content"];
             NSString *token = content[@"token"];
             //NSLog(@"%@",token);
