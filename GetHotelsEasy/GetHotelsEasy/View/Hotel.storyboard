@@ -235,6 +235,9 @@
                                                 <constraint firstItem="SzE-S2-OL9" firstAttribute="centerY" secondItem="PTH-a1-ADe" secondAttribute="centerY" id="vLA-b1-WV4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="SHx-AX-wpZ" kind="show" id="da6-kX-GsB"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -257,9 +260,6 @@
                     <navigationItem key="navigationItem" id="sks-DK-yik"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <segue destination="SHx-AX-wpZ" kind="show" id="o1A-Eg-hVt"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBU-81-kOr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
