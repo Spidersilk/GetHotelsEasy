@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		616C597CA487DC6448CD57BC /* libPods-GetHotelsEasy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3AE3CFAEACC0515F317F2B /* libPods-GetHotelsEasy.a */; };
+		84439AD91F4E7668000B5503 /* ZLImageViewDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84439AD81F4E7668000B5503 /* ZLImageViewDisplayView.m */; };
 		844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844D27BC1F4B153F00026E12 /* CreateUserViewController.m */; };
 		848139B61F4845F800BD090D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 848139B51F4845F800BD090D /* main.m */; };
 		848139B91F4845F800BD090D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 848139B81F4845F800BD090D /* AppDelegate.m */; };
@@ -88,6 +89,8 @@
 /* Begin PBXFileReference section */
 		76D5A7FA4D178068D2ED6442 /* Pods-GetHotelsEasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotelsEasy.release.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotelsEasy/Pods-GetHotelsEasy.release.xcconfig"; sourceTree = "<group>"; };
 		7BC1A352D32C2578F60726DF /* Pods-GetHotelsEasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotelsEasy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotelsEasy/Pods-GetHotelsEasy.debug.xcconfig"; sourceTree = "<group>"; };
+		84439AD71F4E7668000B5503 /* ZLImageViewDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLImageViewDisplayView.h; sourceTree = "<group>"; };
+		84439AD81F4E7668000B5503 /* ZLImageViewDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLImageViewDisplayView.m; sourceTree = "<group>"; };
 		844D27BB1F4B153F00026E12 /* CreateUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateUserViewController.h; sourceTree = "<group>"; };
 		844D27BC1F4B153F00026E12 /* CreateUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateUserViewController.m; sourceTree = "<group>"; };
 		848139B11F4845F800BD090D /* GetHotelsEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetHotelsEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,6 +261,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		84439AD61F4E7668000B5503 /* ZLImageViewDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				84439AD71F4E7668000B5503 /* ZLImageViewDisplayView.h */,
+				84439AD81F4E7668000B5503 /* ZLImageViewDisplayView.m */,
+			);
+			path = ZLImageViewDisplay;
+			sourceTree = "<group>";
+		};
 		844D27BA1F4B150D00026E12 /* CreateUserController */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +348,7 @@
 		848139EA1F484DEA00BD090D /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				84439AD61F4E7668000B5503 /* ZLImageViewDisplay */,
 				BCD208731F4AF16F003E523A /* HMSegmentedControl */,
 				848139EB1F484DEA00BD090D /* SCZ-BasicEncodingRules */,
 			);
@@ -762,6 +775,7 @@
 				8499B5851F4C47910060AB52 /* HotelViewController.m in Sources */,
 				84813A331F484DEB00BD090D /* NSString+Crypt.m in Sources */,
 				BC13EFDE1F4BBCB200B37EA3 /* DataSigner.m in Sources */,
+				84439AD91F4E7668000B5503 /* ZLImageViewDisplayView.m in Sources */,
 				84813A231F484DEB00BD090D /* Order.m in Sources */,
 				BCD208761F4AF16F003E523A /* HMSegmentedControl.m in Sources */,
 				BC13EFE01F4BBCB200B37EA3 /* MD5DataSigner.m in Sources */,
