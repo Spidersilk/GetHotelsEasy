@@ -62,5 +62,5 @@
  *  @return 返回字符串格式时间
  */
 + (NSString *)dateStrFromCstampTime:(NSInteger)timeStamp withDateFormat:(NSString *)format;
-
++ (void)popUpAlertViewWithMsg:(NSString *)msg andTitle:(NSString* )title onView:(UIViewController *)vc;
 @end
