@@ -146,7 +146,7 @@
                         <segue destination="6Wv-x4-ldj" kind="show" identifier="myInfoToAccountSettings" id="lpN-iR-U6j"/>
                         <segue destination="x36-ln-vor" kind="show" identifier="myInfoToUseAgreement" id="Int-Ox-ogL"/>
                         <segue destination="Xk7-Wy-1fA" kind="show" identifier="myInfoToContactCustomerService" id="yUb-8H-nOR"/>
-                        <segue destination="orK-VJ-dCY" kind="show" id="7Dm-Gg-Z21"/>
+                        <segue destination="orK-VJ-dCY" kind="show" identifier="myInfoToMyHotel" id="7Dm-Gg-Z21"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hmo-aM-nut" userLabel="First Responder" sceneMemberID="firstResponder"/>

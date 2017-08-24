@@ -376,6 +376,7 @@
 		848139F11F484DEA00BD090D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BCE662F61F4E6D3300447C28 /* MyInfoModel */,
 				84813A381F484E3100BD090D /* GetHotelsEasy.xcdatamodeld */,
 				848139F21F484DEA00BD090D /* Order.h */,
 				848139F31F484DEA00BD090D /* Order.m */,
@@ -548,6 +549,13 @@
 				BCD208891F4B17CD003E523A /* ExpiredTableViewCell.m */,
 			);
 			name = MyHotel;
+			sourceTree = "<group>";
+		};
+		BCE662F61F4E6D3300447C28 /* MyInfoModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MyInfoModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

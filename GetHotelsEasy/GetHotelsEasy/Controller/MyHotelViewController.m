@@ -12,9 +12,9 @@
 #import "WorkableTableViewCell.h"
 #import "ExpiredTableViewCell.h"
 
-@interface MyHotelViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>{
-    NSInteger notAcquireFlag;
-    NSInteger followFlag;
+@interface MyHotelViewController ()<UIScrollViewDelegate/*UITableViewDataSource,UITableViewDelegate*/>{
+    NSInteger workableFlag;
+    NSInteger expiredFlag;
 }
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -32,8 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    notAcquireFlag = 1;
-    followFlag = 1;
+    workableFlag = 1;
+    expiredFlag = 1;
     
     _allOrdersArr = [NSMutableArray new];
     _workableArr = [NSMutableArray new];
@@ -109,11 +109,13 @@
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
     if (page == 0) {
     }
-    if (notAcquireFlag == 1 && page == 1) {
-        NSLog(@"第一次滑动scollview来到未获取");
+    if (workableFlag == 1 && page == 1) {
+        workableFlag = 0;
+        NSLog(@"第一次滑动scollview来到可使用");
     }
-    if (followFlag == 1 && page == 2) {
-        NSLog(@"第一次滑动scollview来到跟进");
+    if (expiredFlag == 1 && page == 2) {
+        expiredFlag = 0;
+        NSLog(@"第一次滑动scollview来到已过期");
     }
     
     return page;
@@ -148,46 +150,47 @@
 */
 
 
-//#pragma mark - TableView
-////细胞都少行
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (tableView == _allOrdersTableView) {
-//        return _allOrdersArr.count;
-//    }else if (tableView == _workableTableView){
-//        return _workableArr.count;
-//    }else{
-//        return _expiredArr.count;
-//    }
-//}
-////细胞长啥样
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (tableView == _allOrdersTableView) {
-//        AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
+#pragma mark - TableView
+
+//细胞都少行
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (tableView == _allOrdersTableView) {
+        return _allOrdersArr.count;
+    }else if (tableView == _workableTableView){
+        return _workableArr.count;
+    }else{
+        return _expiredArr.count;
+    }
+}
+//细胞长啥样
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _allOrdersTableView) {
+        AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
 //        cell.roomLable.text = @"希尔顿套房";
 //        cell.typeLable.text = @"一人入住";
 //        cell.inTimeLable.text = @"2017-2-23";
 //        cell.outTimeLabel.text = @"2017-2-25";
-//        return cell;
-//    }else if(tableView == _workableTableView){
-//        WorkableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"workableCell" forIndexPath:indexPath];
-//        return cell;
-//    }else{
-//        ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expiredCell" forIndexPath:indexPath];
-//        return cell;
-//    }
-//    
-//}
-////细胞高度
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 140.f;
-//}
-////细胞选中后调用
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//}
-////设置当一个细胞将要出现的时候要做的事情
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//}
+        return cell;
+    }else if(tableView == _workableTableView){
+        WorkableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"workableCell" forIndexPath:indexPath];
+        return cell;
+    }else{
+        ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expiredCell" forIndexPath:indexPath];
+        return cell;
+    }
+}
+
+//细胞高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 140.f;
+}
+//细胞选中后调用
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+//设置当一个细胞将要出现的时候要做的事情
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
 
 @end
