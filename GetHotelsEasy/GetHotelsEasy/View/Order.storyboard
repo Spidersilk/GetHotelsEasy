@@ -546,11 +546,12 @@
                                     <constraint firstItem="io2-LR-5V7" firstAttribute="leading" secondItem="3La-O8-3Bi" secondAttribute="leading" id="si2-gq-y0i"/>
                                 </constraints>
                             </view>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ATf-Fw-Fmf">
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ATf-Fw-Fmf">
                                 <rect key="frame" x="0.0" y="451" width="375" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="525007851.35553902">
                                     <!--2017-08-21 11:30:51 +0000-->
                                 </date>
+                                <locale key="locale" localeIdentifier="zh"/>
                             </datePicker>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKX-Cn-UtG">
                                 <rect key="frame" x="0.0" y="407" width="375" height="44"/>

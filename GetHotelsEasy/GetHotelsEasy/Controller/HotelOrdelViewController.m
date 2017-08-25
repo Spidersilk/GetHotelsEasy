@@ -8,7 +8,9 @@
 
 #import "HotelOrdelViewController.h"
 
-@interface HotelOrdelViewController ()
+@interface HotelOrdelViewController (){
+    NSInteger flag;
+}
 @property (weak, nonatomic) IBOutlet UIImageView *HotelNameImage;
 @property (weak, nonatomic) IBOutlet UILabel *HotelNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
@@ -38,6 +40,11 @@
 - (IBAction)chatBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+- (IBAction)canceAction:(UIBarButtonItem *)sender;
+- (IBAction)confirmAction:(UIBarButtonItem *)sender;
+
 @end
 
 @implementation HotelOrdelViewController
@@ -46,6 +53,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self naviConfing];
+    [self setDefaultDateForButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +65,23 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     
+}
+- (void)setDefaultDateForButton{
+    //初始化日期格式器
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    //定义日期格式
+    formatter.dateFormat = @"yyyy-MM-dd";
+    //当前时间
+    NSDate *date = [NSDate date];
+    //明天的日期
+    NSDate *dateTom = [NSDate dateTomorrow];
+    
+    //将时间转换为字符串
+    NSString *dateStr = [formatter stringFromDate:date];
+    NSString *dateTomStr = [formatter stringFromDate:dateTom];
+    //将处理好的时间字符串设置给两个button
+    [_firstDayBtn setTitle:dateStr forState:UIControlStateNormal];
+    [_secondDayBtn setTitle:dateTomStr forState:UIControlStateNormal];
 }
 - (void)naviConfing
 {
@@ -97,12 +122,42 @@
 */
 
 - (IBAction)firstDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    flag = 0;
+    _toolBar.hidden = NO;
+    _datePicker.hidden = NO;
 }
 - (IBAction)secondDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    flag = 1;
+    _toolBar.hidden = NO;
+    _datePicker.hidden = NO;
 }
 - (IBAction)chatBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
 
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+- (IBAction)canceAction:(UIBarButtonItem *)sender {
+    _toolBar.hidden = YES;
+    _datePicker.hidden = YES;
+}
+
+- (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    //拿到当前datepicker选择的时间
+    NSDate *date = _datePicker.date;
+    //初始化一个日期格式器
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    //定义日期的格式为yyyy-MM-dd
+    formatter.dateFormat = @"yyyy-MM-dd";
+    //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
+    NSString *theDate = [formatter stringFromDate:date];
+    
+    if (flag == 0) {
+        [_firstDayBtn setTitle:theDate forState:UIControlStateNormal];
+    }else{
+        [_secondDayBtn setTitle:theDate forState:UIControlStateNormal];
+    }
+
+    _toolBar.hidden = YES;
+    _datePicker.hidden = YES;
 }
 @end
