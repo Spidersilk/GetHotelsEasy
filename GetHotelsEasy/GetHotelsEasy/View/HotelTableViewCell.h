@@ -12,5 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *hotelImg;
 @property (weak, nonatomic) IBOutlet UILabel *address;
 @property (weak, nonatomic) IBOutlet UILabel *hotelName;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end

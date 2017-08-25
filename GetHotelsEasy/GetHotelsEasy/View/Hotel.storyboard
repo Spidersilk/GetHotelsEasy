@@ -185,7 +185,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oK8-If-dtc">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aircraft" translatesAutoresizingMaskIntoConstraints="NO" id="oK8-If-dtc">
                                                     <rect key="frame" x="15" y="19.5" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="oK8-If-dtc" secondAttribute="height" multiplier="1:1" id="eaR-cu-k5S"/>
@@ -240,8 +240,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="address" destination="SzE-S2-OL9" id="pzV-1h-3Nm"/>
+                                            <outlet property="distanceLabel" destination="2gP-TM-woa" id="3J9-C3-VLO"/>
                                             <outlet property="hotelImg" destination="oK8-If-dtc" id="CgH-0u-zOX"/>
                                             <outlet property="hotelName" destination="VHz-DA-qjU" id="fMQ-By-9ri"/>
+                                            <outlet property="priceLabel" destination="zsk-C8-aEB" id="THP-Or-QDV"/>
                                             <segue destination="SHx-AX-wpZ" kind="show" id="da6-kX-GsB"/>
                                         </connections>
                                     </tableViewCell>
@@ -267,6 +269,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="HotelTableView" destination="mpx-f6-d6u" id="qn9-UQ-DZd"/>
                         <outlet property="cityBtn" destination="06Z-ZS-hnE" id="eBr-T5-nrG"/>
                     </connections>
                 </viewController>
@@ -276,6 +279,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="aircraft" width="45" height="45"/>
         <image name="rain_mini" width="60" height="60"/>
         <image name="thunder_mini" width="60" height="60"/>
     </resources>

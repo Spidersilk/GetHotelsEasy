@@ -11,11 +11,14 @@
 #import "HotelOrdelViewController.h"
 #import <CoreLocation/CoreLocation.h>//使用该框架才可以使用定位功能
 #import "ZLImageViewDisplayView.h"
+#import "detailModel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 @interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate>{
     BOOL firstVisit;
     NSInteger page;//页码
 }
 
+@property (weak, nonatomic) IBOutlet UITableView *HotelTableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *cityBtn;
 - (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -23,6 +26,7 @@
 @property (strong, nonatomic) NSArray *keys;
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
+@property (strong, nonatomic) NSMutableArray *arr;
 @end
 
 @implementation HotelViewController
@@ -30,13 +34,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     firstVisit = YES;
+    _arr = [NSMutableArray new];
     [self uilayout];//签署协议
     [self dataInitialize];//这个方法专门做数据的处理
     // Do any additional setup after loading the view.
     [self locationStart];//这个方法处理开始定位
     [self networkRequest];
     [self addZLImageViewDisPlayView];
-    [self distanceBetweenOrderBy:36 :34 :34 :36];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,7 +57,7 @@
         
     
 }
--(double)distanceBetweenOrderBy:(double) lat1 :(double) lat2 :(double) lng1 :(double) lng2{
+-(NSString*)distanceBetweenOrderBy:(double) lat1 :(double) lat2 :(double) lng1 :(double) lng2{
     
     CLLocation *curLocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lng1];
     
@@ -59,8 +65,9 @@
     
     double  distance  = [curLocation distanceFromLocation:otherLocation];
     NSLog(@"这两点的距离为：%f",distance);
-    
-    return  distance;
+    NSString *str = [NSString stringWithFormat:@"距离：%.1f 公里",(distance/1000)];
+    NSLog(@"距离：%@",str);
+    return  str;
     
 }
 #pragma mack - 网络请求
@@ -73,27 +80,26 @@
         //成功以后要做的事情
         NSLog(@"responseObject = %@",responseObject);
  //       [self endAnimation];
-        if ([responseObject[@"resultFlag"] integerValue] == 8001) {
-//            //业务逻辑成功的情况下
-//            NSDictionary *result = responseObject[@"result"];
-//            NSArray *models = result[@"models"];
-//            NSDictionary *pagingInfo = result[@"pagingInfo"];
-//            totalPage = [pagingInfo[@"totalPage"] integerValue];
-//            
+        if ([responseObject[@"result"] integerValue] == 1) {
+            //业务逻辑成功的情况下
+            NSDictionary *content = responseObject[@"content"];
+            NSArray *hotel = content[@"hotel"];
+            
+            
 //            if (page == 1) {
 //                //清空数据
 //                [_arr removeAllObjects];
 //            }
 //            
-//            for (NSDictionary *dict in models) {
-//                //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
-//                ActivityModel *activityModel = [[ActivityModel alloc] initWhitDictionary:dict];
-//                //将上述实例化好的ActivityModel对象插入_arr数组中
-//                [_arr addObject:activityModel];
-//            }
-//            //刷新表格（重载数据）
-//            [self.activityTableView reloadData];//reloadData重新加载activityTableView数据
-//            
+            for (NSDictionary *dict in hotel) {
+                //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
+                detailModel *detailmodel = [[detailModel alloc] initWhitDictionary:dict];
+                //将上述实例化好的ActivityModel对象插入_arr数组中
+                [_arr addObject:detailmodel];
+            }
+            //刷新表格（重载数据）
+            [_HotelTableView reloadData];//reloadData重新加载activityTableView数据
+//
         }else{
 //            //业务逻辑失败的情况下
 //            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"resultFlag"] integerValue]];
@@ -284,12 +290,24 @@
 }
 */
 #pragma mack - tableView
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return _arr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
+    detailModel *detailmodel = _arr[indexPath.row];
+    NSLog(@"reee图片的网址%@",detailmodel.hotel_img);
+    [cell.hotelImg sd_setImageWithURL:[NSURL URLWithString:detailmodel.hotel_img] placeholderImage:[UIImage imageNamed:@"png2"]];
+    cell.hotelName.text = detailmodel.hotel_name;
+    cell.address.text = detailmodel.hotel_address;
+    //通过distanceBetweenOrderBy方法获取两地距离
+    NSString *str = [self distanceBetweenOrderBy:_location.coordinate.latitude :detailmodel.latitude :_location.coordinate.longitude :detailmodel.longitude];
+    cell.distanceLabel .text = str;
+    
 
     return cell;
 }
