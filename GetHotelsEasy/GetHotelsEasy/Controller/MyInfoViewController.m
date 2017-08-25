@@ -54,7 +54,7 @@
         MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
         [_heardImageView sd_setImageWithURL:[NSURL URLWithString:usermodel.picture] placeholderImage:[UIImage imageNamed:@"icon"]];
         _cName.text = usermodel.name;
-        _level.text = [NSString stringWithFormat:@"%ld",(long)usermodel.grade];
+        _level.text = [NSString stringWithFormat:@"等级：%ld",(long)usermodel.grade];
         
     }else{
         //未登录
@@ -117,35 +117,42 @@
 //细胞选中后调用
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0:
-                [self performSegueWithIdentifier:@"myInfoToMyHotel"sender:self];
-                break;
-            case 1:
-                [self performSegueWithIdentifier:@"myInfoToMyAir"sender:self];
-                break;
-            case 2:
-                [self performSegueWithIdentifier:@"myInfoToMyNews"sender:self];
-                break;
-            default:
-                break;
+    if([Utilities loginCheck]){
+        if (indexPath.section == 0) {
+            switch (indexPath.row) {
+                case 0:
+                    [self performSegueWithIdentifier:@"myInfoToMyHotel"sender:self];
+                    break;
+                case 1:
+                    [self performSegueWithIdentifier:@"myInfoToMyAir"sender:self];
+                    break;
+                case 2:
+                    [self performSegueWithIdentifier:@"myInfoToMyNews"sender:self];
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            switch (indexPath.row) {
+    
+                case 0:
+                    [self performSegueWithIdentifier:@"myInfoToAccountSettings"sender:self];
+                    break;
+                case 1:
+                    [self performSegueWithIdentifier:@"myInfoToUseAgreement"sender:self];
+                    break;
+                case 2:
+                    [self performSegueWithIdentifier:@"myInfoToContactCustomerService"sender:self];
+                    break;
+                default:
+                    break;
+            }
         }
     }else{
-        switch (indexPath.row) {
-    
-            case 0:
-                [self performSegueWithIdentifier:@"myInfoToAccountSettings"sender:self];
-                break;
-            case 1:
-                [self performSegueWithIdentifier:@"myInfoToUseAgreement"sender:self];
-                break;
-            case 2:
-                [self performSegueWithIdentifier:@"myInfoToContactCustomerService"sender:self];
-                break;
-            default:
-                break;
-        }
+        //获取要跳转过去的那个页面
+        UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Main" byIdentity:@"SignNavi"];
+        //执行跳转
+        [self presentViewController:signNavi animated:YES completion:nil];
     }
 }
 
