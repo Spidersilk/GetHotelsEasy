@@ -320,7 +320,7 @@
         <scene sceneID="4f8-vy-Kgq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QfG-ow-Loq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" image="我的-选中" id="B2z-pa-Gnv"/>
+                    <tabBarItem key="tabBarItem" title="我的" image="my" id="B2z-pa-Gnv"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vpa-O6-swE">
@@ -385,7 +385,7 @@
                                                                 <constraint firstAttribute="height" constant="15" id="iZC-kY-Wyb"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9AJ-Zz-vrV">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_hotel" translatesAutoresizingMaskIntoConstraints="NO" id="9AJ-Zz-vrV">
                                                             <rect key="frame" x="290" y="20" width="70" height="100"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="9AJ-Zz-vrV" secondAttribute="height" multiplier="70:100" id="012-4l-OFq"/>
@@ -550,6 +550,7 @@
     </scenes>
     <resources>
         <image name="icon" width="100" height="100"/>
-        <image name="我的-选中" width="44" height="44"/>
+        <image name="my" width="22" height="22"/>
+        <image name="my_hotel" width="78" height="78"/>
     </resources>
 </document>

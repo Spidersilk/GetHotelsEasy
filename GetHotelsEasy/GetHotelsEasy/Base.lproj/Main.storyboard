@@ -120,7 +120,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kh-Oa-v96">
                                 <rect key="frame" x="15" y="144" width="345" height="222.5"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun_mini" translatesAutoresizingMaskIntoConstraints="NO" id="8U7-O7-d82">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cellphone" translatesAutoresizingMaskIntoConstraints="NO" id="8U7-O7-d82">
                                         <rect key="frame" x="30" y="86.5" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="8U7-O7-d82" secondAttribute="height" multiplier="1:1" id="4R5-Ri-YPH"/>
@@ -143,7 +143,7 @@
                                             <constraint firstAttribute="height" constant="1" id="Bot-FR-iwn"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun_mini" translatesAutoresizingMaskIntoConstraints="NO" id="GYN-Ga-cLe">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="validate" translatesAutoresizingMaskIntoConstraints="NO" id="GYN-Ga-cLe">
                                         <rect key="frame" x="30" y="132.5" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="GYN-Ga-cLe" secondAttribute="height" multiplier="1:1" id="6Ij-nF-f1F"/>
@@ -206,7 +206,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="yIj-Gr-1YI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipse" translatesAutoresizingMaskIntoConstraints="NO" id="yIj-Gr-1YI">
                                 <rect key="frame" x="150" y="104" width="75" height="74.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="yIj-Gr-1YI" secondAttribute="height" multiplier="1:1" id="t4E-ex-CYT"/>
@@ -310,7 +310,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJp-Zh-DHp">
                                 <rect key="frame" x="15" y="144" width="345" height="222.5"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun_mini" translatesAutoresizingMaskIntoConstraints="NO" id="n9m-Ad-sUa">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cellphone" translatesAutoresizingMaskIntoConstraints="NO" id="n9m-Ad-sUa">
                                         <rect key="frame" x="30" y="66.5" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="75K-yO-9q9"/>
@@ -333,7 +333,7 @@
                                             <constraint firstAttribute="height" constant="1" id="kU0-c9-Af8"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun_mini" translatesAutoresizingMaskIntoConstraints="NO" id="nAg-q4-y6W">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="validate" translatesAutoresizingMaskIntoConstraints="NO" id="nAg-q4-y6W">
                                         <rect key="frame" x="30" y="112.5" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="nAg-q4-y6W" secondAttribute="height" multiplier="1:1" id="Aoa-Be-XYH"/>
@@ -356,7 +356,7 @@
                                             <constraint firstAttribute="height" constant="1" id="GPy-pZ-seg"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun_mini" translatesAutoresizingMaskIntoConstraints="NO" id="gtU-Ge-S80">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="validate" translatesAutoresizingMaskIntoConstraints="NO" id="gtU-Ge-S80">
                                         <rect key="frame" x="30" y="158.5" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="gtU-Ge-S80" secondAttribute="height" multiplier="1:1" id="Jfs-Di-6q2"/>
@@ -408,7 +408,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="e9v-xY-RwI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipse" translatesAutoresizingMaskIntoConstraints="NO" id="e9v-xY-RwI">
                                 <rect key="frame" x="150.5" y="105" width="75" height="74.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="e9v-xY-RwI" secondAttribute="height" multiplier="1:1" id="Pwv-uX-YJn"/>
@@ -450,7 +450,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon" width="100" height="100"/>
-        <image name="sun_mini" width="60" height="60"/>
+        <image name="cellphone" width="15" height="23"/>
+        <image name="ellipse" width="87" height="87"/>
+        <image name="validate" width="17" height="22"/>
     </resources>
 </document>
