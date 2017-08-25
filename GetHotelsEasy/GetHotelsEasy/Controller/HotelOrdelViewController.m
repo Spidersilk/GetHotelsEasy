@@ -11,6 +11,7 @@
 @interface HotelOrdelViewController (){
     NSInteger flag;
 }
+@property (strong, nonatomic) UIActivityIndicatorView *avi;
 @property (weak, nonatomic) IBOutlet UIImageView *HotelNameImage;
 @property (weak, nonatomic) IBOutlet UILabel *HotelNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
@@ -54,6 +55,7 @@
     // Do any additional setup after loading the view.
     [self naviConfing];
     [self setDefaultDateForButton];
+    [self request];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,7 +72,7 @@
     //初始化日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期格式
-    formatter.dateFormat = @"yyyy-MM-dd";
+    formatter.dateFormat = @"MM-dd cc";
     //当前时间
     NSDate *date = [NSDate date];
     //明天的日期
@@ -120,7 +122,24 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+#pragma mark - request
+- (void)request{
+    _avi = [UIActivityIndicatorView new];
+    NSDictionary *content = @{@"id" : @1};
+    [RequestAPI requestURL:@"/findHotelById" withParameters:content andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
+        NSLog(@"responseObject = %@",responseObject);
+        if([responseObject[@"result"] integerValue] == 1)
+        {
+            
+        }else{
+            
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        
+    }];
+}
+#pragma mark - datePicker
 - (IBAction)firstDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
     flag = 0;
     _toolBar.hidden = NO;
@@ -147,7 +166,7 @@
     //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
-    formatter.dateFormat = @"yyyy-MM-dd";
+    formatter.dateFormat = @"MM-dd cc";
     //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
     NSString *theDate = [formatter stringFromDate:date];
     

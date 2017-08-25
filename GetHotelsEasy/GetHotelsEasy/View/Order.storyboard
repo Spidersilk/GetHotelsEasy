@@ -128,26 +128,14 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="明天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dME-C6-gvm">
-                                                <rect key="frame" x="120" y="18" width="22.5" height="13.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NmW-e5-UO2">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NmW-e5-UO2">
                                                 <rect key="frame" x="60" y="10" width="140" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="140" id="AaF-pl-YCp"/>
                                                 </constraints>
-                                                <state key="normal">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="8月20日">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <font key="NSFont" size="15" name=".PingFangSC-Regular"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="15"/>
+                                                <state key="normal" title="8月20日">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="firstDayAction:forEvent:" destination="Wh8-Xl-Vpg" eventType="touchUpInside" id="Sgf-k8-9Kb"/>
@@ -159,44 +147,14 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="后天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whW-hf-S30">
-                                                <rect key="frame" x="263" y="18.5" width="22.5" height="13.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-qR-kkr">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-qR-kkr">
                                                 <rect key="frame" x="207" y="8" width="140" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="140" id="u0S-XP-vRF"/>
                                                 </constraints>
-                                                <state key="normal">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="8">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="月">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <font key="NSFont" size="15" name=".PingFangSC-Regular"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="21">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="日">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <font key="NSFont" size="15" name=".PingFangSC-Regular"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                                <state key="normal" title="8月21日">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="secondDayAction:forEvent:" destination="Wh8-Xl-Vpg" eventType="touchUpInside" id="XDZ-2x-FfA"/>
@@ -208,13 +166,9 @@
                                             <constraint firstItem="NmW-e5-UO2" firstAttribute="top" secondItem="Ybf-EH-jAH" secondAttribute="top" constant="10" id="3h0-OF-QJK"/>
                                             <constraint firstAttribute="height" constant="40" id="6b0-rh-z8F"/>
                                             <constraint firstItem="sIx-qR-kkr" firstAttribute="centerY" secondItem="NmW-e5-UO2" secondAttribute="centerY" id="7fZ-zj-pZc"/>
-                                            <constraint firstItem="dME-C6-gvm" firstAttribute="leading" secondItem="Ybf-EH-jAH" secondAttribute="leading" constant="120" id="8SQ-ev-ltR"/>
                                             <constraint firstItem="u03-jq-tXO" firstAttribute="leading" secondItem="Ybf-EH-jAH" secondAttribute="leading" constant="150" id="Fyu-mj-nCO"/>
-                                            <constraint firstAttribute="bottom" secondItem="whW-hf-S30" secondAttribute="bottom" constant="8" id="JAF-1L-Pb2"/>
                                             <constraint firstItem="NmW-e5-UO2" firstAttribute="leading" secondItem="Ybf-EH-jAH" secondAttribute="leading" constant="60" id="Ofa-lS-UZe"/>
-                                            <constraint firstAttribute="bottom" secondItem="dME-C6-gvm" secondAttribute="bottom" constant="8" id="Ran-4E-5xI"/>
                                             <constraint firstItem="Ssz-Jg-fKF" firstAttribute="top" secondItem="Ybf-EH-jAH" secondAttribute="top" constant="10" id="YLX-A2-ktG"/>
-                                            <constraint firstItem="whW-hf-S30" firstAttribute="leading" secondItem="NmW-e5-UO2" secondAttribute="trailing" constant="63" id="aJi-FW-1bE"/>
                                             <constraint firstItem="Ssz-Jg-fKF" firstAttribute="bottom" secondItem="u03-jq-tXO" secondAttribute="bottom" id="iZc-7Z-6eN"/>
                                             <constraint firstItem="Ssz-Jg-fKF" firstAttribute="leading" secondItem="NmW-e5-UO2" secondAttribute="trailing" constant="95" id="k6p-P9-Bka"/>
                                             <constraint firstItem="sIx-qR-kkr" firstAttribute="leading" secondItem="NmW-e5-UO2" secondAttribute="trailing" constant="7" id="vOy-GN-FsV"/>
@@ -556,9 +510,17 @@
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKX-Cn-UtG">
                                 <rect key="frame" x="0.0" y="407" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="取消" id="tma-hu-LE0"/>
+                                    <barButtonItem title="取消" id="tma-hu-LE0">
+                                        <connections>
+                                            <action selector="canceAction:" destination="Wh8-Xl-Vpg" id="qpf-Hu-UST"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ZBg-Lu-Ocw"/>
-                                    <barButtonItem title="确定" id="Zvy-oI-AEK"/>
+                                    <barButtonItem title="确定" id="Zvy-oI-AEK">
+                                        <connections>
+                                            <action selector="confirmAction:" destination="Wh8-Xl-Vpg" id="rBX-78-G03"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -594,18 +556,18 @@
                         <outlet property="bedSizeLabel" destination="bsg-yl-LmN" id="gcg-mE-y4B"/>
                         <outlet property="bedTypeLabel" destination="bUn-ec-vgl" id="V5o-wQ-6Nj"/>
                         <outlet property="breakfastLabel" destination="89p-MZ-avI" id="F7J-Zt-LlG"/>
+                        <outlet property="datePicker" destination="ATf-Fw-Fmf" id="joN-qm-3XC"/>
                         <outlet property="diningLabel" destination="BPc-eT-Tq9" id="GbI-Kh-L5h"/>
                         <outlet property="firstDayBtn" destination="NmW-e5-UO2" id="07a-XM-sww"/>
-                        <outlet property="firstDayLabel" destination="dME-C6-gvm" id="s7B-4R-iXb"/>
                         <outlet property="gymLabel" destination="aa2-oy-Ujl" id="RI4-fb-Ugy"/>
                         <outlet property="hotelImage" destination="wir-gO-cqG" id="API-04-5Ly"/>
                         <outlet property="luggageLabel" destination="75C-hg-EKW" id="b9J-JW-4bi"/>
                         <outlet property="parkLotLabel" destination="muI-7z-hjd" id="pUL-zS-x7n"/>
                         <outlet property="pickUpLabel" destination="VGy-Tu-5SX" id="4va-em-jeK"/>
                         <outlet property="priceLabel" destination="I4J-WW-2Hw" id="us1-sq-uNo"/>
-                        <outlet property="secodDayLabel" destination="whW-hf-S30" id="ura-AX-XKc"/>
                         <outlet property="secondDayBtn" destination="sIx-qR-kkr" id="3Mz-Kr-svi"/>
                         <outlet property="toiletriesLabel" destination="mSu-I1-s2C" id="nQu-mX-Kyu"/>
+                        <outlet property="toolBar" destination="KKX-Cn-UtG" id="qgp-I1-nvU"/>
                         <outlet property="wakeUpLabel" destination="aZK-YV-AaC" id="njc-wv-DA1"/>
                         <outlet property="wifiLabel" destination="BOt-LO-Z59" id="HjQ-nB-eXL"/>
                     </connections>
