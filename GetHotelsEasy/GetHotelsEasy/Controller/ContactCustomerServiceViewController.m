@@ -7,9 +7,12 @@
 //
 
 #import "ContactCustomerServiceViewController.h"
-
-@interface ContactCustomerServiceViewController ()
-
+#import <MessageUI/MessageUI.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+@interface ContactCustomerServiceViewController ()<MFMailComposeViewControllerDelegate>
+- (IBAction)callAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)mailAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (strong, nonatomic) MFMailComposeViewController *mailVC;
 @end
 
 @implementation ContactCustomerServiceViewController
@@ -58,4 +61,32 @@
 }
 */
 
+- (IBAction)callAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    NSString *phoneStr = @"15170029037";
+    //配置“电话”app的路径，并将要拨打的号码组合到路径中去
+    NSString *targetAppStr = [NSString stringWithFormat:@"telprompt://%@",phoneStr];
+    NSLog(@"%@",targetAppStr);
+    //将字符串转化成URL
+    NSURL *targetAppUrl = [NSURL URLWithString:targetAppStr];
+    
+    //从当前app跳转到其他指定的APP中(先拿到APP实例)
+    [[UIApplication sharedApplication] openURL:targetAppUrl];
+}
+
+- (IBAction)mailAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    NSString *email = @"1228205445@qq.com";
+    NSLog(@"email = %@", email);
+    //神奇的nil
+    _mailVC = nil;
+    //初始化一个邮件发送器
+    _mailVC = [[MFMailComposeViewController alloc] init];
+    //签协议
+    _mailVC.mailComposeDelegate = self;
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+    //讲邮件发送器显示出来
+    if (_mailVC) {
+        //用modal的方式跳转页面
+        [self presentViewController:_mailVC animated:YES completion:nil];
+    }
+}
 @end

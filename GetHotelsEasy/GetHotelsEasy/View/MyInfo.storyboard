@@ -7,6 +7,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -166,10 +167,10 @@
             </objects>
             <point key="canvasLocation" x="1020" y="-437.63118440779613"/>
         </scene>
-        <!--联系客户-->
+        <!--联系客服-->
         <scene sceneID="H5A-h2-WmN">
             <objects>
-                <viewController title="联系客户" id="Xk7-Wy-1fA" customClass="ContactCustomerServiceViewController" sceneMemberID="viewController">
+                <viewController title="联系客服" hidesBottomBarWhenPushed="YES" id="Xk7-Wy-1fA" customClass="ContactCustomerServiceViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hoY-WG-CO8"/>
                         <viewControllerLayoutGuide type="bottom" id="UUp-qJ-hBn"/>
@@ -177,7 +178,61 @@
                     <view key="view" contentMode="scaleToFill" id="5Ai-gI-gEa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="aW4-fT-sjv">
+                                <rect key="frame" x="125" y="114" width="125" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="aW4-fT-sjv" secondAttribute="height" multiplier="1:1" id="7ek-Bn-6GQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.connerRadius">
+                                        <real key="value" value="62.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：江苏省无锡市滨湖区雪浪街道99号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GeU-ur-iQI">
+                                <rect key="frame" x="67" y="359" width="242" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlY-dG-ssN">
+                                <rect key="frame" x="101.5" y="279" width="171" height="30"/>
+                                <state key="normal" title="客服电话：15170029037"/>
+                                <connections>
+                                    <action selector="callAction:forEvent:" destination="Xk7-Wy-1fA" eventType="touchUpInside" id="diq-Er-3va"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wq8-Z7-j30">
+                                <rect key="frame" x="72" y="319" width="231" height="30"/>
+                                <state key="normal" title="联系邮箱：1228205445@qq.com"/>
+                                <connections>
+                                    <action selector="mailAction:forEvent:" destination="Xk7-Wy-1fA" eventType="touchUpInside" id="t4C-3P-p94"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎使用本软件，如果给您带来不便请反馈给我们，谢谢您的支持" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYJ-hg-GBt">
+                                <rect key="frame" x="15" y="615.5" width="345" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wq8-Z7-j30" firstAttribute="top" secondItem="xlY-dG-ssN" secondAttribute="bottom" constant="10" id="24U-x6-9r4"/>
+                            <constraint firstAttribute="bottom" secondItem="mYJ-hg-GBt" secondAttribute="bottom" constant="20" id="4rs-Xj-L6U"/>
+                            <constraint firstItem="xlY-dG-ssN" firstAttribute="centerX" secondItem="5Ai-gI-gEa" secondAttribute="centerX" id="7dJ-yb-TNZ"/>
+                            <constraint firstItem="mYJ-hg-GBt" firstAttribute="centerX" secondItem="5Ai-gI-gEa" secondAttribute="centerX" id="81O-d7-X4N"/>
+                            <constraint firstAttribute="trailing" secondItem="mYJ-hg-GBt" secondAttribute="trailing" constant="15" id="EDL-TP-Apk"/>
+                            <constraint firstItem="aW4-fT-sjv" firstAttribute="top" secondItem="hoY-WG-CO8" secondAttribute="bottom" constant="50" id="Gr0-OI-s67"/>
+                            <constraint firstItem="aW4-fT-sjv" firstAttribute="width" secondItem="5Ai-gI-gEa" secondAttribute="width" multiplier="1:3" id="I3i-1J-Kjc"/>
+                            <constraint firstItem="mYJ-hg-GBt" firstAttribute="leading" secondItem="5Ai-gI-gEa" secondAttribute="leading" constant="15" id="Sej-dG-4Va"/>
+                            <constraint firstItem="xlY-dG-ssN" firstAttribute="top" secondItem="aW4-fT-sjv" secondAttribute="bottom" constant="40" id="f6A-7j-L69"/>
+                            <constraint firstItem="GeU-ur-iQI" firstAttribute="centerX" secondItem="5Ai-gI-gEa" secondAttribute="centerX" id="hWJ-hz-Zo0"/>
+                            <constraint firstItem="wq8-Z7-j30" firstAttribute="centerX" secondItem="5Ai-gI-gEa" secondAttribute="centerX" id="kzO-fC-kMQ"/>
+                            <constraint firstItem="aW4-fT-sjv" firstAttribute="centerX" secondItem="5Ai-gI-gEa" secondAttribute="centerX" id="tUv-3H-EHz"/>
+                            <constraint firstItem="GeU-ur-iQI" firstAttribute="top" secondItem="wq8-Z7-j30" secondAttribute="bottom" constant="10" id="zsr-x3-GG6"/>
+                        </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
@@ -188,7 +243,7 @@
         <!--使用协议-->
         <scene sceneID="a26-jk-U1S">
             <objects>
-                <viewController title="使用协议" id="x36-ln-vor" customClass="UseAgreementViewController" sceneMemberID="viewController">
+                <viewController title="使用协议" hidesBottomBarWhenPushed="YES" id="x36-ln-vor" customClass="UseAgreementViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zSq-sj-Dt1"/>
                         <viewControllerLayoutGuide type="bottom" id="66l-1n-hGF"/>
@@ -207,7 +262,7 @@
         <!--我的航空-->
         <scene sceneID="KER-r1-8ZH">
             <objects>
-                <viewController title="我的航空" id="wbj-4G-jsX" customClass="MyAirViewController" sceneMemberID="viewController">
+                <viewController title="我的航空" hidesBottomBarWhenPushed="YES" id="wbj-4G-jsX" customClass="MyAirViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ghe-vc-6uU"/>
                         <viewControllerLayoutGuide type="bottom" id="gqw-k8-Lt0"/>
@@ -226,7 +281,7 @@
         <!--我的消息-->
         <scene sceneID="8fI-Jv-0tr">
             <objects>
-                <viewController title="我的消息" id="j6s-yp-t40" customClass="MyNewsViewController" sceneMemberID="viewController">
+                <viewController title="我的消息" hidesBottomBarWhenPushed="YES" id="j6s-yp-t40" customClass="MyNewsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yTi-Dk-gTd"/>
                         <viewControllerLayoutGuide type="bottom" id="tt4-fP-9mH"/>
@@ -245,7 +300,7 @@
         <!--账户设置-->
         <scene sceneID="v2I-G5-gUO">
             <objects>
-                <viewController title="账户设置" id="6Wv-x4-ldj" customClass="AccountSettingsViewController" sceneMemberID="viewController">
+                <viewController title="账户设置" hidesBottomBarWhenPushed="YES" id="6Wv-x4-ldj" customClass="AccountSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="90E-eq-snb"/>
                         <viewControllerLayoutGuide type="bottom" id="bii-RT-9P4"/>
