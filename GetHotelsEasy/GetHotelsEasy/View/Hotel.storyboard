@@ -59,7 +59,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QJQ-g2-tZl">
-                                        <rect key="frame" x="80" y="55" width="212" height="30"/>
+                                        <rect key="frame" x="82" y="55" width="210" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -91,12 +91,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="06Z-ZS-hnE">
-                                        <rect key="frame" x="35" y="56" width="30" height="29"/>
+                                        <rect key="frame" x="35" y="55" width="32" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="06Z-ZS-hnE" secondAttribute="height" multiplier="31:30" id="LXR-nm-o8T"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <state key="normal" title="无锡">
+                                        <state key="normal" title="   苏州">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -239,6 +239,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="address" destination="SzE-S2-OL9" id="pzV-1h-3Nm"/>
+                                            <outlet property="hotelImg" destination="oK8-If-dtc" id="CgH-0u-zOX"/>
+                                            <outlet property="hotelName" destination="VHz-DA-qjU" id="fMQ-By-9ri"/>
                                             <segue destination="SHx-AX-wpZ" kind="show" id="da6-kX-GsB"/>
                                         </connections>
                                     </tableViewCell>

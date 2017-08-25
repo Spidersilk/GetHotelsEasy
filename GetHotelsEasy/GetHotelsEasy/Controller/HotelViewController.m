@@ -10,8 +10,10 @@
 #import "HotelTableViewCell.h"
 #import "HotelOrdelViewController.h"
 #import <CoreLocation/CoreLocation.h>//使用该框架才可以使用定位功能
+#import "ZLImageViewDisplayView.h"
 @interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate>{
     BOOL firstVisit;
+    NSInteger page;//页码
 }
 
 
@@ -28,10 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     firstVisit = YES;
-    [self uilayout];
-    [self dataInitialize];
+    [self uilayout];//签署协议
+    [self dataInitialize];//这个方法专门做数据的处理
     // Do any additional setup after loading the view.
-    [self locationStart];
+    [self locationStart];//这个方法处理开始定位
+    [self networkRequest];
+    [self addZLImageViewDisPlayView];
+    [self distanceBetweenOrderBy:36 :34 :34 :36];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,6 +51,91 @@
         
     
 }
+-(double)distanceBetweenOrderBy:(double) lat1 :(double) lat2 :(double) lng1 :(double) lng2{
+    
+    CLLocation *curLocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lng1];
+    
+    CLLocation *otherLocation = [[CLLocation alloc] initWithLatitude:lat2 longitude:lng2];
+    
+    double  distance  = [curLocation distanceFromLocation:otherLocation];
+    NSLog(@"这两点的距离为：%f",distance);
+    
+    return  distance;
+    
+}
+#pragma mack - 网络请求
+//执行网络请求
+- (void)networkRequest {
+    page = 10;
+    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"page" : @1, @"startId" :@1 , @"priceId":@0,@"sortingId" :@0 ,@"inTime" :@1 ,@"outTime" : @1,};
+    //开始请求
+    [RequestAPI requestURL:@"/findHotelByCity" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        //成功以后要做的事情
+        NSLog(@"responseObject = %@",responseObject);
+ //       [self endAnimation];
+        if ([responseObject[@"resultFlag"] integerValue] == 8001) {
+//            //业务逻辑成功的情况下
+//            NSDictionary *result = responseObject[@"result"];
+//            NSArray *models = result[@"models"];
+//            NSDictionary *pagingInfo = result[@"pagingInfo"];
+//            totalPage = [pagingInfo[@"totalPage"] integerValue];
+//            
+//            if (page == 1) {
+//                //清空数据
+//                [_arr removeAllObjects];
+//            }
+//            
+//            for (NSDictionary *dict in models) {
+//                //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
+//                ActivityModel *activityModel = [[ActivityModel alloc] initWhitDictionary:dict];
+//                //将上述实例化好的ActivityModel对象插入_arr数组中
+//                [_arr addObject:activityModel];
+//            }
+//            //刷新表格（重载数据）
+//            [self.activityTableView reloadData];//reloadData重新加载activityTableView数据
+//            
+        }else{
+//            //业务逻辑失败的情况下
+//            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"resultFlag"] integerValue]];
+//            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+//        //失败以后要做的事情
+//        //NSLog(@"statusCode = %ld",(long)statusCode);
+//        [self endAnimation];
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
+    }];
+
+
+
+}
+
+
+#pragma mack - 广告轮播
+- (void)addZLImageViewDisPlayView{
+    
+    //获取要显示的位置
+    CGRect screenFrame = [[UIScreen mainScreen] bounds];
+    
+    CGRect frame = CGRectMake(0, 100, UI_SCREEN_W, 165);
+    
+    NSArray *imageArray = @[@"001.jpg", @"002.jpg", @"003.jpg", @"004.jpg", @"005.jpg", @"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg"];
+    
+    //初始化控件
+    ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
+    imageViewDisplay.imageViewArray = imageArray;
+    imageViewDisplay.scrollInterval = 1;
+    imageViewDisplay.animationInterVale = 0.6;
+    [self.view addSubview:imageViewDisplay];
+    
+    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
+        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alter show];
+    }];
+    
+}
+#pragma mack - 地图定位
 - (void) uilayout {
     if (![[[StorageMgr singletonStorageMgr] objectForKey:@"LocCity"] isKindOfClass:[NSNull class]]) {
         if ([[StorageMgr singletonStorageMgr] objectForKey:@"LocCity"] != nil) {
