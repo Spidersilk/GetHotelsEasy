@@ -7,7 +7,7 @@
 //
 
 #import "HotelOrdelViewController.h"
-
+#import "detailModel.h"
 @interface HotelOrdelViewController (){
     NSInteger flag;
 }
@@ -125,12 +125,14 @@
 #pragma mark - request
 - (void)request{
     _avi = [UIActivityIndicatorView new];
-    NSDictionary *content = @{@"id" : @1};
-    [RequestAPI requestURL:@"/findHotelById" withParameters:content andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    NSDictionary *para = @{@"id" : @1};
+    [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
-        NSLog(@"responseObject = %@",responseObject);
+        NSLog(@"responseObjectOrder = %@",responseObject);
         if([responseObject[@"result"] integerValue] == 1)
         {
+            NSDictionary *content = responseObject[@"content"];
+            detailModel *detailMd = [[detailModel alloc] initWiihDetailDictionary:content];
             
         }else{
             

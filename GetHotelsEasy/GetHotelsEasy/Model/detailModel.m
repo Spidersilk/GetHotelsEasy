@@ -24,5 +24,35 @@
     }
     return self;
 }
-
+- (id) initWiihDetailDictionary: (NSDictionary *)dict{
+    self = [super init];//self调用者本身
+    if (self){
+        _hotelID = [[Utilities nullAndNilCheck:@"id" replaceBy:0] integerValue];
+        _price = [[Utilities nullAndNilCheck:dict[@"price"] replaceBy:0]integerValue];
+        self.hotel_img = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];
+        self.hotel_name = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@""];
+        _hotel_address = [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@""];
+        _start_time = [[Utilities nullAndNilCheck:dict[@"ctime"] replaceBy:0] integerValue];
+        _out_time = [[Utilities nullAndNilCheck:dict[@"ctime"] replaceBy:0] integerValue];
+        _room_img = [Utilities nullAndNilCheck:dict[@"room_img"] replaceBy:@""];
+        _hotel_facilitys = [Utilities nullAndNilCheck:dict[@"hotel_facilitys"] replaceBy:@[]];
+        _hotel_type = [Utilities nullAndNilCheck:dict[@"hotel_type"] replaceBy:@[]];
+        if([dict[@"is_pet"] isKindOfClass:[NSNull class]]){
+            _is_pet = @"";
+        }else{
+            switch ([dict[@"is_pet"]integerValue]) {
+                case 0:
+                    _is_pet = @"不可携带宠物";
+                    break;
+                case 1:
+                    _is_pet = @"可携带宠物";
+                    break;
+                default:
+                    _is_pet = @"未设置";
+                    break;
+            }
+        }
+    }
+    return self;
+}
 @end
