@@ -125,7 +125,7 @@
 #pragma mark - request
 - (void)request{
     _avi = [UIActivityIndicatorView new];
-    NSDictionary *para = @{@"id" : @1};
+    NSDictionary *para = @{@"id" : @2};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"responseObjectOrder = %@",responseObject);
@@ -133,7 +133,7 @@
         {
             NSDictionary *content = responseObject[@"content"];
             detailModel *detailMd = [[detailModel alloc] initWiihDetailDictionary:content];
-            
+            _HotelNameLabel.text = detailMd.hotel_name;
         }else{
             
         }

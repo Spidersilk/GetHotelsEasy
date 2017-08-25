@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface detailModel : NSObject
-@property (strong, nonatomic) NSString *name;   //酒店名字
 @property (strong, nonatomic) NSString *hotel_img;//首页图片
 @property (strong, nonatomic) NSString *hotel_name;//酒店
 @property (strong, nonatomic) NSString *hotel_address;//地址
@@ -24,5 +23,5 @@
 @property (strong, nonatomic) NSArray *hotel_facilitys;//酒店设施
 @property (strong, nonatomic) NSArray *hotel_type;//房间类型
 - (id) initWhitDictionary: (NSDictionary *)dict;
-- (id) initWiihDetailDictionary: (NSDictionary *)dict;
+- (instancetype) initWiihDetailDictionary: (NSDictionary *)dict;
 @end
