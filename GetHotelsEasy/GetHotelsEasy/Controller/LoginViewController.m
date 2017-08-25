@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "MyInfoModel.h"
+#import "MyHotelViewController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -39,26 +40,32 @@
 - (void)naviConfig{
     //设置导航条标题的文字
     self.navigationItem.title = @"会员登录";
-    //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
+    //设置导航条的风格颜色
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(1, 150, 255);
     //设置导航条标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条是否被隐藏
     self.navigationController.navigationBar.hidden = NO;
-    
+    //实例化一个button 类型为UIButtonTypeSystem
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置位置大小
+    leftBtn.frame = CGRectMake(0, 0, 22, 22);
+    //设置其背景图片为返回图片
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
     //设置导航条上按钮的风格颜色
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     //设置是否需要毛玻璃效果
     self.navigationController.navigationBar.translucent = YES;
-    //为导航条左上角创建一个按钮
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
-    self.navigationItem.leftBarButtonItem = left;
+    //给按钮添加事件
+    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
 }
-//用model的方式返回上一页
-- (void)backAction{
+//自定的返回按钮的事件
+- (void)leftButtonAction: (UIButton *)sender{
     [self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popViewControllerAnimated:YES];//用push返回上一页
 }
+
 - (void)uiLayout{
     self.backView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
     self.backView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
