@@ -8,6 +8,8 @@
 
 #import "MyInfoViewController.h"
 #import "MyInfoTableViewCell.h"
+#import "MyInfoModel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -47,17 +49,21 @@
         //已登录
         _loginBtn.hidden = YES;
         _cName.hidden = NO;
+        _level.hidden = NO;
         
-//        UserModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
-//        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:usermodel.avatarUrl] placeholderImage:[UIImage imageNamed:@"Avatar"]];
-//        _usernameLabel.text = usermodel.nickname;
+        MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
+        [_heardImageView sd_setImageWithURL:[NSURL URLWithString:usermodel.picture] placeholderImage:[UIImage imageNamed:@"icon"]];
+        _cName.text = usermodel.name;
+        _level.text = [NSString stringWithFormat:@"%ld",(long)usermodel.grade];
+        
     }else{
         //未登录
         _loginBtn.hidden = NO;
         _cName.hidden = YES;
-        
-//        _avatarImageView.image = [UIImage imageNamed:@"Avatar"];
-//        _usernameLabel.text = @"游客";
+        _level.hidden = YES;
+        _heardImageView.image = [UIImage imageNamed:@"icon"];
+        _cName.text = @"游客";
+        _level.text = @"等级：无";
     }
 
 }
