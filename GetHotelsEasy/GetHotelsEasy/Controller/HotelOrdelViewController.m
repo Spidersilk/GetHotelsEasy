@@ -38,7 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *wifiLabel;
 @property (weak, nonatomic) IBOutlet UILabel *diningLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wakeUpLabel;
-
+@property (strong, nonatomic) NSMutableArray *strFacility;
 - (IBAction)chatBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
@@ -54,6 +54,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _strFacility = [NSMutableArray new];
     [self naviConfing];
     [self setDefaultDateForButton];
     [self request];
@@ -151,7 +152,7 @@
 #pragma mark - request
 - (void)request{
     _avi = [UIActivityIndicatorView new];
-    NSDictionary *para = @{@"id" : @2};
+    NSDictionary *para = @{@"id" : @1};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"responseObjectOrder = %@",responseObject);
@@ -162,8 +163,15 @@
             _HotelNameLabel.text = detailMd.hotel_name;
             _priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)detailMd.price];
             _addressLabel.text = detailMd.hotel_address;
-            NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
-            _hotelImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:URL]];
+            ///NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
+            //_hotelImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:URL]];
+            NSArray *array = [detailMd.hotel_facility componentsSeparatedByString:@","];
+            _parkLotLabel.text = array[0];
+            _pickUpLabel.text = array[1];
+            _gymLabel.text = array[2];
+            _toiletriesLabel.text = array[3];
+            NSLog(@"hotel_facility = %@",array);
+            //_bedLabel.text = strFacility[2];
         }else{
             
         }
