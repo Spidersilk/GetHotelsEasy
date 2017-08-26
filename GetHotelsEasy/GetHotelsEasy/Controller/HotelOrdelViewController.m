@@ -8,6 +8,7 @@
 
 #import "HotelOrdelViewController.h"
 #import "detailModel.h"
+#import "ZLImageViewDisplayView.h"
 @interface HotelOrdelViewController (){
     NSInteger flag;
 }
@@ -16,8 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *HotelNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *firstDayLabel;
-@property (weak, nonatomic) IBOutlet UILabel *secodDayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
 @property (weak, nonatomic) IBOutlet UIButton *firstDayBtn;
 - (IBAction)firstDayAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIButton *secondDayBtn;
@@ -56,12 +57,37 @@
     [self naviConfing];
     [self setDefaultDateForButton];
     [self request];
+    [self addZLImageViewDisPlayView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void) addZLImageViewDisPlayView{
+    
+    //获取要显示的位置
+    CGRect screenFrame = [[UIScreen mainScreen] bounds];
+    
+    CGRect frame = CGRectMake(0, 64, screenFrame.size.width, 207);
+    
+    NSArray *imageArray = @[@"icon",@"comment_profile_mars"];
+    
+    //初始化控件
+    ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
+    imageViewDisplay.imageViewArray = imageArray;
+    imageViewDisplay.scrollInterval = 3;
+    imageViewDisplay.animationInterVale = 0.6;
+    [self.view addSubview:imageViewDisplay];
+    
+   /* [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
+        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alter show];
+    }];*/
+    
+}
+
 //将要来到此页面（隐藏导航栏）
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -134,6 +160,10 @@
             NSDictionary *content = responseObject[@"content"];
             detailModel *detailMd = [[detailModel alloc] initWiihDetailDictionary:content];
             _HotelNameLabel.text = detailMd.hotel_name;
+            _priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)detailMd.price];
+            _addressLabel.text = detailMd.hotel_address;
+            NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
+            _hotelImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:URL]];
         }else{
             
         }
