@@ -48,6 +48,7 @@
     //调用设置导航栏的方法
     [self setNavigationItem];
     [self setSegment];
+    [self request];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,11 +156,12 @@
 -(void)request{
     //创建一个蒙层，并显示在当前页面
     UIActivityIndicatorView *avi =[Utilities getCoverOnView:self.view];
-    NSDictionary *prarmeter = @{@"openid" : @15170445223, @"id" :@1 };
-    //获取token请求接口
-    NSString *token = [[StorageMgr singletonStorageMgr] objectForKey:@"token"];
-    NSArray *headers = @[[Utilities makeHeaderForToken:token]];
-    [RequestAPI requestURL:@"/findOrders_edu" withParameters:prarmeter andHeader:headers byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+    MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
+    NSDictionary *prarmeter = @{@"openid" :usermodel.openid , @"id" :@(1) };
+//    //获取token请求接口
+//    NSString *token = [[StorageMgr singletonStorageMgr] objectForKey:@"token"];
+//    NSArray *headers = @[[Utilities makeHeaderForToken:token]];
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:prarmeter andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         [avi stopAnimating];
         if ([responseObject[@"flag"] isEqualToString:@"success"]) {
