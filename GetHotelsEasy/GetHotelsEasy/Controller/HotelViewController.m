@@ -27,6 +27,7 @@
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) NSMutableArray *arr;
+@property (strong, nonatomic) NSMutableArray *imageArray;
 @end
 
 @implementation HotelViewController
@@ -35,12 +36,13 @@
     [super viewDidLoad];
     firstVisit = YES;
     _arr = [NSMutableArray new];
+    _imageArray = [NSMutableArray new];
     [self uilayout];//签署协议
     [self dataInitialize];//这个方法专门做数据的处理
     // Do any additional setup after loading the view.
     [self locationStart];//这个方法处理开始定位
     [self networkRequest];
-    [self addZLImageViewDisPlayView];
+    
     
     
 }
@@ -84,8 +86,12 @@
             //业务逻辑成功的情况下
             NSDictionary *content = responseObject[@"content"];
             NSArray *hotel = content[@"hotel"];
-            
-            
+            NSArray *advertising = content[@"advertising"];
+            for (NSDictionary * dict in advertising){
+                [_imageArray addObject: dict[@"ad_img"]];
+            }
+   //         NSArray *imageArray = @[@"001.jpg", @"002.jpg", @"003.jpg", @"004.jpg", @"005.jpg", @"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg"];
+            [self addZLImageViewDisPlayView:_imageArray];
 //            if (page == 1) {
 //                //清空数据
 //                [_arr removeAllObjects];
@@ -118,20 +124,20 @@
 
 
 #pragma mack - 广告轮播
-- (void)addZLImageViewDisPlayView{
+- (void)addZLImageViewDisPlayView:(NSArray *)imageArray{
     
     //获取要显示的位置
     CGRect screenFrame = [[UIScreen mainScreen] bounds];
     
     CGRect frame = CGRectMake(0, 100, UI_SCREEN_W, 165);
     
-    NSArray *imageArray = @[@"001.jpg", @"002.jpg", @"003.jpg", @"004.jpg", @"005.jpg", @"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg"];
+    
     
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
     imageViewDisplay.imageViewArray = imageArray;
-    imageViewDisplay.scrollInterval = 1;
-    imageViewDisplay.animationInterVale = 0.6;
+    imageViewDisplay.scrollInterval = 3;
+    imageViewDisplay.animationInterVale = 0.7;
     [self.view addSubview:imageViewDisplay];
     
     [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
@@ -300,14 +306,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
     detailModel *detailmodel = _arr[indexPath.row];
-    NSLog(@"reee图片的网址%@",detailmodel.hotel_img);
+    //NSLog(@"reee图片的网址%@",detailmodel.hotel_img);
     [cell.hotelImg sd_setImageWithURL:[NSURL URLWithString:detailmodel.hotel_img] placeholderImage:[UIImage imageNamed:@"png2"]];
     cell.hotelName.text = detailmodel.hotel_name;
     cell.address.text = detailmodel.hotel_address;
     //通过distanceBetweenOrderBy方法获取两地距离
     NSString *str = [self distanceBetweenOrderBy:_location.coordinate.latitude :detailmodel.latitude :_location.coordinate.longitude :detailmodel.longitude];
-    cell.distanceLabel .text = str;
-    
+    cell.distanceLabel.text = str;
+    cell.priceLabel.text =[NSString stringWithFormat:@"%ld",(long)detailmodel.price];
 
     return cell;
 }
