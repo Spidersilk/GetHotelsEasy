@@ -133,20 +133,29 @@
         NSLog(@"哈哈:%@",responseObject);
         //当网络请求成功时停止动画
         [_avi stopAnimating];
+        if ([responseObject[@"result"] integerValue] == -102) {
+            [Utilities popUpAlertViewWithMsg:@"该号码已被注册" andTitle:nil onView:self onCompletion:^{
+                
+            }];
+        }
         if ([responseObject[@"result"] integerValue] == 1) {
-            NSDictionary *content = responseObject[@"content"];
-            NSString *token = content[@"token"];
+            //NSDictionary *content = responseObject[@"content"];
+            //NSString *token = content[@"token"];
             //NSLog(@"%@",token);
             //防范式(移除这个键)
-            [[StorageMgr singletonStorageMgr] removeObjectForKey:@"token"];
+            //[[StorageMgr singletonStorageMgr] removeObjectForKey:@"token"];
             //把token存入单例化全局变量中
-            [[StorageMgr singletonStorageMgr] addKey:@"token" andValue:token];
+            //[[StorageMgr singletonStorageMgr] addKey:@"token" andValue:token];
+            
 
             
             _phoneTextField.text = @"";
             _pwdTextField.text = @"";
             _confirmTextField.text = @"";
-            [self.navigationController popViewControllerAnimated:YES];
+            [Utilities popUpAlertViewWithMsg:@"您已经成功加入我们，快去体验吧" andTitle:nil onView:self onCompletion:^{
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            
             
         }else{
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
