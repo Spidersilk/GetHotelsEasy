@@ -18,6 +18,7 @@
     NSInteger page;//页码
 }
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *HotelTableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *cityBtn;
@@ -35,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     firstVisit = YES;
+    _headerView.frame=CGRectMake(0, 0, UI_SCREEN_W, 165);
     _arr = [NSMutableArray new];
     _imageArray = [NSMutableArray new];
     [self uilayout];//签署协议
@@ -76,16 +78,16 @@
 //执行网络请求
 - (void)networkRequest {
     page = 10;
-    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"page" : @1, @"startId" :@1 , @"priceId":@0,@"sortingId" :@0 ,@"inTime" :@1 ,@"outTime" : @1,};
+    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"pageNum" : @1,@"pageSize":@4, @"startId" :@1 , @"priceId":@1,@"sortingId" :@1 ,@"inTime" :@"2017-01-05" ,@"outTime" : @"2017-05-06",@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
-    [RequestAPI requestURL:@"/findHotelByCity" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         //成功以后要做的事情
         NSLog(@"responseObject = %@",responseObject);
  //       [self endAnimation];
         if ([responseObject[@"result"] integerValue] == 1) {
             //业务逻辑成功的情况下
             NSDictionary *content = responseObject[@"content"];
-            NSArray *hotel = content[@"hotel"];
+            NSArray *list = content[@"hotel"][@"list"];
             NSArray *advertising = content[@"advertising"];
             for (NSDictionary * dict in advertising){
                 [_imageArray addObject: dict[@"ad_img"]];
@@ -97,7 +99,7 @@
 //                [_arr removeAllObjects];
 //            }
 //            
-            for (NSDictionary *dict in hotel) {
+            for (NSDictionary *dict in list) {
                 //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
                 detailModel *detailmodel = [[detailModel alloc] initWhitDictionary:dict];
                 //将上述实例化好的ActivityModel对象插入_arr数组中
@@ -129,7 +131,7 @@
     //获取要显示的位置
     CGRect screenFrame = [[UIScreen mainScreen] bounds];
     
-    CGRect frame = CGRectMake(0, 100, UI_SCREEN_W, 165);
+    CGRect frame = CGRectMake(0, 0, UI_SCREEN_W, 165);
     
     
     
@@ -138,13 +140,13 @@
     imageViewDisplay.imageViewArray = imageArray;
     imageViewDisplay.scrollInterval = 3;
     imageViewDisplay.animationInterVale = 0.7;
-    [self.view addSubview:imageViewDisplay];
+    [self.headerView addSubview:imageViewDisplay];
     
-    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
-        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
-        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alter show];
-    }];
+//    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
+//        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
+//        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alter show];
+//    }];
     
 }
 #pragma mack - 地图定位
@@ -301,6 +303,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _arr.count;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

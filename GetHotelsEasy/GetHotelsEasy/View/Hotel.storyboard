@@ -125,57 +125,12 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mpx-f6-d6u">
-                                <rect key="frame" x="0.0" y="265" width="375" height="402"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="QQZ-yw-f7E">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AnQ-a8-Raz">
-                                            <rect key="frame" x="0.0" y="8" width="94" height="28"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="入住03-24">
-                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lf9-nA-0Ld">
-                                            <rect key="frame" x="94" y="8" width="93.5" height="28"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="离店03-28">
-                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIx-ui-s9K">
-                                            <rect key="frame" x="187.5" y="8" width="94" height="28"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="智能排序">
-                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyt-Zq-SwO">
-                                            <rect key="frame" x="281.5" y="8" width="93.5" height="28"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="筛选">
-                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="DIx-ui-s9K" firstAttribute="leading" secondItem="Lf9-nA-0Ld" secondAttribute="trailing" id="5CM-jW-NuH"/>
-                                        <constraint firstAttribute="trailing" secondItem="Eyt-Zq-SwO" secondAttribute="trailing" id="9US-0E-tFz"/>
-                                        <constraint firstItem="DIx-ui-s9K" firstAttribute="centerY" secondItem="QQZ-yw-f7E" secondAttribute="centerY" id="Exe-Gv-Xv5"/>
-                                        <constraint firstItem="Eyt-Zq-SwO" firstAttribute="leading" secondItem="DIx-ui-s9K" secondAttribute="trailing" id="PII-D9-5WQ"/>
-                                        <constraint firstItem="Lf9-nA-0Ld" firstAttribute="centerY" secondItem="QQZ-yw-f7E" secondAttribute="centerY" id="Qk0-7I-8H6"/>
-                                        <constraint firstItem="Eyt-Zq-SwO" firstAttribute="centerY" secondItem="QQZ-yw-f7E" secondAttribute="centerY" id="Qpw-po-7wY"/>
-                                        <constraint firstItem="AnQ-a8-Raz" firstAttribute="centerY" secondItem="QQZ-yw-f7E" secondAttribute="centerY" id="UW1-bQ-dRY"/>
-                                        <constraint firstItem="Eyt-Zq-SwO" firstAttribute="width" secondItem="AnQ-a8-Raz" secondAttribute="width" id="YeZ-ML-6rM"/>
-                                        <constraint firstItem="AnQ-a8-Raz" firstAttribute="leading" secondItem="QQZ-yw-f7E" secondAttribute="leading" id="ZFx-3N-zlw"/>
-                                        <constraint firstItem="DIx-ui-s9K" firstAttribute="width" secondItem="AnQ-a8-Raz" secondAttribute="width" id="dT8-ki-yi2"/>
-                                        <constraint firstItem="DIx-ui-s9K" firstAttribute="leading" secondItem="Lf9-nA-0Ld" secondAttribute="trailing" id="iMY-qY-kjL"/>
-                                        <constraint firstItem="Lf9-nA-0Ld" firstAttribute="width" secondItem="AnQ-a8-Raz" secondAttribute="width" id="ibf-2p-Pio"/>
-                                        <constraint firstItem="Lf9-nA-0Ld" firstAttribute="leading" secondItem="AnQ-a8-Raz" secondAttribute="trailing" id="ioW-Q6-c3T"/>
-                                    </constraints>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HotelCell" rowHeight="100" id="6sP-bt-7cE" customClass="HotelTableViewCell">
@@ -259,8 +214,8 @@
                             <constraint firstItem="KoC-Yh-UdE" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="1Rz-D2-r3t"/>
                             <constraint firstAttribute="trailing" secondItem="mpx-f6-d6u" secondAttribute="trailing" id="9ca-oP-t2R"/>
                             <constraint firstItem="KoC-Yh-UdE" firstAttribute="top" secondItem="OxG-dU-LfM" secondAttribute="top" id="Anx-C1-edH"/>
-                            <constraint firstItem="mpx-f6-d6u" firstAttribute="top" secondItem="KoC-Yh-UdE" secondAttribute="bottom" constant="165" id="GtZ-IN-ELy"/>
                             <constraint firstAttribute="trailing" secondItem="KoC-Yh-UdE" secondAttribute="trailing" id="X0z-D9-FMD"/>
+                            <constraint firstItem="mpx-f6-d6u" firstAttribute="top" secondItem="KoC-Yh-UdE" secondAttribute="bottom" id="ckQ-9T-cZc"/>
                             <constraint firstItem="mpx-f6-d6u" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="qZA-dG-j1x"/>
                             <constraint firstAttribute="bottom" secondItem="mpx-f6-d6u" secondAttribute="bottom" id="spk-8t-i2i"/>
                         </constraints>
@@ -271,6 +226,7 @@
                     <connections>
                         <outlet property="HotelTableView" destination="mpx-f6-d6u" id="qn9-UQ-DZd"/>
                         <outlet property="cityBtn" destination="06Z-ZS-hnE" id="eBr-T5-nrG"/>
+                        <outlet property="headerView" destination="QQZ-yw-f7E" id="G2T-Rd-vNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBU-81-kOr" userLabel="First Responder" sceneMemberID="firstResponder"/>
