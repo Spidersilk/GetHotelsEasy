@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fK-12-81S" userLabel="DetailView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fK-12-81S" userLabel="DetailView">
                                 <rect key="frame" x="0.0" y="163" width="375" height="464"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UE2-zh-18u">
@@ -517,6 +517,7 @@
                         <outlet property="datePicker" destination="ATf-Fw-Fmf" id="joN-qm-3XC"/>
                         <outlet property="diningLabel" destination="BPc-eT-Tq9" id="GbI-Kh-L5h"/>
                         <outlet property="firstDayBtn" destination="NmW-e5-UO2" id="07a-XM-sww"/>
+                        <outlet property="firstLabel" destination="GMU-ut-Dpp" id="5H3-iJ-idp"/>
                         <outlet property="gymLabel" destination="aa2-oy-Ujl" id="RI4-fb-Ugy"/>
                         <outlet property="hotelImage" destination="wir-gO-cqG" id="API-04-5Ly"/>
                         <outlet property="luggageLabel" destination="75C-hg-EKW" id="b9J-JW-4bi"/>
@@ -524,6 +525,7 @@
                         <outlet property="pickUpLabel" destination="VGy-Tu-5SX" id="4va-em-jeK"/>
                         <outlet property="priceLabel" destination="I4J-WW-2Hw" id="us1-sq-uNo"/>
                         <outlet property="secondDayBtn" destination="sIx-qR-kkr" id="3Mz-Kr-svi"/>
+                        <outlet property="secondLabel" destination="1jL-2y-hyw" id="ud7-Rb-NNe"/>
                         <outlet property="toiletriesLabel" destination="mSu-I1-s2C" id="nQu-mX-Kyu"/>
                         <outlet property="toolBar" destination="KKX-Cn-UtG" id="qgp-I1-nvU"/>
                         <outlet property="wakeUpLabel" destination="aZK-YV-AaC" id="njc-wv-DA1"/>

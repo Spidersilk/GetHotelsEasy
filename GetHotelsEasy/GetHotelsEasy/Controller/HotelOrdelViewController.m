@@ -9,6 +9,7 @@
 #import "HotelOrdelViewController.h"
 #import "detailModel.h"
 #import "ZLImageViewDisplayView.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 @interface HotelOrdelViewController (){
     NSInteger flag;
 }
@@ -41,6 +42,8 @@
 @property (strong, nonatomic) NSMutableArray *strFacility;
 - (IBAction)chatBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UILabel *firstLabel;
+@property (weak, nonatomic) IBOutlet UILabel *secondLabel;
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
@@ -72,7 +75,7 @@
     
     CGRect frame = CGRectMake(0, 64, screenFrame.size.width, 207);
     
-    NSArray *imageArray = @[@"icon",@"comment_profile_mars"];
+    NSArray *imageArray = @[@"str"];
     
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
@@ -99,7 +102,7 @@
     //初始化日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期格式
-    formatter.dateFormat = @"MM-dd cc";
+    formatter.dateFormat = @"yyyy-MM-dd";
     //当前时间
     NSDate *date = [NSDate date];
     //明天的日期
@@ -152,7 +155,20 @@
 #pragma mark - request
 - (void)request{
     _avi = [UIActivityIndicatorView new];
-    NSDictionary *para = @{@"id" : @1};
+    //开始日期
+    NSTimeInterval startTime = [Utilities cTimestampFromString:_firstDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
+    //结束日期
+    NSTimeInterval endTime = [Utilities cTimestampFromString:_secondDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
+    
+    if (startTime >= endTime) {
+        [_avi stopAnimating];
+        //UIRefreshControl *ref = [_historyTableView viewWithTag:10005];
+        //[ref endRefreshing];
+        [self setDefaultDateForButton];
+        [Utilities popUpAlertViewWithMsg:@"请正确设置开始日期和结束日期" andTitle:@"提示" onView:self onCompletion:^{
+        }];
+    }else{
+    NSDictionary *para = @{@"id" : @10};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"responseObjectOrder = %@",responseObject);
@@ -163,21 +179,37 @@
             _HotelNameLabel.text = detailMd.hotel_name;
             _priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)detailMd.price];
             _addressLabel.text = detailMd.hotel_address;
-            ///NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
-            //_hotelImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:URL]];
-            NSArray *array = [detailMd.hotel_facility componentsSeparatedByString:@","];
-            _parkLotLabel.text = array[0];
-            _pickUpLabel.text = array[1];
-            _gymLabel.text = array[2];
-            _toiletriesLabel.text = array[3];
-            NSLog(@"hotel_facility = %@",array);
+            //NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
+            [_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hotel_img] placeholderImage:[UIImage imageNamed:@"酒店大"]];
+            NSLog(@"%@",detailMd.hotel_img);
+            NSArray *arrayFacility = [detailMd.hotel_facility componentsSeparatedByString:@","];
+            _parkLotLabel.text = arrayFacility[0];
+            _pickUpLabel.text = arrayFacility[1];
+            _gymLabel.text = arrayFacility[2];
+            _toiletriesLabel.text = arrayFacility[3];
+            NSArray *arrayType = [detailMd.hotel_type componentsSeparatedByString:@","];
+            _bedTypeLabel.text = arrayType[0];
+            _breakfastLabel.text = arrayType[1];
+            _bedLabel.text = arrayType[2];
+            _bedSizeLabel.text = arrayType[3];
+            //NSLog(@"hotel_facility = %@",arrayType[0]);
             //_bedLabel.text = strFacility[2];
+            NSString *startTimeStr = [Utilities dateStrFromCstampTime:detailMd.start_time withDateFormat:@"yyyy-MM-dd"];
+            //NSLog(@"yjjftfytty%f",detailMd.start_time);
+            NSString *outTimeStr = [Utilities dateStrFromCstampTime:detailMd.out_time withDateFormat:@"yyyy-MM-dd"];
+            _firstLabel.text = [NSString stringWithFormat:@"入住时间：%@",startTimeStr];
+            _secondLabel.text = [NSString stringWithFormat:@"离店时间：%@",outTimeStr];
+            //[_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hot] placeholderImage:[UIImage imageNamed:@"png2"]];
         }else{
-            
+            [_avi stopAnimating];
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self];
         }
     } failure:^(NSInteger statusCode, NSError *error) {
-        
+        [_avi stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
     }];
+    }
 }
 #pragma mark - datePicker
 - (IBAction)firstDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
@@ -206,16 +238,17 @@
     //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
-    formatter.dateFormat = @"MM-dd cc";
+    formatter.dateFormat = @"yyyy-MM-dd";
     //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
     NSString *theDate = [formatter stringFromDate:date];
-    
     if (flag == 0) {
         [_firstDayBtn setTitle:theDate forState:UIControlStateNormal];
+        [self request];
     }else{
         [_secondDayBtn setTitle:theDate forState:UIControlStateNormal];
+        [self request];
     }
-
+    
     _toolBar.hidden = YES;
     _datePicker.hidden = YES;
 }
