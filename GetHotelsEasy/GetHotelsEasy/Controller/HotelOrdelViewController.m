@@ -194,11 +194,12 @@
             _bedSizeLabel.text = arrayType[3];
             //NSLog(@"hotel_facility = %@",arrayType[0]);
             //_bedLabel.text = strFacility[2];
-            NSString *startTimeStr = [Utilities dateStrFromCstampTime:detailMd.start_time withDateFormat:@"yyyy-MM-dd"];
+            NSArray *arrayRemark = [detailMd.remark componentsSeparatedByString:@","];
+            //NSString *startTimeStr = [Utilities dateStrFromCstampTime:detailMd.start_time withDateFormat:@"yyyy-MM-dd"];
             //NSLog(@"yjjftfytty%f",detailMd.start_time);
-            NSString *outTimeStr = [Utilities dateStrFromCstampTime:detailMd.out_time withDateFormat:@"yyyy-MM-dd"];
-            _firstLabel.text = [NSString stringWithFormat:@"入住时间：%@",startTimeStr];
-            _secondLabel.text = [NSString stringWithFormat:@"离店时间：%@",outTimeStr];
+            //NSString *outTimeStr = [Utilities dateStrFromCstampTime:detailMd.out_time withDateFormat:@"yyyy-MM-dd"];
+            _firstLabel.text = arrayRemark[0];
+            _secondLabel.text = arrayRemark[1];
             //[_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hot] placeholderImage:[UIImage imageNamed:@"png2"]];
         }else{
             [_avi stopAnimating];

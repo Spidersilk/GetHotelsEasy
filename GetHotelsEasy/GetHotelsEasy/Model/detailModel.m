@@ -37,6 +37,7 @@
         _room_img = [Utilities nullAndNilCheck:dict[@"room_img"] replaceBy:@""];
         _hotel_facility = [Utilities nullAndNilCheck:dict[@"hotel_facility"] replaceBy:@""];
         _hotel_type = [Utilities nullAndNilCheck:dict[@"hotel_type"] replaceBy:@""];
+        _remark = [Utilities nullAndNilCheck:dict[@"remark"] replaceBy:@""];
         if([dict[@"is_pet"] isKindOfClass:[NSNull class]]){
             _is_pet = @"";
         }else{
