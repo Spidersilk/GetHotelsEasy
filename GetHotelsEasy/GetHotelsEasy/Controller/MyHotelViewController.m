@@ -13,9 +13,17 @@
 #import "ExpiredTableViewCell.h"
 #import "MyInfoModel.h"
 
-@interface MyHotelViewController ()<UIScrollViewDelegate/*UITableViewDataSource,UITableViewDelegate*/>{
+@interface MyHotelViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     NSInteger workableFlag;
     NSInteger expiredFlag;
+    NSInteger allOrdersPageNum;
+    BOOL allOrdersLastPage;
+    NSInteger workablePageNum;
+    BOOL workableLastpage;
+    NSInteger expiredPageNum;
+    BOOL expiredLastPage;
+    NSInteger pageSize;
+    
 }
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -25,6 +33,10 @@
 @property (strong,nonatomic) NSMutableArray *allOrdersArr;
 @property (strong,nonatomic) NSMutableArray *workableArr;
 @property (strong,nonatomic) NSMutableArray *expiredArr;
+@property (strong, nonatomic) UIActivityIndicatorView *avi;
+@property (strong, nonatomic) UIImageView *allOrdersNothingImg;
+@property (strong, nonatomic) UIImageView *workableNothingImg;
+@property (strong, nonatomic) UIImageView *expiredNothingImg;
 
 @end
 
@@ -35,6 +47,11 @@
     // Do any additional setup after loading the view.
     workableFlag = 1;
     expiredFlag = 1;
+    
+    allOrdersPageNum=1;
+    workablePageNum = 1;
+    expiredPageNum = 1;
+    pageSize = 10;
     
     _allOrdersArr = [NSMutableArray new];
     _workableArr = [NSMutableArray new];
@@ -48,7 +65,18 @@
     //调用设置导航栏的方法
     [self setNavigationItem];
     [self setSegment];
-    [self request];
+    //调用当TableView没有数据显示时，显示图片的方法
+    if (_allOrdersArr.count == 0) {
+        [self nothingForTableView];
+    }else if (_workableArr.count == 0){
+        [self nothingForTableView];
+    }else{
+        [self nothingForTableView];
+    }
+    //下拉刷新
+    [self setReareshControl];
+    //以获取任务的网络请求，带蒙层
+    [self allOrdersInitializeData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,18 +138,88 @@
 - (NSInteger)scrollCheck: (UIScrollView *)scrollView{
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
     if (page == 0) {
-        [self request];
+        [self allOrdersRequest];
     }
     if (workableFlag == 1 && page == 1) {
         workableFlag = 0;
         NSLog(@"第一次滑动scollview来到可使用");
+        [self workableInitializeData];
     }
     if (expiredFlag == 1 && page == 2) {
         expiredFlag = 0;
         NSLog(@"第一次滑动scollview来到已过期");
+        [self expiredInitializeData];
     }
     
     return page;
+}
+//当TableView没有数据显示时，显示图片
+-(void)nothingForTableView{
+    _allOrdersNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noOrder"]];
+    _allOrdersNothingImg.frame = CGRectMake((UI_SCREEN_W - 150) / 2, 50, 150, 100);
+    
+    _workableNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noOrder"]];
+    _workableNothingImg.frame = CGRectMake((UI_SCREEN_W - 150) / 2 + UI_SCREEN_W, 50, 150, 100);
+    
+    _expiredNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noOrder"]];
+    _expiredNothingImg.frame = CGRectMake((UI_SCREEN_W - 150) / 2 + UI_SCREEN_W * 2, 50, 150, 100);
+    
+    [_scrollView addSubview:_allOrdersNothingImg];
+    [_scrollView addSubview:_workableNothingImg];
+    [_scrollView addSubview:_expiredNothingImg];
+}
+#pragma mark -reareshControl
+
+-(void) setReareshControl{
+    //初始化一个下拉刷新控件
+    UIRefreshControl *allOrdersRef = [UIRefreshControl new];
+    allOrdersRef.tag = 10001;
+    //定义用户触发下拉事件时执行的方法
+    [allOrdersRef addTarget:self action:@selector(allOrdersRef) forControlEvents:UIControlEventValueChanged];
+    //将下拉刷新控件添加到acquireTableView中,(在tableview中，下拉刷新控件会自动放置在表格视图顶部后侧位置）
+    [_allOrdersTableView addSubview:allOrdersRef];
+    
+    UIRefreshControl *workableRef = [UIRefreshControl new];
+    workableRef.tag = 10002;
+    [workableRef addTarget:self action:@selector(workableRef) forControlEvents:UIControlEventValueChanged];
+    [_workableTableView addSubview:workableRef];
+    
+    UIRefreshControl *expiredRef = [UIRefreshControl new];
+    expiredRef.tag = 10003;
+    [expiredRef addTarget:self action:@selector(expiredRef) forControlEvents:UIControlEventValueChanged];
+    [_expiredTableView addSubview:expiredRef];
+}
+//下拉刷新事件
+-(void)allOrdersRef{
+    allOrdersPageNum = 1;
+    [self allOrdersRequest];
+}
+-(void)workableRef{
+    workablePageNum = 1;
+    [self workableRequest];
+}
+
+-(void)expiredRef{
+    expiredPageNum = 1;
+    [self expiredRequest];
+}
+//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
+-(void)allOrdersInitializeData{
+    //创建一个蒙层，并显示在当前页面
+    _avi =[Utilities getCoverOnView:self.view];
+    [self allOrdersRequest];
+}
+//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
+-(void)workableInitializeData{
+    //创建一个蒙层，并显示在当前页面
+    _avi =[Utilities getCoverOnView:self.view];
+    [self workableRequest];
+}
+//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
+-(void)expiredInitializeData{
+    //创建一个蒙层，并显示在当前页面
+    _avi =[Utilities getCoverOnView:self.view];
+    [self expiredRequest];
 }
 
 //设置导航栏样式
@@ -152,29 +250,90 @@
 }
 */
 #pragma mark - request
-//网络请求
--(void)request{
-    //创建一个蒙层，并显示在当前页面
-    UIActivityIndicatorView *avi =[Utilities getCoverOnView:self.view];
+//全部订单的网络请求
+-(void)allOrdersRequest{
     MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
-    NSDictionary *prarmeter = @{@"openid" :usermodel.openid , @"id" :@(1) };
-//    //获取token请求接口
-//    NSString *token = [[StorageMgr singletonStorageMgr] objectForKey:@"token"];
-//    NSArray *headers = @[[Utilities makeHeaderForToken:token]];
+    NSDictionary *prarmeter = @{@"openid" : usermodel.openid , @"id" : @(1)};
     [RequestAPI requestURL:@"/findOrders_edu" withParameters:prarmeter andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
-        [avi stopAnimating];
-        if ([responseObject[@"flag"] isEqualToString:@"success"]) {
+        UIRefreshControl *ref = (UIRefreshControl *)[_allOrdersTableView viewWithTag:10001];
+        [ref endRefreshing];
+        [_avi stopAnimating];
+        if ([responseObject[@"result"] integerValue] == 1) {
             
+            //当数组没有数据显示时，将图片显示，反之隐藏
+            if (_allOrdersArr.count == 0) {
+                _allOrdersNothingImg.hidden = NO;
+            }else{
+                _allOrdersNothingImg.hidden = YES;
+            }
+            [_allOrdersTableView reloadData];
         }else{
-            
+            [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
         }
     } failure:^(NSInteger statusCode, NSError *error) {
-        [avi stopAnimating];
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_allOrdersTableView viewWithTag:10001];
+        [ref endRefreshing];
         [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
     }];
 }
-
+//可使用的网络接口
+-(void)workableRequest{
+    MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
+    NSDictionary *prarmeter = @{@"openid" : usermodel.openid , @"id" : @(2)};
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:prarmeter andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        UIRefreshControl *ref = (UIRefreshControl *)[_workableTableView viewWithTag:10002];
+        [ref endRefreshing];
+        [_avi stopAnimating];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            //当数组没有数据显示时，将图片显示，反之隐藏
+            if (_workableArr.count == 0) {
+                _workableNothingImg.hidden = NO;
+            }else{
+                _workableNothingImg.hidden = YES;
+            }
+            [_workableTableView reloadData];
+            
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_workableTableView viewWithTag:10002];
+        [ref endRefreshing];
+        [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
+    }];
+}
+//已过期的网络接口
+-(void)expiredRequest{
+    MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
+    NSDictionary *prarmeter = @{@"openid" : usermodel.openid , @"id" : @(3) };
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:prarmeter andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_expiredTableView viewWithTag:10003];
+        [ref endRefreshing];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            //当数组没有数据显示时，将图片显示，反之隐藏
+            if (_expiredArr.count == 0) {
+                _expiredNothingImg.hidden = NO;
+            }else{
+                _expiredNothingImg.hidden = YES;
+            }
+            [_expiredTableView reloadData];
+            
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_expiredTableView viewWithTag:10003];
+        [ref endRefreshing];
+        [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
+    }];
+}
 
 #pragma mark - TableView
 
@@ -216,7 +375,39 @@
 }
 //设置当一个细胞将要出现的时候要做的事情
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (tableView == _allOrdersTableView) {
+        //判断是否是最后一行细胞将要出现
+        if (indexPath.section == _allOrdersArr.count - 1) {
+            //判断还有没有下一页
+            if (!allOrdersLastPage) {
+                //在这里执行上拉翻页的数据操作
+                allOrdersPageNum++;
+                [self allOrdersRequest];
+            }
+        }
+        
+    }else if (tableView == _workableTableView){
+        //判断是否是最后一行细胞将要出现
+        if (indexPath.section == _workableArr.count - 1) {
+            //判断还有没有下一页
+            if (!workableLastpage) {
+                //在这里执行上拉翻页的数据操作
+                workablePageNum++;
+                [self workableRequest];
+            }
+        }
+    }else{
+        //判断是否是最后一行细胞将要出现
+        if (indexPath.section == _expiredArr.count - 1) {
+            //判断还有没有下一页
+            if (!expiredLastPage) {
+                //在这里执行上拉翻页的数据操作
+                expiredPageNum++;
+                [self expiredRequest];
+            }
+        }
+    }
 }
+
 
 @end
