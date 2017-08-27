@@ -162,7 +162,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无锡万达喜来登酒店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHz-DA-qjU">
                                                     <rect key="frame" x="95" y="26.5" width="101.5" height="13.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsk-C8-aEB">
@@ -208,13 +208,42 @@
                                     <outlet property="delegate" destination="Bw0-wo-7uR" id="2GD-Dg-dv2"/>
                                 </connections>
                             </tableView>
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vbw-Uh-nEq">
+                                <rect key="frame" x="0.0" y="407" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="取消" id="RfO-n8-s9L">
+                                        <connections>
+                                            <action selector="cancel:" destination="Bw0-wo-7uR" id="BYV-zf-IHd"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="rQA-gk-Bt7"/>
+                                    <barButtonItem title="确认" id="6ah-1J-tAs">
+                                        <connections>
+                                            <action selector="Done:" destination="Bw0-wo-7uR" id="Jjt-h6-Dmp"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="c86-Mv-f5l">
+                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="525508439.93069798">
+                                    <!--2017-08-27 06:33:59 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="zh"/>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="KoC-Yh-UdE" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="1Rz-D2-r3t"/>
                             <constraint firstAttribute="trailing" secondItem="mpx-f6-d6u" secondAttribute="trailing" id="9ca-oP-t2R"/>
                             <constraint firstItem="KoC-Yh-UdE" firstAttribute="top" secondItem="OxG-dU-LfM" secondAttribute="top" id="Anx-C1-edH"/>
+                            <constraint firstItem="c86-Mv-f5l" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="DgQ-Z7-IOU"/>
+                            <constraint firstItem="c86-Mv-f5l" firstAttribute="top" secondItem="Vbw-Uh-nEq" secondAttribute="bottom" id="KhQ-aC-NCG"/>
+                            <constraint firstItem="Vbw-Uh-nEq" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="M6r-ZE-iCW"/>
+                            <constraint firstAttribute="trailing" secondItem="Vbw-Uh-nEq" secondAttribute="trailing" id="PE4-wx-Qsn"/>
+                            <constraint firstItem="aRo-fl-i6G" firstAttribute="top" secondItem="c86-Mv-f5l" secondAttribute="bottom" id="UfB-xo-rhO"/>
                             <constraint firstAttribute="trailing" secondItem="KoC-Yh-UdE" secondAttribute="trailing" id="X0z-D9-FMD"/>
+                            <constraint firstAttribute="trailing" secondItem="c86-Mv-f5l" secondAttribute="trailing" id="bfZ-PE-kxx"/>
                             <constraint firstItem="mpx-f6-d6u" firstAttribute="top" secondItem="KoC-Yh-UdE" secondAttribute="bottom" id="ckQ-9T-cZc"/>
                             <constraint firstItem="mpx-f6-d6u" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="qZA-dG-j1x"/>
                             <constraint firstAttribute="bottom" secondItem="mpx-f6-d6u" secondAttribute="bottom" id="spk-8t-i2i"/>
@@ -225,8 +254,10 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="HotelTableView" destination="mpx-f6-d6u" id="qn9-UQ-DZd"/>
+                        <outlet property="Toolbar" destination="Vbw-Uh-nEq" id="bvP-cf-ab9"/>
                         <outlet property="cityBtn" destination="06Z-ZS-hnE" id="eBr-T5-nrG"/>
                         <outlet property="headerView" destination="QQZ-yw-f7E" id="G2T-Rd-vNL"/>
+                        <outlet property="picker" destination="c86-Mv-f5l" id="vVJ-s0-y5w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBU-81-kOr" userLabel="First Responder" sceneMemberID="firstResponder"/>
