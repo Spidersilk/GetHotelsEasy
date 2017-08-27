@@ -18,6 +18,7 @@
     NSInteger page;//页码
 }
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *HotelTableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *cityBtn;
@@ -28,6 +29,10 @@
 @property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) NSMutableArray *arr;
 @property (strong, nonatomic) NSMutableArray *imageArray;
+@property (weak, nonatomic) IBOutlet UIToolbar *Toolbar;
+- (IBAction)cancel:(UIBarButtonItem *)sender;
+- (IBAction)Done:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet UIDatePicker *picker;
 @end
 
 @implementation HotelViewController
@@ -35,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     firstVisit = YES;
+    _headerView.frame=CGRectMake(0, 0, UI_SCREEN_W, 165);
     _arr = [NSMutableArray new];
     _imageArray = [NSMutableArray new];
     [self uilayout];//签署协议
@@ -59,6 +65,9 @@
         
     
 }
+
+
+#pragma mack - 计算两地距离
 -(NSString*)distanceBetweenOrderBy:(double) lat1 :(double) lat2 :(double) lng1 :(double) lng2{
     
     CLLocation *curLocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lng1];
@@ -76,16 +85,16 @@
 //执行网络请求
 - (void)networkRequest {
     page = 10;
-    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"page" : @1, @"startId" :@1 , @"priceId":@0,@"sortingId" :@0 ,@"inTime" :@1 ,@"outTime" : @1,};
+    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"pageNum" : @1,@"pageSize":@10, @"startId" :@1 , @"priceId":@1,@"sortingId" :@1 ,@"inTime" :@"2017-01-05" ,@"outTime" : @"2017-05-06",@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
-    [RequestAPI requestURL:@"/findHotelByCity" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         //成功以后要做的事情
         NSLog(@"responseObject = %@",responseObject);
  //       [self endAnimation];
         if ([responseObject[@"result"] integerValue] == 1) {
             //业务逻辑成功的情况下
             NSDictionary *content = responseObject[@"content"];
-            NSArray *hotel = content[@"hotel"];
+            NSArray *list = content[@"hotel"][@"list"];
             NSArray *advertising = content[@"advertising"];
             for (NSDictionary * dict in advertising){
                 [_imageArray addObject: dict[@"ad_img"]];
@@ -97,7 +106,7 @@
 //                [_arr removeAllObjects];
 //            }
 //            
-            for (NSDictionary *dict in hotel) {
+            for (NSDictionary *dict in list) {
                 //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
                 detailModel *detailmodel = [[detailModel alloc] initWhitDictionary:dict];
                 //将上述实例化好的ActivityModel对象插入_arr数组中
@@ -129,7 +138,7 @@
     //获取要显示的位置
     CGRect screenFrame = [[UIScreen mainScreen] bounds];
     
-    CGRect frame = CGRectMake(0, 100, UI_SCREEN_W, 165);
+    CGRect frame = CGRectMake(0, 0, UI_SCREEN_W, 165);
     
     
     
@@ -138,13 +147,13 @@
     imageViewDisplay.imageViewArray = imageArray;
     imageViewDisplay.scrollInterval = 3;
     imageViewDisplay.animationInterVale = 0.7;
-    [self.view addSubview:imageViewDisplay];
+    [self.headerView addSubview:imageViewDisplay];
     
-    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
-        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
-        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alter show];
-    }];
+//    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
+//        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
+//        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alter show];
+//    }];
     
 }
 #pragma mack - 地图定位
@@ -301,6 +310,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _arr.count;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -323,6 +333,7 @@
 
     
 }
+
 //当某一个页面跳转行为将要发生的时候
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"HotelToOrder"]) {
@@ -336,7 +347,105 @@
         //detailVC.activity = activity;
     }
 }
+#pragma mack - 选项卡
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    // 创建包含标题标签的父视图
+    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320, 20.0)];
+    UIImageView *bg = [[UIImageView alloc]initWithFrame:customView.frame];
+    bg.image = [UIImage imageNamed:@"carTypeCellTitleBg1.png"];
+    [customView addSubview:bg];
+    // 创建按钮对象
+    UIButton *Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 30)];
+    [Btn1 setTitle:@"入住03-24" forState:UIControlStateNormal];
+    [Btn1.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [Btn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    Btn1.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [Btn1.layer setBorderWidth:0.3];//设置边框
+    Btn1.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件1
+    [Btn1 addTarget:self action:@selector(Btn1Action) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4, 0, UI_SCREEN_W/4, 30)];
+    [Btn2 setTitle:@"离店03-28" forState:UIControlStateNormal];
+    [Btn2.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [Btn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    Btn2.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [Btn2.layer setBorderWidth:0.3];//设置边框
+    Btn2.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件2
+    [Btn2 addTarget:self action:@selector(Btn2Action) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*2, 0, UI_SCREEN_W/4, 30)];
+    [Btn3 setTitle:@"智能排序" forState:UIControlStateNormal];
+    [Btn3.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [Btn3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    Btn3.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [Btn3.layer setBorderWidth:0.3];//设置边框
+    Btn3.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件3
+    [Btn3 addTarget:self action:@selector(Btn3Action) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *Btn4 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*3, 0, UI_SCREEN_W/4, 30)];
+    [Btn4 setTitle:@"筛选" forState:UIControlStateNormal];
+    [Btn4.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [Btn4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    Btn4.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [Btn4.layer setBorderWidth:0.3];//设置边框
+    Btn4.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件3
+    [Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
+   
+    
+    
+    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor colorWithRed:242.0/255.0f green:161.0/255.0f blue:4.0/255.0 alpha:1.0];
+    headerLabel.highlightedTextColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont italicSystemFontOfSize:15];
+    headerLabel.frame = customView.frame;
+    // 如果你想对齐标题文本以居中对齐
+    // headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
+    // headerLabel.text = <:Put display to want you whatever here>// i.e. array element
+    headerLabel.text = @"title";
+    [customView addSubview:Btn1];
+    [customView addSubview:Btn2];
+    [customView addSubview:Btn3];
+    [customView addSubview:Btn4];
+    //[customView addSubview:headerLabel];
+    return customView;
+
+}
+- (void)Btn1Action{
+    NSLog(@"Btn1被按了");
+    _picker.hidden = NO;
+    _Toolbar.hidden = NO;
+}
+- (void)Btn2Action{
+    NSLog(@"Btn2被按了");
+    _picker.hidden = NO;
+    _Toolbar.hidden = NO;
+
+}
+- (void)Btn3Action{
+    NSLog(@"Btn3被按了");
+}
+- (void)Btn4Action{
+    NSLog(@"Btn4被按了");
+}
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30.0;
+}
 
 - (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+- (IBAction)cancel:(UIBarButtonItem *)sender {
+    _picker.hidden = YES;
+    _Toolbar.hidden = YES;
+}
+
+- (IBAction)Done:(UIBarButtonItem *)sender {
+    _picker.hidden = YES;
+    _Toolbar.hidden = YES;
 }
 @end

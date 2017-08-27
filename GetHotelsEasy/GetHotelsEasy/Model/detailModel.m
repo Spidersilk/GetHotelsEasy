@@ -35,7 +35,7 @@
         _start_time = [[Utilities nullAndNilCheck:dict[@"ctime"] replaceBy:0] integerValue];
         _out_time = [[Utilities nullAndNilCheck:dict[@"ctime"] replaceBy:0] integerValue];
         _room_img = [Utilities nullAndNilCheck:dict[@"room_img"] replaceBy:@""];
-        _hotel_facilitys = [Utilities nullAndNilCheck:dict[@"hotel_facilitys"] replaceBy:@[]];
+        _hotel_facility = [Utilities nullAndNilCheck:dict[@"hotel_facility"] replaceBy:@""];
         _hotel_type = [Utilities nullAndNilCheck:dict[@"hotel_type"] replaceBy:@[]];
         if([dict[@"is_pet"] isKindOfClass:[NSNull class]]){
             _is_pet = @"";
