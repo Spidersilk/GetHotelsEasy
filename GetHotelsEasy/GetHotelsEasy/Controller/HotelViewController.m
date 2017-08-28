@@ -13,9 +13,12 @@
 #import "ZLImageViewDisplayView.h"
 #import "detailModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-@interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate>{
+#import "HotelCollectionViewCell.h"
+
+@interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>{
     BOOL firstVisit;
     NSInteger page;//页码
+    NSInteger flag;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -32,7 +35,14 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *Toolbar;
 - (IBAction)cancel:(UIBarButtonItem *)sender;
 - (IBAction)Done:(UIBarButtonItem *)sender;
-@property (weak, nonatomic) IBOutlet UIDatePicker *picker;
+@property (strong, nonatomic) IBOutlet UIDatePicker *picker;
+@property (strong, nonatomic) UIButton *Btn1;
+@property (strong, nonatomic) UIButton *Btn2;
+@property (strong, nonatomic) UIButton *Btn3;
+@property (strong, nonatomic) UIButton *Btn4;
+
+@property (strong, nonatomic) UICollectionView *collectionView;
+
 @end
 
 @implementation HotelViewController
@@ -48,7 +58,13 @@
     // Do any additional setup after loading the view.
     [self locationStart];//这个方法处理开始定位
     [self networkRequest];
+    _picker.backgroundColor = UIColorFromRGB(235, 235, 241);
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
     
+    //_collectionView = [UICollectionView new];
+    //_collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 30, UI_SCREEN_W/4, 80)];
+
     
     
 }
@@ -355,45 +371,45 @@
     bg.image = [UIImage imageNamed:@"carTypeCellTitleBg1.png"];
     [customView addSubview:bg];
     // 创建按钮对象
-    UIButton *Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 30)];
-    [Btn1 setTitle:@"入住03-24" forState:UIControlStateNormal];
-    [Btn1.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [Btn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    Btn1.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [Btn1.layer setBorderWidth:0.3];//设置边框
-    Btn1.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    _Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 30)];
+    [_Btn1 setTitle:@"入住03-24" forState:UIControlStateNormal];
+    [_Btn1.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn1.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn1.layer setBorderWidth:0.3];//设置边框
+    _Btn1.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件1
-    [Btn1 addTarget:self action:@selector(Btn1Action) forControlEvents:UIControlEventTouchUpInside];
+    [_Btn1 addTarget:self action:@selector(Btn1Action) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4, 0, UI_SCREEN_W/4, 30)];
-    [Btn2 setTitle:@"离店03-28" forState:UIControlStateNormal];
-    [Btn2.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [Btn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    Btn2.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [Btn2.layer setBorderWidth:0.3];//设置边框
-    Btn2.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    _Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4, 0, UI_SCREEN_W/4, 30)];
+    [_Btn2 setTitle:@"离店03-28" forState:UIControlStateNormal];
+    [_Btn2.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn2.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn2.layer setBorderWidth:0.3];//设置边框
+    _Btn2.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件2
-    [Btn2 addTarget:self action:@selector(Btn2Action) forControlEvents:UIControlEventTouchUpInside];
+    [_Btn2 addTarget:self action:@selector(Btn2Action) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*2, 0, UI_SCREEN_W/4, 30)];
-    [Btn3 setTitle:@"智能排序" forState:UIControlStateNormal];
-    [Btn3.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [Btn3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    Btn3.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [Btn3.layer setBorderWidth:0.3];//设置边框
-    Btn3.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    _Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*2, 0, UI_SCREEN_W/4, 30)];
+    [_Btn3 setTitle:@"智能排序" forState:UIControlStateNormal];
+    [_Btn3.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn3.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn3.layer setBorderWidth:0.3];//设置边框
+    _Btn3.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件3
-    [Btn3 addTarget:self action:@selector(Btn3Action) forControlEvents:UIControlEventTouchUpInside];
+    [_Btn3 addTarget:self action:@selector(Btn3Action) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *Btn4 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*3, 0, UI_SCREEN_W/4, 30)];
-    [Btn4 setTitle:@"筛选" forState:UIControlStateNormal];
-    [Btn4.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [Btn4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    Btn4.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [Btn4.layer setBorderWidth:0.3];//设置边框
-    Btn4.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    _Btn4 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*3, 0, UI_SCREEN_W/4, 30)];
+    [_Btn4 setTitle:@"筛选" forState:UIControlStateNormal];
+    [_Btn4.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn4.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn4.layer setBorderWidth:0.3];//设置边框
+    _Btn4.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件3
-    [Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
+    [_Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
    
     
     
@@ -408,27 +424,47 @@
     // headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
     // headerLabel.text = <:Put display to want you whatever here>// i.e. array element
     headerLabel.text = @"title";
-    [customView addSubview:Btn1];
-    [customView addSubview:Btn2];
-    [customView addSubview:Btn3];
-    [customView addSubview:Btn4];
+    [customView addSubview:_Btn1];
+    [customView addSubview:_Btn2];
+    [customView addSubview:_Btn3];
+    [customView addSubview:_Btn4];
     //[customView addSubview:headerLabel];
     return customView;
 
 }
+//- (UIButton*)createBtn: (NSString*)btn :(NSString*)btnTitle: (CGFloat) btnFrame: (NSString*)btnAction{
+//    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnFrame, 0, UI_SCREEN_W/4, 30)];
+//    [btn setTitle:btnTitle forState:UIControlStateNormal];
+//    [btn.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+//    [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//    btn.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+//    [btn.layer setBorderWidth:0.3];//设置边框
+//    btn.layer.borderColor=[UIColor lightGrayColor].CGColor;
+//    //添加事件3
+//    [btn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
+//    return btn;
+//}
 - (void)Btn1Action{
     NSLog(@"Btn1被按了");
+    
+    //_picker.maximumDate = [NSDate dateTomorrow];//设置datePicker的最小时间
+    flag = 0;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
 }
 - (void)Btn2Action{
     NSLog(@"Btn2被按了");
+    //_picker.minimumDate = [NSDate dateTomorrow];//设置datePicker的最小时间
+    flag = 1;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
 
 }
 - (void)Btn3Action{
+    [self collectionViewInitialize];
+    [self.HotelTableView addSubview:_collectionView];
     NSLog(@"Btn3被按了");
+    //UICollectionView *collectionView =
 }
 - (void)Btn4Action{
     NSLog(@"Btn4被按了");
@@ -445,7 +481,164 @@
 }
 
 - (IBAction)Done:(UIBarButtonItem *)sender {
+    //拿到当前datepicker选择的时间
+    NSDate *date = _picker.date;
+    //初始化一个日期格式器
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    //定义日期的格式为yyyy-MM-dd
+    formatter.dateFormat = @"MM-dd";
+    //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
+    NSString *theDate = [formatter stringFromDate:date];
+    NSString *str = [NSString stringWithFormat:@"入住%@",theDate];
+    
+    if (flag == 0) {
+        [_Btn1 setTitle:str forState:UIControlStateNormal];
+    }else{
+        [_Btn2 setTitle:str forState:UIControlStateNormal];
+    }
+    
     _picker.hidden = YES;
     _Toolbar.hidden = YES;
 }
+#pragma mack - collectionView
+
+////多少组
+//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+//    return 4;
+//}
+////每组有多少items
+//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+//    return 6;
+//}
+////细胞长什么样
+//- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+//    HotelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+//    [cell.Btn setTitle:@"haha" forState:UIControlStateNormal] ;
+//    //未选中时细胞的背景试图
+//    UIView *bgView = [UIView new];
+//    bgView.backgroundColor = [UIColor blueColor];
+//    cell.backgroundView = bgView;
+//    //选中时细胞的背景试图
+//    UIView *bV = [UIView new];
+//    bV.backgroundColor = [UIColor redColor];
+//    cell.selectedBackgroundView = bV;
+//    return cell;
+//}
+- (void)collectionViewInitialize{
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    //1.初始化layout
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    //设置collectionView滚动方向
+    //    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    //设置headerView的尺寸大小
+    //layout.headerReferenceSize = CGSizeMake(self.view.frame.size.width, 200);
+    //该方法也可以设置itemSize
+    layout.itemSize =CGSizeMake(UI_SCREEN_W, 300);
+    
+    //2.初始化collectionView
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    _collectionView.bounds = CGRectMake(0, 295, UI_SCREEN_W, 200);
+    [_HotelTableView addSubview:_collectionView];
+    _collectionView.backgroundColor = [UIColor whiteColor];
+    
+    //3.注册collectionViewCell
+    //注意，此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致 均为 cellId
+    [_collectionView registerClass:[HotelCollectionViewCell class] forCellWithReuseIdentifier:@"cellId"];
+    
+    //注册headerView  此处的ReuseIdentifier 必须和 cellForItemAtIndexPath 方法中 一致  均为reusableView
+    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
+    
+    //4.设置代理
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+}
+//多少组
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 2;
+}
+
+//每个section的item个数
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 4;
+
+    }else{
+        return 6;
+    }
+    
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    HotelCollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"cellId" forIndexPath:indexPath];
+    
+    cell.botlabel.text = [NSString stringWithFormat:@"{%ld,%ld}",(long)indexPath.section,(long)indexPath.row];
+    
+    cell.backgroundColor = [UIColor yellowColor];
+    
+    return cell;
+}
+
+//每个细胞的尺寸
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CGFloat x = self.view.frame.size.width-40;
+    CGFloat space = self.view.frame.size.width / 200;
+    return CGSizeMake(( x-  space* 3) / 4, (x-  space* 3) / 4);
+}
+//行间距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return  self.view.frame.size.width / 200;
+}
+//细胞的横向间距（列间距）
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return self.view.frame.size.height / 500;
+}
+//点击item方法
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    HotelCollectionViewCell *cell = (HotelCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    NSString *msg = cell.botlabel.text;
+    NSLog(@"%@",msg);
+    _collectionView.hidden = YES;
+}
+
+
+//footer的size
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+//{
+//    return CGSizeMake(10, 10);
+//}
+
+//header的size
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+//{
+//    return CGSizeMake(10, 10);
+//}
+
+////设置每个item的UIEdgeInsets
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    return UIEdgeInsetsMake(10, 10, 10, 10);
+//}
+
+////通过设置SupplementaryViewOfKind 来设置头部或者底部的view，其中 ReuseIdentifier 的值必须和 注册是填写的一致，本例都为 “reusableView”
+//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+//{
+//    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView" forIndexPath:indexPath];
+//    headerView.backgroundColor =[UIColor grayColor];
+//    UILabel *label = [[UILabel alloc] initWithFrame:headerView.bounds];
+//    label.text = @"这是collectionView的头部";
+//    label.font = [UIFont systemFontOfSize:20];
+//    [headerView addSubview:label];
+//    return headerView;
+//}
+
+
+
+
 @end
