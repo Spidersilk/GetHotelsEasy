@@ -35,8 +35,8 @@
         _start_time = [dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"start_time"] integerValue];
         _out_time = [dict[@"out_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"out_time"] integerValue];
         _room_img = [Utilities nullAndNilCheck:dict[@"room_img"] replaceBy:@""];
-        _hotel_facility = [Utilities nullAndNilCheck:dict[@"hotel_facility"] replaceBy:@""];
-        _hotel_type = [Utilities nullAndNilCheck:dict[@"hotel_type"] replaceBy:@""];
+        _hotel_facilitys = [Utilities nullAndNilCheck:dict[@"hotel_facilitys"] replaceBy:@""];
+        _hotel_types = [Utilities nullAndNilCheck:dict[@"hotel_types"] replaceBy:@""];
         _remark = [Utilities nullAndNilCheck:dict[@"remark"] replaceBy:@""];
         _hotel_imgs = [Utilities nullAndNilCheck:dict[@"_hotel_imgs"] replaceBy:@""];
         if([dict[@"is_pet"] isKindOfClass:[NSNull class]]){

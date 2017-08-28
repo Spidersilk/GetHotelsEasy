@@ -20,8 +20,8 @@
 @property (nonatomic) NSInteger latitude;//纬度
 @property (nonatomic) NSInteger hotelID; //酒店id
 @property (strong, nonatomic) NSString *is_pet;//宠物
-@property (strong, nonatomic) NSString *hotel_facility;//酒店设施
-@property (strong, nonatomic) NSString *hotel_type;//房间类型
+@property (strong, nonatomic) NSString *hotel_facilitys;//酒店设施
+@property (strong, nonatomic) NSString *hotel_types;//房间类型
 @property (strong, nonatomic) NSString *remark;
 @property (strong, nonatomic) NSString *hotel_imgs;
 - (id) initWhitDictionary: (NSDictionary *)dict;

@@ -62,21 +62,22 @@
     [self naviConfing];
     [self setDefaultDateForButton];
     [self request];
-    
+    [self addZLImageViewDisPlayView];
+    _hotelImage.image = [UIImage imageNamed:@"hotel"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void) addZLImageViewDisPlayView: (NSArray *)imageArray{
+-(void) addZLImageViewDisPlayView{
     
     //获取要显示的位置
     CGRect screenFrame = [[UIScreen mainScreen] bounds];
     
     CGRect frame = CGRectMake(0, 64, screenFrame.size.width, 207);
     
-    //NSArray *imageArray = @[@"str"];
+    NSArray *imageArray = @[@"hotelname",@"hotelname1",@"hotelname2"];
     
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
@@ -177,35 +178,74 @@
             NSDictionary *content = responseObject[@"content"];
             detailModel *detailMd = [[detailModel alloc] initWiihDetailDictionary:content];
             _HotelNameLabel.text = detailMd.hotel_name;
-            for(NSString *hotelImags in content[@"hotel_imgs"])
+            /*for(NSString *hotelImags in content[@"hotel_imgs"])
             {
                 NSLog(@"hotelImags = %@",hotelImags);
                 [_imageArray addObject:hotelImags];
-            }
-            [self addZLImageViewDisPlayView:_imageArray];
+            }*/
+            //[self addZLImageViewDisPlayView:_imageArray];
             _priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)detailMd.price];
             _addressLabel.text = detailMd.hotel_address;
             //NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
-            [_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hotel_img] placeholderImage:[UIImage imageNamed:@"hotel"]];
-            NSLog(@"%@",detailMd.hotel_img);
-            NSArray *arrayFacility = [detailMd.hotel_facility componentsSeparatedByString:@","];
+            //[_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hotel_img] placeholderImage:[UIImage imageNamed:@"hotel"]];
+            /*NSLog(@"%@",detailMd.hotel_img);
+            NSArray *arrayFacility = [detailMd.hotel_facilitys componentsSeparatedByString:@","];
             _parkLotLabel.text = arrayFacility[0];
             _pickUpLabel.text = arrayFacility[1];
             _gymLabel.text = arrayFacility[2];
-            _toiletriesLabel.text = arrayFacility[3];
-            NSArray *arrayType = [detailMd.hotel_type componentsSeparatedByString:@","];
-            _bedTypeLabel.text = arrayType[0];
-            _breakfastLabel.text = arrayType[1];
-            _bedLabel.text = arrayType[2];
-            _bedSizeLabel.text = arrayType[3];
+            _toiletriesLabel.text = arrayFacility[3];*/
+            NSArray *hotel_facilities = content[@"hotel_facilities"];
+            for(NSInteger i = 0 ; i < hotel_facilities.count ; i ++){
+                NSString *string = hotel_facilities[i];
+                if (i == 0){
+                    _priceLabel.text = string;
+                }if(i == 1){
+                    _pickUpLabel.text = string;
+                }if(i == 2){
+                    _gymLabel.text = string;
+                }if(i == 3){
+                    _toiletriesLabel.text = string;
+                }if(i == 4){
+                    _luggageLabel.text = string;
+                }if(i == 5){
+                    _wifiLabel.text = string;
+                }if(i == 6){
+                    _diningLabel.text = string;
+                }if(i == 7){
+                    _wakeUpLabel.text = string;
+                }
+            }
+            NSArray *arrayType = content[@"hotel_types"];
+            for(NSInteger i = 0 ; i < arrayType.count ; i++){
+                NSString *string = arrayType[i];
+                if(i == 0){
+                    _bedTypeLabel.text = string;
+                }
+                if(i == 1){
+                    _breakfastLabel.text = string;
+                }
+                if(i == 2){
+                    _bedLabel.text = string;
+                }
+                if(i == 3){
+                    _bedSizeLabel.text = string;
+                }
+            }
             //NSLog(@"hotel_facility = %@",arrayType[0]);
             //_bedLabel.text = strFacility[2];
-            NSArray *arrayRemark = [detailMd.remark componentsSeparatedByString:@","];
+            NSArray *remark = content[@"remarks"];
+            for(NSInteger j = 0 ; j < remark.count ; j ++){
+                NSString *rem = remark[j];
+                NSLog(@"rem = %@",rem);
+                if(j==0){
+                    _firstLabel.text = rem;
+                }if(j==1){
+                    _secondLabel.text = rem;
+                }
+            }
             //NSString *startTimeStr = [Utilities dateStrFromCstampTime:detailMd.start_time withDateFormat:@"yyyy-MM-dd"];
             //NSLog(@"yjjftfytty%f",detailMd.start_time);
             //NSString *outTimeStr = [Utilities dateStrFromCstampTime:detailMd.out_time withDateFormat:@"yyyy-MM-dd"];
-            _firstLabel.text = arrayRemark[0];
-            _secondLabel.text = arrayRemark[1];
             //[_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hot] placeholderImage:[UIImage imageNamed:@"png2"]];
         }else{
             [_avi stopAnimating];
