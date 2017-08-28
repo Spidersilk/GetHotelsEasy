@@ -49,7 +49,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 - (IBAction)canceAction:(UIBarButtonItem *)sender;
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
-
+@property (strong, nonatomic) NSMutableArray *imageArray;
 @end
 
 @implementation HotelOrdelViewController
@@ -58,24 +58,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _strFacility = [NSMutableArray new];
+    _imageArray = [NSMutableArray new];
     [self naviConfing];
     [self setDefaultDateForButton];
     [self request];
-    [self addZLImageViewDisPlayView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void) addZLImageViewDisPlayView{
+-(void) addZLImageViewDisPlayView: (NSArray *)imageArray{
     
     //获取要显示的位置
     CGRect screenFrame = [[UIScreen mainScreen] bounds];
     
     CGRect frame = CGRectMake(0, 64, screenFrame.size.width, 207);
     
-    NSArray *imageArray = @[@"str"];
+    //NSArray *imageArray = @[@"str"];
     
     //初始化控件
     ZLImageViewDisplayView *imageViewDisplay = [ZLImageViewDisplayView zlImageViewDisplayViewWithFrame:frame];
@@ -96,7 +97,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    
 }
 - (void)setDefaultDateForButton{
     //初始化日期格式器
@@ -154,7 +154,7 @@
 */
 #pragma mark - request
 - (void)request{
-    _avi = [UIActivityIndicatorView new];
+    _avi = [Utilities getCoverOnView:self.view];
     //开始日期
     NSTimeInterval startTime = [Utilities cTimestampFromString:_firstDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
     //结束日期
@@ -168,7 +168,7 @@
         [Utilities popUpAlertViewWithMsg:@"请正确设置开始日期和结束日期" andTitle:@"提示" onView:self onCompletion:^{
         }];
     }else{
-    NSDictionary *para = @{@"id" : @10};
+    NSDictionary *para = @{@"id" : @1};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"responseObjectOrder = %@",responseObject);
@@ -177,10 +177,16 @@
             NSDictionary *content = responseObject[@"content"];
             detailModel *detailMd = [[detailModel alloc] initWiihDetailDictionary:content];
             _HotelNameLabel.text = detailMd.hotel_name;
+            for(NSString *hotelImags in content[@"hotel_imgs"])
+            {
+                NSLog(@"hotelImags = %@",hotelImags);
+                [_imageArray addObject:hotelImags];
+            }
+            [self addZLImageViewDisPlayView:_imageArray];
             _priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)detailMd.price];
             _addressLabel.text = detailMd.hotel_address;
             //NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
-            [_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hotel_img] placeholderImage:[UIImage imageNamed:@"酒店大"]];
+            [_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hotel_img] placeholderImage:[UIImage imageNamed:@"hotel"]];
             NSLog(@"%@",detailMd.hotel_img);
             NSArray *arrayFacility = [detailMd.hotel_facility componentsSeparatedByString:@","];
             _parkLotLabel.text = arrayFacility[0];

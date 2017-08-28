@@ -29,7 +29,7 @@
     if (self){
         _hotelID = [[Utilities nullAndNilCheck:@"id" replaceBy:0] integerValue];
         _price = [[Utilities nullAndNilCheck:dict[@"price"] replaceBy:0]integerValue];
-        self.hotel_img = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];
+        self.hotel_img = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@"hotel"];
         self.hotel_name = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@""];
         _hotel_address = [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@""];
         _start_time = [dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"start_time"] integerValue];
@@ -38,6 +38,7 @@
         _hotel_facility = [Utilities nullAndNilCheck:dict[@"hotel_facility"] replaceBy:@""];
         _hotel_type = [Utilities nullAndNilCheck:dict[@"hotel_type"] replaceBy:@""];
         _remark = [Utilities nullAndNilCheck:dict[@"remark"] replaceBy:@""];
+        _hotel_imgs = [Utilities nullAndNilCheck:dict[@"_hotel_imgs"] replaceBy:@""];
         if([dict[@"is_pet"] isKindOfClass:[NSNull class]]){
             _is_pet = @"";
         }else{

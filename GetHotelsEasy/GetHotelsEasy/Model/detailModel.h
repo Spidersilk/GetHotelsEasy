@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *hotel_facility;//酒店设施
 @property (strong, nonatomic) NSString *hotel_type;//房间类型
 @property (strong, nonatomic) NSString *remark;
+@property (strong, nonatomic) NSString *hotel_imgs;
 - (id) initWhitDictionary: (NSDictionary *)dict;
 - (instancetype) initWiihDetailDictionary: (NSDictionary *)dict;
 @end
