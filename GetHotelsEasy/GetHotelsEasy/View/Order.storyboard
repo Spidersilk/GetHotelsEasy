@@ -540,13 +540,13 @@
         <!--Purchase Table View Controller-->
         <scene sceneID="ve1-E5-UZ4">
             <objects>
-                <tableViewController storyboardIdentifier="Purchase" id="tib-LF-hkt" customClass="PurchaseTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Purchase" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tib-LF-hkt" customClass="PurchaseTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bdP-Ng-mLP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="vgX-uc-E98">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="酒店名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBJ-bs-GDs">
@@ -588,7 +588,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="payCell" textLabel="SBv-pf-AEk" style="IBUITableViewCellStyleDefault" id="1YL-py-s6m">
-                                <rect key="frame" x="0.0" y="205" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="177" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1YL-py-s6m" id="eYA-bK-6Lb">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -612,15 +612,15 @@
                     </tableView>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="dateInLbl" destination="nTd-XT-xZ7" id="YzS-sf-Liq"/>
-                        <outlet property="dateOutLbl" destination="1nt-rB-bS9" id="tp8-AZ-HWg"/>
-                        <outlet property="hotelName" destination="YBJ-bs-GDs" id="ydU-nK-jTa"/>
-                        <outlet property="priceLbl" destination="zXz-0y-YLn" id="kI8-fn-0xt"/>
+                        <outlet property="hotelNameLabel" destination="YBJ-bs-GDs" id="52a-Xf-eXG"/>
+                        <outlet property="inDateLabel" destination="nTd-XT-xZ7" id="2Km-Jd-bir"/>
+                        <outlet property="outDateLabel" destination="1nt-rB-bS9" id="qok-5F-XIh"/>
+                        <outlet property="priceLabel" destination="zXz-0y-YLn" id="zx6-bM-Uw7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZd-v8-fFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5151" y="63"/>
+            <point key="canvasLocation" x="5149.6000000000004" y="62.518740629685162"/>
         </scene>
     </scenes>
     <resources>

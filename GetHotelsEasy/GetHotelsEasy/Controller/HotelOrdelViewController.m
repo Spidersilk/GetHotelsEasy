@@ -280,9 +280,16 @@
 }
 
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    if([Utilities loginCheck]){
         PurchaseTableViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"Purchase"];
         purchaseVC.detail = _detail;
         [self.navigationController pushViewController:purchaseVC animated:YES];
+    }else{
+        //获取要跳转过去的那个页面
+        UINavigationController *signNavi = [Utilities getStoryboardInstance:@"Main" byIdentity:@"SignNavi"];
+        //执行跳转
+        [self presentViewController:signNavi animated:YES completion:nil];
+    }
 }
 - (IBAction)canceAction:(UIBarButtonItem *)sender {
     _toolBar.hidden = YES;
