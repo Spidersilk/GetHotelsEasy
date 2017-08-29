@@ -7,9 +7,9 @@
 //
 
 #import "HotelOrdelViewController.h"
-#import "detailModel.h"
 #import "ZLImageViewDisplayView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "PurchaseTableViewController.h"
 @interface HotelOrdelViewController (){
     NSInteger flag;
 }
@@ -49,6 +49,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 - (IBAction)canceAction:(UIBarButtonItem *)sender;
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet UILabel *is_petLabel;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 @end
 
@@ -63,7 +64,6 @@
     [self setDefaultDateForButton];
     [self request];
     [self addZLImageViewDisPlayView];
-    _hotelImage.image = [UIImage imageNamed:@"hotel"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -176,18 +176,18 @@
         if([responseObject[@"result"] integerValue] == 1)
         {
             NSDictionary *content = responseObject[@"content"];
-            detailModel *detailMd = [[detailModel alloc] initWiihDetailDictionary:content];
-            _HotelNameLabel.text = detailMd.hotel_name;
+            _detail = [[detailModel alloc] initWiihDetailDictionary:content];
+            _HotelNameLabel.text = _detail.hotel_name;
             /*for(NSString *hotelImags in content[@"hotel_imgs"])
             {
                 NSLog(@"hotelImags = %@",hotelImags);
                 [_imageArray addObject:hotelImags];
             }*/
             //[self addZLImageViewDisPlayView:_imageArray];
-            _priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)detailMd.price];
-            _addressLabel.text = detailMd.hotel_address;
+            _priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)_detail.price];
+            _addressLabel.text = _detail.hotel_address;
             //NSURL *URL = [NSURL URLWithString:detailMd.hotel_img];
-            //[_hotelImage sd_setImageWithURL:[NSURL URLWithString:detailMd.hotel_img] placeholderImage:[UIImage imageNamed:@"hotel"]];
+            [_hotelImage sd_setImageWithURL:[NSURL URLWithString:_detail.hotel_img] placeholderImage:[UIImage imageNamed:@"hotel123"]];
             /*NSLog(@"%@",detailMd.hotel_img);
             NSArray *arrayFacility = [detailMd.hotel_facilitys componentsSeparatedByString:@","];
             _parkLotLabel.text = arrayFacility[0];
@@ -198,7 +198,7 @@
             for(NSInteger i = 0 ; i < hotel_facilities.count ; i ++){
                 NSString *string = hotel_facilities[i];
                 if (i == 0){
-                    _priceLabel.text = string;
+                    _parkLotLabel.text = string;
                 }if(i == 1){
                     _pickUpLabel.text = string;
                 }if(i == 2){
@@ -243,6 +243,13 @@
                     _secondLabel.text = rem;
                 }
             }
+            _is_petLabel.text = _detail.is_pet;
+            /*if([detailMd.is_pet isEqualToString:@"0"])
+            {
+                _is_petLabel.text = @"不可携带宠物";
+            }else{
+                _is_petLabel.text = @"可携带宠物";
+            }*/
             //NSString *startTimeStr = [Utilities dateStrFromCstampTime:detailMd.start_time withDateFormat:@"yyyy-MM-dd"];
             //NSLog(@"yjjftfytty%f",detailMd.start_time);
             //NSString *outTimeStr = [Utilities dateStrFromCstampTime:detailMd.out_time withDateFormat:@"yyyy-MM-dd"];
@@ -273,6 +280,9 @@
 }
 
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
+        PurchaseTableViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"Purchase"];
+        purchaseVC.detail = _detail;
+        [self.navigationController pushViewController:purchaseVC animated:YES];
 }
 - (IBAction)canceAction:(UIBarButtonItem *)sender {
     _toolBar.hidden = YES;

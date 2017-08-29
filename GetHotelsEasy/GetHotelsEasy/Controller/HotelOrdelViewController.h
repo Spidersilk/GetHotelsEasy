@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "detailModel.h"
 @interface HotelOrdelViewController : UIViewController
-
+@property (strong, nonatomic) detailModel *detail;
 @end
