@@ -40,7 +40,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *diningLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wakeUpLabel;
 @property (strong, nonatomic) NSMutableArray *strFacility;
-- (IBAction)chatBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIView *viewDate;
+
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UILabel *firstLabel;
 @property (weak, nonatomic) IBOutlet UILabel *secondLabel;
@@ -268,11 +269,13 @@
 #pragma mark - datePicker
 - (IBAction)firstDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
     flag = 0;
+    _viewDate.hidden = NO;
     _toolBar.hidden = NO;
     _datePicker.hidden = NO;
 }
 - (IBAction)secondDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
     flag = 1;
+    _viewDate.hidden = NO;
     _toolBar.hidden = NO;
     _datePicker.hidden = NO;
 }
@@ -292,6 +295,7 @@
     }
 }
 - (IBAction)canceAction:(UIBarButtonItem *)sender {
+    _viewDate.hidden = YES;
     _toolBar.hidden = YES;
     _datePicker.hidden = YES;
 }
@@ -312,7 +316,7 @@
         [_secondDayBtn setTitle:theDate forState:UIControlStateNormal];
         [self request];
     }
-    
+    _viewDate.hidden = YES;
     _toolBar.hidden = YES;
     _datePicker.hidden = YES;
 }

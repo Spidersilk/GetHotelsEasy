@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fK-12-81S" userLabel="DetailView">
-                                <rect key="frame" x="0.0" y="163" width="375" height="464"/>
+                                <rect key="frame" x="0.0" y="163" width="375" height="504"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UE2-zh-18u">
                                         <rect key="frame" x="0.0" y="40" width="375" height="30"/>
@@ -386,6 +386,16 @@
                                             <constraint firstItem="xgX-fe-TIM" firstAttribute="centerY" secondItem="W1i-qv-1DV" secondAttribute="centerY" id="w6L-HS-PC2"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCa-N2-Yhn">
+                                        <rect key="frame" x="0.0" y="402" width="375" height="63"/>
+                                        <color key="backgroundColor" red="0.0026559780817478895" green="0.58648008108139038" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="购买">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buyBtnAction:forEvent:" destination="Wh8-Xl-Vpg" eventType="touchUpInside" id="48y-Qr-XUB"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
@@ -403,6 +413,7 @@
                                     <constraint firstItem="W1i-qv-1DV" firstAttribute="top" secondItem="8fK-12-81S" secondAttribute="top" id="HQ7-0i-sUZ"/>
                                     <constraint firstItem="pOA-RD-Brj" firstAttribute="leading" secondItem="8fK-12-81S" secondAttribute="leading" id="Iby-fl-hcH"/>
                                     <constraint firstItem="c9R-fT-FE5" firstAttribute="leading" secondItem="8fK-12-81S" secondAttribute="leading" id="IlJ-4e-Vk8"/>
+                                    <constraint firstAttribute="bottom" secondItem="mCa-N2-Yhn" secondAttribute="bottom" constant="27" id="KFU-IJ-bQi"/>
                                     <constraint firstAttribute="trailing" secondItem="ckC-Ke-V8P" secondAttribute="trailing" id="Po2-Tg-V5K"/>
                                     <constraint firstItem="h5v-VM-bgR" firstAttribute="top" secondItem="PFU-PB-LSP" secondAttribute="bottom" id="Q16-gB-hBt"/>
                                     <constraint firstAttribute="trailing" secondItem="PFU-PB-LSP" secondAttribute="trailing" id="RGs-qq-Lmg"/>
@@ -412,6 +423,7 @@
                                     <constraint firstItem="c9R-fT-FE5" firstAttribute="centerX" secondItem="8fK-12-81S" secondAttribute="centerX" id="Y8C-2q-u49"/>
                                     <constraint firstItem="ckC-Ke-V8P" firstAttribute="leading" secondItem="8fK-12-81S" secondAttribute="leading" id="aJ6-e2-lxi"/>
                                     <constraint firstItem="UE2-zh-18u" firstAttribute="leading" secondItem="8fK-12-81S" secondAttribute="leading" id="bBM-ki-iOI"/>
+                                    <constraint firstItem="mCa-N2-Yhn" firstAttribute="leading" secondItem="8fK-12-81S" secondAttribute="leading" id="cZs-ii-p7f"/>
                                     <constraint firstItem="Ybf-EH-jAH" firstAttribute="top" secondItem="UE2-zh-18u" secondAttribute="bottom" constant="5" id="dgX-c8-aaA"/>
                                     <constraint firstAttribute="trailing" secondItem="h5v-VM-bgR" secondAttribute="trailing" id="e8y-vM-4Yr"/>
                                     <constraint firstItem="Kze-Xh-pnA" firstAttribute="leading" secondItem="8fK-12-81S" secondAttribute="leading" id="gdE-NQ-aOR"/>
@@ -419,48 +431,16 @@
                                     <constraint firstItem="c9R-fT-FE5" firstAttribute="top" secondItem="ckC-Ke-V8P" secondAttribute="bottom" id="h6T-Y5-EHr"/>
                                     <constraint firstAttribute="trailing" secondItem="W1i-qv-1DV" secondAttribute="trailing" id="lM3-7e-sRI"/>
                                     <constraint firstItem="PFU-PB-LSP" firstAttribute="leading" secondItem="8fK-12-81S" secondAttribute="leading" id="qxh-Pr-iLA"/>
+                                    <constraint firstItem="mCa-N2-Yhn" firstAttribute="top" secondItem="pOA-RD-Brj" secondAttribute="bottom" constant="2" id="sn5-7O-RkH"/>
                                     <constraint firstAttribute="trailing" secondItem="Ybf-EH-jAH" secondAttribute="trailing" id="vUg-GD-P8c"/>
                                     <constraint firstAttribute="trailing" secondItem="Kze-Xh-pnA" secondAttribute="trailing" id="wfU-H8-4M7"/>
                                     <constraint firstItem="UE2-zh-18u" firstAttribute="top" secondItem="W1i-qv-1DV" secondAttribute="bottom" constant="1" id="xw2-nI-y5g"/>
+                                    <constraint firstAttribute="trailing" secondItem="mCa-N2-Yhn" secondAttribute="trailing" id="zpT-d9-VNb"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3La-O8-3Bi" userLabel="ButtonView">
-                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="io2-LR-5V7">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="40"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <state key="normal" title="微聊">
-                                            <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="chatBtnAction:forEvent:" destination="Wh8-Xl-Vpg" eventType="touchUpInside" id="tfk-sa-aSo"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCa-N2-Yhn">
-                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="40"/>
-                                        <color key="backgroundColor" red="0.0026559780817478895" green="0.58648008108139038" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="购买">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="buyBtnAction:forEvent:" destination="Wh8-Xl-Vpg" eventType="touchUpInside" id="48y-Qr-XUB"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Woq-bM-pzm">
+                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="io2-LR-5V7" secondAttribute="bottom" id="4HD-FC-gMZ"/>
-                                    <constraint firstItem="mCa-N2-Yhn" firstAttribute="top" secondItem="3La-O8-3Bi" secondAttribute="top" id="CTs-hU-KXv"/>
-                                    <constraint firstItem="mCa-N2-Yhn" firstAttribute="leading" secondItem="io2-LR-5V7" secondAttribute="trailing" id="DGe-ug-69q"/>
-                                    <constraint firstItem="mCa-N2-Yhn" firstAttribute="height" secondItem="io2-LR-5V7" secondAttribute="height" id="PEe-pW-4NY"/>
-                                    <constraint firstItem="mCa-N2-Yhn" firstAttribute="width" secondItem="io2-LR-5V7" secondAttribute="width" id="Q8o-6a-Scc"/>
-                                    <constraint firstAttribute="trailing" secondItem="mCa-N2-Yhn" secondAttribute="trailing" id="Tu2-iD-QHw"/>
-                                    <constraint firstItem="mCa-N2-Yhn" firstAttribute="leading" secondItem="io2-LR-5V7" secondAttribute="trailing" id="h8K-kg-l9F"/>
-                                    <constraint firstAttribute="bottom" secondItem="mCa-N2-Yhn" secondAttribute="bottom" id="jua-ga-jMj"/>
-                                    <constraint firstItem="io2-LR-5V7" firstAttribute="top" secondItem="3La-O8-3Bi" secondAttribute="top" id="mCq-ER-jpY"/>
-                                    <constraint firstItem="io2-LR-5V7" firstAttribute="leading" secondItem="3La-O8-3Bi" secondAttribute="leading" id="si2-gq-y0i"/>
-                                </constraints>
                             </view>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ATf-Fw-Fmf">
                                 <rect key="frame" x="0.0" y="451" width="375" height="216"/>
@@ -489,20 +469,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ATf-Fw-Fmf" secondAttribute="trailing" id="5y3-Qa-kG8"/>
-                            <constraint firstItem="3La-O8-3Bi" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="8fw-AP-PXT"/>
+                            <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="8fK-12-81S" secondAttribute="bottom" id="8Tb-mE-nu0"/>
                             <constraint firstItem="ATf-Fw-Fmf" firstAttribute="top" secondItem="KKX-Cn-UtG" secondAttribute="bottom" id="BJL-9y-GNE"/>
                             <constraint firstItem="KKX-Cn-UtG" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="CWu-E5-rjv"/>
                             <constraint firstAttribute="trailing" secondItem="8fK-12-81S" secondAttribute="trailing" id="D4w-pL-VcJ"/>
                             <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="ATf-Fw-Fmf" secondAttribute="bottom" id="D7D-v8-T3S"/>
-                            <constraint firstAttribute="trailing" secondItem="3La-O8-3Bi" secondAttribute="trailing" id="Tdj-dU-mdV"/>
+                            <constraint firstItem="Woq-bM-pzm" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="HDx-TL-IzP"/>
+                            <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="Woq-bM-pzm" secondAttribute="bottom" id="W5Z-7a-Zbb"/>
                             <constraint firstItem="8fK-12-81S" firstAttribute="top" secondItem="aao-JZ-GZO" secondAttribute="bottom" constant="143" id="ZLW-vd-1wa"/>
                             <constraint firstItem="ATf-Fw-Fmf" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="bof-vF-0Xd"/>
                             <constraint firstAttribute="trailing" secondItem="KKX-Cn-UtG" secondAttribute="trailing" id="hOf-lH-ZWT"/>
-                            <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="8fK-12-81S" secondAttribute="bottom" constant="40" id="jN6-DY-hxy"/>
-                            <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="3La-O8-3Bi" secondAttribute="bottom" id="lrn-1r-Twt"/>
                             <constraint firstItem="8fK-12-81S" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="ohc-fK-gIR"/>
+                            <constraint firstAttribute="trailing" secondItem="Woq-bM-pzm" secondAttribute="trailing" id="sbw-mJ-IfB"/>
                             <constraint firstItem="ATf-Fw-Fmf" firstAttribute="top" secondItem="KKX-Cn-UtG" secondAttribute="bottom" id="v4h-oa-uKL"/>
-                            <constraint firstItem="3La-O8-3Bi" firstAttribute="top" secondItem="8fK-12-81S" secondAttribute="bottom" id="wyp-Er-vGp"/>
+                            <constraint firstItem="Woq-bM-pzm" firstAttribute="height" secondItem="ATf-Fw-Fmf" secondAttribute="height" id="ypi-SP-1O2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="酒店预定" id="Stf-5C-ij1"/>
@@ -529,13 +509,14 @@
                         <outlet property="secondLabel" destination="1jL-2y-hyw" id="ud7-Rb-NNe"/>
                         <outlet property="toiletriesLabel" destination="mSu-I1-s2C" id="nQu-mX-Kyu"/>
                         <outlet property="toolBar" destination="KKX-Cn-UtG" id="qgp-I1-nvU"/>
+                        <outlet property="viewDate" destination="Woq-bM-pzm" id="UG8-Yh-uaJ"/>
                         <outlet property="wakeUpLabel" destination="aZK-YV-AaC" id="njc-wv-DA1"/>
                         <outlet property="wifiLabel" destination="BOt-LO-Z59" id="HjQ-nB-eXL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T52-Xb-xdu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4274" y="63"/>
+            <point key="canvasLocation" x="4272.8000000000002" y="62.518740629685162"/>
         </scene>
         <!--Purchase Table View Controller-->
         <scene sceneID="ve1-E5-UZ4">

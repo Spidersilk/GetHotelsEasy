@@ -28,6 +28,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseResultAction:) name:@"AlipayResult" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,6 +42,10 @@
 - (void)uiLayout{
     _hotelNameLabel.text = _detail.hotel_name;
     _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price];
+    NSString *dueTimeStr = [Utilities dateStrFromCstampTime:_detail.start_time withDateFormat:@"MM-dd"];
+    NSString *startTimeStr = [Utilities dateStrFromCstampTime:_detail.out_time withDateFormat:@"MM-dd"];
+    _inDateLabel.text = [NSString stringWithFormat:@"%@", dueTimeStr];
+    _outDateLabel.text = [NSString stringWithFormat:@"%@", startTimeStr];;
     self.tableView.tableFooterView = [UIView new];
     //将表格视图设置为“编辑”
     self.tableView.editing = YES;
@@ -48,7 +53,23 @@
     //用代码表格视图中的某个cell
     [self.tableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
-
+- (void)payAction{
+    switch (self.tableView.indexPathForSelectedRow.row) {
+        case 0:{
+            NSString *tradeNo = [GBAlipayManager generateTradeNO];
+            [GBAlipayManager alipayWithProductName:_detail.hotel_name amount:_detail.remark tradeNO:tradeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@活动报名费",_detail.hotel_name]  itBPay:@"30"];
+        }
+            break;
+        case 1:
+            
+            break;
+        case 2:
+            
+            break;
+        default:
+            break;
+    }
+}
 //设置每一行被点击以后要做的事情
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //遍历表格视图中选中状态下的cell
@@ -82,6 +103,23 @@
 //设置组的头标题文字
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"支付方式";
+}
+- (void)purchaseResultAction:(NSNotification *)not{
+    NSString *result = not.object;
+    if([result isEqualToString:@"9000"]){
+        //成功
+        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"支付成功" message:@"恭喜您，您成功完成报名" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertView addAction:okAction];
+        [self presentViewController:alertView animated:YES completion:^{
+            
+        }];
+    }else{
+        //失败
+        [Utilities popUpAlertViewWithMsg:[result isEqualToString:@"9000"] ? @"未能成功支付，请保证账户余额充足" : @"您已取消支付" andTitle:@"支付失败" onView:self];
+    }
 }
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
