@@ -13,7 +13,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *inDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *outDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (strong, nonatomic) UIButton *apply;
 @property (strong, nonatomic) NSArray *arr;
+@property (weak, nonatomic) IBOutlet UIView *applyView;
 @end
 
 @implementation PurchaseTableViewController
@@ -23,12 +25,16 @@
     [self naviConfig];
     [self uiLayout];
     [self dataInitialize];
+    [self setFootViewForTableView];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseResultAction:) name:@"AlipayResult" object:nil];
+    [_apply addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
+    //_apply.frame = CGRectMake(UI_SCREEN_W / 2, UI_SCREEN_H - 300 - _applyView.frame.size.height, 90, 60);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,7 +44,19 @@
 - (void)naviConfig{
     self.navigationItem.title = @"支付";
 }
-
+-(void)setFootViewForTableView{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, 45)];
+    UIButton *exitBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    exitBtn.frame = CGRectMake(0, 5, UI_SCREEN_W, 60.f);
+    [exitBtn setTitle:@"确定支付" forState:UIControlStateNormal];
+    exitBtn.backgroundColor = [UIColor whiteColor];
+    //设置按钮标题字体的大小
+    exitBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.f];
+    [exitBtn setTitleColor:UIColorFromRGB(0, 128.f, 255.f) forState:UIControlStateNormal];
+    [exitBtn addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:exitBtn];
+    [self.tableView setTableFooterView:view];
+}
 - (void)uiLayout{
     _hotelNameLabel.text = _detail.hotel_name;
     _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price];
@@ -57,7 +75,7 @@
     switch (self.tableView.indexPathForSelectedRow.row) {
         case 0:{
             NSString *tradeNo = [GBAlipayManager generateTradeNO];
-            [GBAlipayManager alipayWithProductName:_detail.hotel_name amount:_detail.remark tradeNO:tradeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@活动报名费",_detail.hotel_name]  itBPay:@"30"];
+            [GBAlipayManager alipayWithProductName:_detail.hotel_name amount:[NSString stringWithFormat:@"%ld元",(long)_detail.price] tradeNO:tradeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@价钱",_detail.hotel_name]  itBPay:@"30"];
         }
             break;
         case 1:

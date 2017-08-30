@@ -49,7 +49,25 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
+//当从别的App跳转到本App的情况下调用；
+-(BOOL) application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    //判断是不是从支付宝App跳转到本App
+    if ([url.host isEqualToString:@"safepay"]) {
+        //获取支付宝支付的结果的情况
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            //获取支付结果的具体内容（成功或者失败）
+            
+            //创建一个通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AlipayResult" object:resultDic[@"resultStatus"]];
+        }];
+    }
+    return YES;
+}
 
+-(BOOL) application:(UIApplication *)application openURL:(nonnull NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation{
+    
+    return YES;
+}
 
 #pragma mark - Core Data stack
 

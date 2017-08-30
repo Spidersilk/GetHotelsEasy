@@ -596,6 +596,7 @@
                     </tableView>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="applyView" destination="vgX-uc-E98" id="TXq-8O-ted"/>
                         <outlet property="hotelNameLabel" destination="YBJ-bs-GDs" id="52a-Xf-eXG"/>
                         <outlet property="inDateLabel" destination="nTd-XT-xZ7" id="2Km-Jd-bir"/>
                         <outlet property="outDateLabel" destination="1nt-rB-bS9" id="qok-5F-XIh"/>

@@ -10,4 +10,5 @@
 #import "detailModel.h"
 @interface HotelOrdelViewController : UIViewController
 @property (strong, nonatomic) detailModel *detail;
+@property (nonatomic) NSInteger hotelID;
 @end
