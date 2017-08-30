@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *wakeUpLabel;
 @property (strong, nonatomic) NSMutableArray *strFacility;
 @property (weak, nonatomic) IBOutlet UIView *viewDate;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (IBAction)buyBtnAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UILabel *firstLabel;
@@ -76,7 +77,7 @@
     //获取要显示的位置
     CGRect screenFrame = [[UIScreen mainScreen] bounds];
     
-    CGRect frame = CGRectMake(0, 64, screenFrame.size.width, 207);
+    CGRect frame = CGRectMake(0, 0, screenFrame.size.width, 165);
     
     NSArray *imageArray = @[@"hotelname",@"hotelname1",@"hotelname2"];
     
@@ -85,7 +86,7 @@
     imageViewDisplay.imageViewArray = imageArray;
     imageViewDisplay.scrollInterval = 3;
     imageViewDisplay.animationInterVale = 0.6;
-    [self.view addSubview:imageViewDisplay];
+    [self.scrollView addSubview:imageViewDisplay];
     
    /* [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
         NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
