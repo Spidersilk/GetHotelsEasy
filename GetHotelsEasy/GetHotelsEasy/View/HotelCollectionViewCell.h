@@ -10,9 +10,9 @@
 
 @interface HotelCollectionViewCell : UICollectionViewCell
 //@property (strong ,nonatomic) UIButton* Btn;
-@property (strong, nonatomic) UIImageView *topImage;
+//@property (strong, nonatomic) UIImageView *topImage;
 
-@property (strong, nonatomic) UILabel *botlabel;
+@property (strong, nonatomic) UIButton *button;
 
 
 @end

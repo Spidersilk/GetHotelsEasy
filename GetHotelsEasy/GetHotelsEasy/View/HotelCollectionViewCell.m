@@ -34,13 +34,23 @@
 //        _topImage.backgroundColor = [UIColor redColor];
 //        [self.contentView addSubview:_topImage];
         
-        _botlabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        _botlabel.textAlignment = NSTextAlignmentCenter;
-        _botlabel.textColor = [UIColor blueColor];
-        _botlabel.font = [UIFont systemFontOfSize:15];
-        _botlabel.backgroundColor = [UIColor purpleColor];
-        [self.contentView addSubview:_botlabel];
+//        _botlabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+//        _botlabel.textAlignment = NSTextAlignmentCenter;
+//        _botlabel.textColor = [UIColor blueColor];
+//        _botlabel.font = [UIFont systemFontOfSize:15];
+//        _botlabel.backgroundColor = [UIColor purpleColor];
+        _button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        //[_button setTitle:@"智能排序" forState:UIControlStateNormal];
+        [_button.titleLabel setFont:[UIFont boldSystemFontOfSize:7]];//设置字体大小
+        [_button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _button.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+        //[_button.layer setBorderWidth:0.5];//设置边框
+        //_button.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        _button.layer.cornerRadius = 5.0 ;
+        
+        [self.contentView addSubview:_button];
     }
+   
     
     return self;
 }
