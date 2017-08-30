@@ -13,7 +13,7 @@
         <!--酒店预定-->
         <scene sceneID="YR9-W0-qag">
             <objects>
-                <viewController autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" id="Wh8-Xl-Vpg" customClass="HotelOrdelViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ordelDetail" autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" id="Wh8-Xl-Vpg" customClass="HotelOrdelViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aao-JZ-GZO"/>
                         <viewControllerLayoutGuide type="bottom" id="yKe-WL-aem"/>
