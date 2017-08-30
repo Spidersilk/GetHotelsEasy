@@ -124,7 +124,6 @@
                                             <outlet property="hotelImg" destination="oK8-If-dtc" id="CgH-0u-zOX"/>
                                             <outlet property="hotelName" destination="VHz-DA-qjU" id="fMQ-By-9ri"/>
                                             <outlet property="priceLabel" destination="zsk-C8-aEB" id="THP-Or-QDV"/>
-                                            <segue destination="SHx-AX-wpZ" kind="show" id="da6-kX-GsB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

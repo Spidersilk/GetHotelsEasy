@@ -12,7 +12,7 @@
 - (id) initWhitDictionary: (NSDictionary *)dict{
         self = [super init];//self调用者本身
     if (self){
-        _hotelID = [[Utilities nullAndNilCheck:@"id" replaceBy:0] integerValue];
+        _hotelID = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:0] integerValue];
         _price = [[Utilities nullAndNilCheck:dict[@"price"] replaceBy:0]integerValue];
         self.longitude = [[Utilities nullAndNilCheck:dict[@"longitude"] replaceBy:0] integerValue];
         self.hotel_img = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];

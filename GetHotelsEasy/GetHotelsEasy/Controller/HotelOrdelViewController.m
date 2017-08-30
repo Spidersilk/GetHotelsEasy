@@ -171,6 +171,7 @@
         [Utilities popUpAlertViewWithMsg:@"请正确设置开始日期和结束日期" andTitle:@"提示" onView:self onCompletion:^{
         }];
     }else{
+        NSLog(@"eeeee%ld",(long)_hotelID);
     NSDictionary *para = @{@"id" : @(_hotelID)};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];

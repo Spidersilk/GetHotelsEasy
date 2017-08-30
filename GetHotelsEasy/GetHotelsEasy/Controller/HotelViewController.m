@@ -15,6 +15,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "HotelCollectionViewCell.h"
 #import "LabelCollectionViewCell.h"
+#import "HotelOrdelViewController.h"
 
 @interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>{
     BOOL firstVisit;
@@ -191,6 +192,7 @@
                 //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
                 detailModel *detailmodel = [[detailModel alloc] initWhitDictionary:dict];
                 //将上述实例化好的ActivityModel对象插入_arr数组中
+                NSLog(@"hotelID:%ld",(long)detailmodel.hotelID);
                 [_arr addObject:detailmodel];
             }
             //刷新表格（重载数据）
@@ -432,6 +434,11 @@
 }
 //点击细胞事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    HotelOrdelViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"ordelDetail"];
+    detailModel *detail = _arr [indexPath.row];
+     NSLog(@"zhebian:%ld",(long)detail.hotelID);
+    purchaseVC.hotelID = detail.hotelID;
+    [self.navigationController pushViewController:purchaseVC animated:YES];
    
 
     
