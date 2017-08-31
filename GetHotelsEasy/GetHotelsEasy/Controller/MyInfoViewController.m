@@ -24,6 +24,8 @@
 @property (strong,nonatomic) NSArray *myInfoArr2;
 - (IBAction)loginAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+- (IBAction)exitBtn:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIButton *exitaction;
 
 @end
 
@@ -50,7 +52,7 @@
         _loginBtn.hidden = YES;
         _cName.hidden = NO;
         _level.hidden = NO;
-        
+        _exitaction.hidden = NO;
         MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
         [_heardImageView sd_setImageWithURL:[NSURL URLWithString:usermodel.picture] placeholderImage:[UIImage imageNamed:@"icon"]];
         _cName.text = usermodel.name;
@@ -61,9 +63,8 @@
         _loginBtn.hidden = NO;
         _cName.hidden = YES;
         _level.hidden = YES;
+        _exitaction.hidden = YES;
         _heardImageView.image = [UIImage imageNamed:@"icon"];
-        _cName.text = @"游客";
-        _level.text = @"等级：无";
     }
 
 }
@@ -117,7 +118,7 @@
 //细胞选中后调用
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if([Utilities loginCheck]){
+    if([Utilities nullAndNilCheck:[[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"] replaceBy:nil]){
         if (indexPath.section == 0) {
             switch (indexPath.row) {
                 case 0:
@@ -163,4 +164,27 @@
     //执行跳转
     [self presentViewController:signNavi animated:YES completion:nil];
 }
+- (IBAction)exitBtn:(UIButton *)sender forEvent:(UIEvent *)event {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否退出登录" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self exit];
+    }];
+    UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:actionA];
+    [alert addAction:actionB];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+-(void)exit{
+    [[StorageMgr singletonStorageMgr]removeObjectForKey:@"MemberInfo"];
+    if (![Utilities nullAndNilCheck:[[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"] replaceBy:nil]) {
+        //未登录
+        _loginBtn.hidden = NO;
+        _cName.hidden = YES;
+        _level.hidden = YES;
+        _exitaction.hidden = YES;
+        _heardImageView.image = [UIImage imageNamed:@"icon"];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
