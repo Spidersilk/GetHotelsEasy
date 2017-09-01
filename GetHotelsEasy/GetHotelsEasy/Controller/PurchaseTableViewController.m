@@ -60,10 +60,12 @@
 - (void)uiLayout{
     _hotelNameLabel.text = _detail.hotel_name;
     _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price];
-    NSString *dueTimeStr = [Utilities dateStrFromCstampTime:_detail.start_time withDateFormat:@"MM-dd"];
-    NSString *startTimeStr = [Utilities dateStrFromCstampTime:_detail.out_time withDateFormat:@"MM-dd"];
-    _inDateLabel.text = [NSString stringWithFormat:@"%@", dueTimeStr];
-    _outDateLabel.text = [NSString stringWithFormat:@"%@", startTimeStr];;
+    _inDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"first" ];
+    _outDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"second"];
+    //NSString *dueTimeStr = [Utilities dateStrFromCstampTime:_detail.start_time withDateFormat:@"MM-dd"];
+   // NSString *startTimeStr = [Utilities dateStrFromCstampTime:_detail.out_time withDateFormat:@"MM-dd"];
+    //_inDateLabel.text = [NSString stringWithFormat:@"%@", dueTimeStr];
+   // _outDateLabel.text = [NSString stringWithFormat:@"%@", startTimeStr];;
     self.tableView.tableFooterView = [UIView new];
     //将表格视图设置为“编辑”
     self.tableView.editing = YES;
@@ -136,7 +138,7 @@
         }];
     }else{
         //失败
-        [Utilities popUpAlertViewWithMsg:[result isEqualToString:@"9000"] ? @"未能成功支付，请保证账户余额充足" : @"您已取消支付" andTitle:@"支付失败" onView:self];
+        [Utilities popUpAlertViewWithMsg:[result isEqualToString:@"4000"] ? @"未能成功支付，请保证账户余额充足" : @"您已取消支付" andTitle:@"支付失败" onView:self];
     }
 }
 /*
