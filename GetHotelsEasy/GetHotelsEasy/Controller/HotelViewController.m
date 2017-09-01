@@ -75,7 +75,8 @@
     _collectionCellOne = @[@"  星级",@"全部",@"四星",@"五星"];
     _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"501-1000",@"",@"",@"501-1000",@"1000以上"];
     _optionsArr = @[@"只能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
+    page = 1;
     [self uilayout];//签署协议
     [self initial];
     [self dataInitialize];//这个方法专门做数据的处理
@@ -135,7 +136,7 @@
 }
 #pragma mack - 网络请求
 - (void)InitializeData{
-    page = 1;
+    
     //点击按钮的时候创建一个蒙层（菊花膜）并显示在当前页面（self.view）
     _avi = [Utilities getCoverOnView:self.view];
     [self request];
@@ -173,8 +174,8 @@
         price = [[[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] integerValue];//获取单例化全局变量
         NSLog(@"price:%ld",(long)price);
     }
-    
-    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"pageNum" :@1,@"pageSize":@10,@"startId":@1,@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":@"2017-08-31",@"outTime":@"2017-09-01",@"wxlongitude":@"",@"wxlatitude":@""};
+    NSLog(@"城市：222%@",_cityBtn.titleLabel.text);
+    NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@1,@"pageSize":@10,@"startId":@1,@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":@"2017-08-31",@"outTime":@"2017-09-01",@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
@@ -341,8 +342,7 @@
         
     } else {
         //不是第一次来到APP则将记忆城市与按钮上的城市名反向同步
-        NSString *userCity = [Utilities getUserDefaults:@"UserCity"];
-        [_cityBtn setTitle:userCity forState:UIControlStateNormal];
+        [_cityBtn setTitle:[Utilities getUserDefaults:@"UserCity"] forState:UIControlStateNormal];
     }
     
    
@@ -387,9 +387,26 @@
                 [[StorageMgr singletonStorageMgr] removeObjectForKey:@"LocCity"];
                 //将定位到的城市存进单例化全局变量
                 [[StorageMgr singletonStorageMgr] addKey:@"LocCity" andValue:cityStr];
-                //修改城市按钮标题
-                [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
-                _cityBtn.enabled = YES;
+                if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {
+                    //当定位到的城市和当前选择的城市不一样的时候，弹窗询问是否要切换城市
+                    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"当前定位到的城市为%@,是否切换",cityStr] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        //修改城市按钮标题
+                        [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
+                        //修改用户选择的城市
+                        [Utilities removeUserDefaults:@"UserCity"];
+                        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+                        //重新进行网络请求
+                        [self InitializeData];
+                        
+                    }];
+                    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alertView addAction:yesAction];
+                    [alertView addAction:noAction];
+                    [self presentViewController:alertView animated:YES completion:nil];
+                };
                 
             }
         }];
@@ -397,7 +414,20 @@
         [_locMgr stopUpdatingLocation];
     });
 }
-
+- (void) checkCityState:(NSNotification *)note {
+    NSString *cityStr = note.object;
+    if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {
+        //修改城市按钮标题
+        [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
+        //修改用户选择的城市
+        [Utilities removeUserDefaults:@"UserCity"];
+        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+        [self dataInitialize];
+        //重新进行网络请求
+        [self InitializeData];
+    }
+    
+}
 
 /*
 #pragma mark - Navigation

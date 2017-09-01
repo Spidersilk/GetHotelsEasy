@@ -32,9 +32,6 @@
                                     <state key="normal" title="正在获取中...">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <connections>
-                                        <action selector="cityAction:forEvent:" destination="925-qA-3FS" eventType="touchUpInside" id="whi-A0-v76"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -70,9 +67,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="选择城市" id="y6z-Ul-vNm"/>
-                    <connections>
-                        <outlet property="cityBtn" destination="BSS-ef-TzR" id="Rcx-PN-mPz"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Eo-P0-Lrg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
