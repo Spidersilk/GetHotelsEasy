@@ -37,6 +37,7 @@
 @property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) NSMutableArray *arr;
 @property (strong, nonatomic) NSMutableArray *imageArray;
+@property (strong, nonatomic) NSArray *optionsArr;
 @property (weak, nonatomic) IBOutlet UIToolbar *Toolbar;
 - (IBAction)cancel:(UIBarButtonItem *)sender;
 - (IBAction)Done:(UIBarButtonItem *)sender;
@@ -51,10 +52,13 @@
 @property (strong, nonatomic) NSArray *collectionCellOne;
 @property (strong, nonatomic) NSArray *collectionCellTwo;
 
+@property (strong, nonatomic) NSIndexPath *tableViewIndexPath;
 @property (strong, nonatomic) NSIndexPath *cellindexPathNowOne;
 @property (strong, nonatomic) NSIndexPath *cellindexPathNowTwo;
 @property (strong, nonatomic) NSIndexPath *cellindexPathOne;
 @property (strong, nonatomic) NSIndexPath *cellindexPathTwo;
+
+@property (nonatomic) NSInteger sortingid;
 @end
 
 @implementation HotelViewController
@@ -70,8 +74,10 @@
     _HotelTableView.tableFooterView = [UIView new];
     _collectionCellOne = @[@"  星级",@"全部",@"四星",@"五星"];
     _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"501-1000",@"",@"",@"501-1000",@"1000以上"];
+    _optionsArr = @[@"只能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     
     [self uilayout];//签署协议
+    [self initial];
     [self dataInitialize];//这个方法专门做数据的处理
     // Do any additional setup after loading the view.
     [self locationStart];//这个方法处理开始定位
@@ -94,7 +100,7 @@
     _uiv.backgroundColor = UIColorFromRGBA(255, 255, 255,1);
     _uiv.hidden = YES;
     [_HotelTableView addSubview:_uiv];
-    _optionsTableView.frame = CGRectMake(_uiv.frame.origin.x, _uiv.frame.origin.y, _uiv.frame.size.width, _uiv.frame.size.height);
+    _optionsTableView.frame = _uiv.bounds;
     [_uiv addSubview:_optionsTableView];
 
 }
@@ -152,6 +158,9 @@
 - (void)request {
     NSInteger  start;
     NSInteger price;
+    if (_sortingid == 0) {
+        _sortingid = 1;
+    }
     if ([[StorageMgr singletonStorageMgr] objectForKey:@"start"] == NULL) {
         start = 1;
     }else{
@@ -165,7 +174,7 @@
         NSLog(@"price:%ld",(long)price);
     }
     
-    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"pageNum" :@1,@"pageSize":@10,@"startId":@1,@"priceId":@(price),@"sortingId":@1 ,@"inTime":@"2017-08-31",@"outTime":@"2017-09-01",@"wxlongitude":@"",@"wxlatitude":@""};
+    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"pageNum" :@1,@"pageSize":@10,@"startId":@1,@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":@"2017-08-31",@"outTime":@"2017-09-01",@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
@@ -401,10 +410,21 @@
 */
 #pragma mack - tableView
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    if (tableView == _HotelTableView) {
+        return 100;
+    }else{
+        
+        return _optionsTableView.frame.size.height/4;
+    }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _arr.count;
+    if (tableView == _HotelTableView) {
+        return _arr.count;
+    }else{
+    
+        return _optionsArr.count;
+    }
+    
     
 }
 
@@ -439,8 +459,14 @@
         cell.priceLabel.text =[NSString stringWithFormat:@"%ld",(long)detailmodel.price];
         return cell;
     }else{
+        
+        UITableViewCell *beforecell = [_optionsTableView cellForRowAtIndexPath:_tableViewIndexPath];
+        beforecell.textLabel.textColor = UIColorFromRGB(10, 127, 254);
+        beforecell.accessoryType = UITableViewCellAccessoryCheckmark;
+
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"optionsCell" forIndexPath:indexPath];
-        cell.textLabel.text = @"哈哈";
+        cell.textLabel.text = _optionsArr[indexPath.row];
+        cell.textLabel.textColor = [UIColor darkGrayColor];
         return cell;
     }
    
@@ -449,11 +475,31 @@
 }
 //点击细胞事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    HotelOrdelViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"ordelDetail"];
-    detailModel *detail = _arr [indexPath.row];
-     NSLog(@"zhebian:%ld",(long)detail.hotelID);
-    purchaseVC.hotelID = detail.hotelID;
-    [self.navigationController pushViewController:purchaseVC animated:YES];
+    if (tableView == _HotelTableView) {
+        HotelOrdelViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"ordelDetail"];
+        detailModel *detail = _arr [indexPath.row];
+        NSLog(@"zhebian:%ld",(long)detail.hotelID);
+        purchaseVC.hotelID = detail.hotelID;
+        [self.navigationController pushViewController:purchaseVC animated:YES];
+    }else{
+        if (indexPath !=_tableViewIndexPath) {
+            UITableViewCell *cell = [_optionsTableView cellForRowAtIndexPath:indexPath];
+            cell.textLabel.textColor = UIColorFromRGB(10, 127, 254);
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            UITableViewCell *beforecell = [_optionsTableView cellForRowAtIndexPath:_tableViewIndexPath];
+            beforecell.textLabel.textColor = [UIColor darkGrayColor];
+            beforecell.accessoryType = UITableViewCellAccessoryNone;
+            _tableViewIndexPath = indexPath;
+            _sortingid = indexPath.row+1;
+            [self InitializeData];
+            _optionsTableView.hidden = YES;
+            _uiv.hidden = YES;
+            _HotelTableView.scrollEnabled = YES;
+        }
+        
+    
+    }
+    
    
 
     
@@ -490,76 +536,81 @@
 //}
 #pragma mack - 选项卡
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    // 创建包含标题标签的父视图
-    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320, 20.0)];
-    UIImageView *bg = [[UIImageView alloc]initWithFrame:customView.frame];
-    bg.image = [UIImage imageNamed:@"carTypeCellTitleBg1.png"];
-    [customView addSubview:bg];
-    
-    
-    
+    if (tableView == _HotelTableView) {
+        // 创建包含标题标签的父视图
+        UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320, 20.0)];
+        UIImageView *bg = [[UIImageView alloc]initWithFrame:customView.frame];
+        bg.image = [UIImage imageNamed:@"carTypeCellTitleBg1.png"];
+        [customView addSubview:bg];
+        
+        
+        
+        
+        // 创建按钮对象
+        _Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 40)];
+        [_Btn1 setTitle:@"入住03-24" forState:UIControlStateNormal];
+        [_Btn1.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+        [_Btn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _Btn1.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+        [_Btn1.layer setBorderWidth:0.3];//设置边框
+        _Btn1.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        //添加事件1
+        [_Btn1 addTarget:self action:@selector(Btn1Action) forControlEvents:UIControlEventTouchUpInside];
+        
+        _Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4, 0, UI_SCREEN_W/4, 40)];
+        [_Btn2 setTitle:@"离店03-28" forState:UIControlStateNormal];
+        [_Btn2.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+        [_Btn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _Btn2.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+        [_Btn2.layer setBorderWidth:0.3];//设置边框
+        _Btn2.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        //添加事件2
+        [_Btn2 addTarget:self action:@selector(Btn2Action) forControlEvents:UIControlEventTouchUpInside];
+        
+        _Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*2, 0, UI_SCREEN_W/4, 40)];
+        [_Btn3 setTitle:@"智能排序" forState:UIControlStateNormal];
+        [_Btn3.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+        [_Btn3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _Btn3.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+        [_Btn3.layer setBorderWidth:0.3];//设置边框
+        _Btn3.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        //添加事件3
+        [_Btn3 addTarget:self action:@selector(Btn3Action) forControlEvents:UIControlEventTouchUpInside];
+        
+        _Btn4 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*3, 0, UI_SCREEN_W/4, 40)];
+        [_Btn4 setTitle:@"筛选" forState:UIControlStateNormal];
+        [_Btn4.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+        [_Btn4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _Btn4.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+        [_Btn4.layer setBorderWidth:0.3];//设置边框
+        _Btn4.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        //添加事件3
+        [_Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
+        UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        headerLabel.backgroundColor = [UIColor clearColor];
+        headerLabel.opaque = NO;
+        headerLabel.textColor = [UIColor colorWithRed:242.0/255.0f green:161.0/255.0f blue:4.0/255.0 alpha:1.0];
+        headerLabel.highlightedTextColor = [UIColor whiteColor];
+        headerLabel.font = [UIFont italicSystemFontOfSize:15];
+        headerLabel.frame = customView.frame;
+        // 如果你想对齐标题文本以居中对齐
+        // headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
+        // headerLabel.text = <:Put display to want you whatever here>// i.e. array element
+        headerLabel.text = @"title";
+        [customView addSubview:_Btn1];
+        [customView addSubview:_Btn2];
+        [customView addSubview:_Btn3];
+        [customView addSubview:_Btn4];
+        //[customView addSubview:headerLabel];
+        return customView;
+        
 
-    // 创建按钮对象
-    _Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 40)];
-    [_Btn1 setTitle:@"入住03-24" forState:UIControlStateNormal];
-    [_Btn1.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [_Btn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _Btn1.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [_Btn1.layer setBorderWidth:0.3];//设置边框
-    _Btn1.layer.borderColor=[UIColor lightGrayColor].CGColor;
-    //添加事件1
-    [_Btn1 addTarget:self action:@selector(Btn1Action) forControlEvents:UIControlEventTouchUpInside];
-    
-    _Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4, 0, UI_SCREEN_W/4, 40)];
-    [_Btn2 setTitle:@"离店03-28" forState:UIControlStateNormal];
-    [_Btn2.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [_Btn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _Btn2.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [_Btn2.layer setBorderWidth:0.3];//设置边框
-    _Btn2.layer.borderColor=[UIColor lightGrayColor].CGColor;
-    //添加事件2
-    [_Btn2 addTarget:self action:@selector(Btn2Action) forControlEvents:UIControlEventTouchUpInside];
-    
-    _Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*2, 0, UI_SCREEN_W/4, 40)];
-    [_Btn3 setTitle:@"智能排序" forState:UIControlStateNormal];
-    [_Btn3.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [_Btn3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _Btn3.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [_Btn3.layer setBorderWidth:0.3];//设置边框
-    _Btn3.layer.borderColor=[UIColor lightGrayColor].CGColor;
-    //添加事件3
-    [_Btn3 addTarget:self action:@selector(Btn3Action) forControlEvents:UIControlEventTouchUpInside];
-    
-    _Btn4 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*3, 0, UI_SCREEN_W/4, 40)];
-    [_Btn4 setTitle:@"筛选" forState:UIControlStateNormal];
-    [_Btn4.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-    [_Btn4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _Btn4.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [_Btn4.layer setBorderWidth:0.3];//设置边框
-    _Btn4.layer.borderColor=[UIColor lightGrayColor].CGColor;
-    //添加事件3
-    [_Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
-   
-    
-    
-    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.opaque = NO;
-    headerLabel.textColor = [UIColor colorWithRed:242.0/255.0f green:161.0/255.0f blue:4.0/255.0 alpha:1.0];
-    headerLabel.highlightedTextColor = [UIColor whiteColor];
-    headerLabel.font = [UIFont italicSystemFontOfSize:15];
-    headerLabel.frame = customView.frame;
-    // 如果你想对齐标题文本以居中对齐
-    // headerLabel.frame = CGRectMake(150.0, 0.0, 300.0, 44.0);
-    // headerLabel.text = <:Put display to want you whatever here>// i.e. array element
-    headerLabel.text = @"title";
-    [customView addSubview:_Btn1];
-    [customView addSubview:_Btn2];
-    [customView addSubview:_Btn3];
-    [customView addSubview:_Btn4];
-    //[customView addSubview:headerLabel];
-    return customView;
-
+    }else{
+        return 0;
+    }
 }
 //- (UIButton*)createBtn: (NSString*)btn :(NSString*)btnTitle: (CGFloat) btnFrame: (NSString*)btnAction{
 //    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnFrame, 0, UI_SCREEN_W/4, 30)];
@@ -595,7 +646,12 @@
     if (_arr.count != 0) {
         [_HotelTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
-    
+    _uiv.hidden = NO;
+    _optionsTableView.hidden = NO;
+    _HotelTableView.scrollEnabled = NO;
+    _collectionView.scrollEnabled = NO;
+    _collectionView.hidden = YES;
+
     
 }
 - (void)Btn4Action{
@@ -610,10 +666,16 @@
     _HotelTableView.scrollEnabled = NO;
     _collectionView.scrollEnabled = NO;
     _uiv.hidden = NO;
+    _optionsTableView.hidden = YES;
     
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    if (tableView == _HotelTableView) {
+        return 40;
+    }else{
+        return 0;
+    }
+    
 }
 
 - (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event {
