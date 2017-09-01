@@ -283,10 +283,10 @@
             </objects>
             <point key="canvasLocation" x="81" y="462"/>
         </scene>
-        <!--我的航空-->
+        <!--我的发布-->
         <scene sceneID="KER-r1-8ZH">
             <objects>
-                <viewController title="我的航空" hidesBottomBarWhenPushed="YES" id="wbj-4G-jsX" customClass="MyAirViewController" sceneMemberID="viewController">
+                <viewController title="我的发布" hidesBottomBarWhenPushed="YES" id="wbj-4G-jsX" customClass="MyAirViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ghe-vc-6uU"/>
                         <viewControllerLayoutGuide type="bottom" id="gqw-k8-Lt0"/>
@@ -294,13 +294,72 @@
                     <view key="view" contentMode="scaleToFill" id="AH2-GJ-r5m">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1h4-mP-QFp">
+                                <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="47S-RY-L9E">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="o9Z-K9-smM">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o9Z-K9-smM" id="qFe-7N-5AT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cZp-Es-T0h">
+                                        <rect key="frame" x="375" y="0.0" width="375" height="597"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1qU-qC-f4n">
+                                        <rect key="frame" x="750" y="0.0" width="375" height="597"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="47S-RY-L9E" firstAttribute="centerY" secondItem="1h4-mP-QFp" secondAttribute="centerY" id="1bL-X6-Tlv"/>
+                                    <constraint firstItem="cZp-Es-T0h" firstAttribute="top" secondItem="1h4-mP-QFp" secondAttribute="top" id="4lG-Pf-bUK"/>
+                                    <constraint firstItem="1qU-qC-f4n" firstAttribute="height" secondItem="47S-RY-L9E" secondAttribute="height" id="6Oy-PT-YnC"/>
+                                    <constraint firstItem="47S-RY-L9E" firstAttribute="top" secondItem="1h4-mP-QFp" secondAttribute="top" id="At1-Jd-QEI"/>
+                                    <constraint firstAttribute="bottom" secondItem="47S-RY-L9E" secondAttribute="bottom" id="Deq-Nc-m31"/>
+                                    <constraint firstItem="cZp-Es-T0h" firstAttribute="leading" secondItem="47S-RY-L9E" secondAttribute="trailing" id="SRZ-dJ-kPo"/>
+                                    <constraint firstAttribute="bottom" secondItem="cZp-Es-T0h" secondAttribute="bottom" id="T5U-vf-pjf"/>
+                                    <constraint firstAttribute="bottom" secondItem="1qU-qC-f4n" secondAttribute="bottom" id="Xa7-bq-umN"/>
+                                    <constraint firstItem="1qU-qC-f4n" firstAttribute="width" secondItem="47S-RY-L9E" secondAttribute="width" id="ZWR-wJ-ZN3"/>
+                                    <constraint firstItem="1qU-qC-f4n" firstAttribute="top" secondItem="1h4-mP-QFp" secondAttribute="top" id="dHN-Vp-iwd"/>
+                                    <constraint firstAttribute="trailing" secondItem="1qU-qC-f4n" secondAttribute="trailing" id="duw-zP-Qhl"/>
+                                    <constraint firstItem="cZp-Es-T0h" firstAttribute="height" secondItem="47S-RY-L9E" secondAttribute="height" id="iMM-kQ-yD5"/>
+                                    <constraint firstItem="1qU-qC-f4n" firstAttribute="leading" secondItem="cZp-Es-T0h" secondAttribute="trailing" id="kQB-Y2-dPH"/>
+                                    <constraint firstItem="cZp-Es-T0h" firstAttribute="width" secondItem="47S-RY-L9E" secondAttribute="width" id="rjE-Yz-aDR"/>
+                                    <constraint firstItem="47S-RY-L9E" firstAttribute="leading" secondItem="1h4-mP-QFp" secondAttribute="leading" id="unK-3a-tbn"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1h4-mP-QFp" firstAttribute="top" secondItem="ghe-vc-6uU" secondAttribute="bottom" constant="50" id="CoR-Oc-kAr"/>
+                            <constraint firstItem="1h4-mP-QFp" firstAttribute="leading" secondItem="AH2-GJ-r5m" secondAttribute="leading" id="JdA-ke-o4C"/>
+                            <constraint firstAttribute="bottom" secondItem="1h4-mP-QFp" secondAttribute="bottom" id="SzZ-zb-FsW"/>
+                            <constraint firstAttribute="trailing" secondItem="1h4-mP-QFp" secondAttribute="trailing" id="dN7-lh-hzN"/>
+                            <constraint firstItem="47S-RY-L9E" firstAttribute="width" secondItem="AH2-GJ-r5m" secondAttribute="width" id="pPH-1X-7Oe"/>
+                        </constraints>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="historyTableView" destination="1qU-qC-f4n" id="Ux2-6e-VDY"/>
+                        <outlet property="issuingTableView" destination="cZp-Es-T0h" id="X4U-yz-fId"/>
+                        <outlet property="overDealTableView" destination="47S-RY-L9E" id="e4a-Z7-acB"/>
+                        <outlet property="scrollView" destination="1h4-mP-QFp" id="pOH-VF-6NC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ytb-qT-duT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1986" y="462"/>
+            <point key="canvasLocation" x="2261.5999999999999" y="-438.53073463268368"/>
         </scene>
         <!--我的消息-->
         <scene sceneID="8fI-Jv-0tr">
