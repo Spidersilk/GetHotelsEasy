@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -132,7 +133,7 @@
                                     <outlet property="delegate" destination="Bw0-wo-7uR" id="2GD-Dg-dv2"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KoC-Yh-UdE">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KoC-Yh-UdE" colorLabel="IBBuiltInLabel-Red">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAn-io-6Ch">
@@ -236,9 +237,41 @@
                                 </date>
                                 <locale key="locale" localeIdentifier="zh"/>
                             </datePicker>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xfu-VQ-xXV">
+                                <rect key="frame" x="16" y="100" width="343" height="307"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <sections>
+                                    <tableViewSection headerTitle="Section-1" id="E4k-bd-vmA">
+                                        <cells>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="optionsCell" textLabel="BV6-ad-gNa" style="IBUITableViewCellStyleDefault" id="xc8-36-LnH">
+                                                <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xc8-36-LnH" id="SDY-QC-l1R">
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BV6-ad-gNa">
+                                                            <rect key="frame" x="15" y="0.0" width="313" height="43.5"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </cells>
+                                    </tableViewSection>
+                                </sections>
+                                <connections>
+                                    <outlet property="dataSource" destination="Bw0-wo-7uR" id="9Uv-By-W11"/>
+                                    <outlet property="delegate" destination="Bw0-wo-7uR" id="79c-pq-C2Y"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="xfu-VQ-xXV" firstAttribute="top" secondItem="KoC-Yh-UdE" secondAttribute="bottom" id="0Ik-2m-PWz"/>
                             <constraint firstItem="KoC-Yh-UdE" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="1Rz-D2-r3t"/>
                             <constraint firstAttribute="trailing" secondItem="mpx-f6-d6u" secondAttribute="trailing" id="9ca-oP-t2R"/>
                             <constraint firstItem="c86-Mv-f5l" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="DgQ-Z7-IOU"/>
@@ -246,11 +279,14 @@
                             <constraint firstItem="c86-Mv-f5l" firstAttribute="top" secondItem="Vbw-Uh-nEq" secondAttribute="bottom" id="KhQ-aC-NCG"/>
                             <constraint firstItem="Vbw-Uh-nEq" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="M6r-ZE-iCW"/>
                             <constraint firstAttribute="trailing" secondItem="Vbw-Uh-nEq" secondAttribute="trailing" id="PE4-wx-Qsn"/>
+                            <constraint firstItem="Vbw-Uh-nEq" firstAttribute="top" secondItem="xfu-VQ-xXV" secondAttribute="bottom" id="UN6-F3-lhx"/>
                             <constraint firstItem="aRo-fl-i6G" firstAttribute="top" secondItem="c86-Mv-f5l" secondAttribute="bottom" id="UfB-xo-rhO"/>
                             <constraint firstAttribute="trailing" secondItem="KoC-Yh-UdE" secondAttribute="trailing" id="X0z-D9-FMD"/>
                             <constraint firstAttribute="trailing" secondItem="c86-Mv-f5l" secondAttribute="trailing" id="bfZ-PE-kxx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xfu-VQ-xXV" secondAttribute="trailing" id="bnN-hi-2Cq"/>
                             <constraint firstItem="mpx-f6-d6u" firstAttribute="top" secondItem="KoC-Yh-UdE" secondAttribute="bottom" id="ckQ-9T-cZc"/>
                             <constraint firstItem="mpx-f6-d6u" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="qZA-dG-j1x"/>
+                            <constraint firstItem="xfu-VQ-xXV" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leadingMargin" id="sat-3e-zul"/>
                             <constraint firstAttribute="bottom" secondItem="mpx-f6-d6u" secondAttribute="bottom" id="spk-8t-i2i"/>
                         </constraints>
                     </view>
@@ -262,6 +298,7 @@
                         <outlet property="Toolbar" destination="Vbw-Uh-nEq" id="bvP-cf-ab9"/>
                         <outlet property="cityBtn" destination="06Z-ZS-hnE" id="eBr-T5-nrG"/>
                         <outlet property="headerView" destination="QQZ-yw-f7E" id="G2T-Rd-vNL"/>
+                        <outlet property="optionsTableView" destination="xfu-VQ-xXV" id="NnP-AX-ecx"/>
                         <outlet property="picker" destination="c86-Mv-f5l" id="vVJ-s0-y5w"/>
                     </connections>
                 </viewController>
