@@ -241,7 +241,8 @@
                                 <rect key="frame" x="16" y="247" width="343" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexColor" red="0.039326876401901245" green="0.49614483118057251" blue="0.99487632513046265" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.92146831750869751" green="0.92162626981735229" blue="0.92145836353302002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexColor" red="0.21807736158370972" green="0.59086596965789795" blue="0.9894300103187561" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="optionsCell" textLabel="BV6-ad-gNa" style="IBUITableViewCellStyleDefault" id="xc8-36-LnH">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
@@ -295,9 +296,18 @@
                         <outlet property="headerView" destination="QQZ-yw-f7E" id="G2T-Rd-vNL"/>
                         <outlet property="optionsTableView" destination="xfu-VQ-xXV" id="NnP-AX-ecx"/>
                         <outlet property="picker" destination="c86-Mv-f5l" id="vVJ-s0-y5w"/>
+                        <outlet property="searchDisplayController" destination="Klk-h9-hXV" id="tcK-0y-8Jd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBU-81-kOr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Klk-h9-hXV">
+                    <connections>
+                        <outlet property="delegate" destination="Bw0-wo-7uR" id="wKm-gW-Mfr"/>
+                        <outlet property="searchContentsController" destination="Bw0-wo-7uR" id="tXW-65-nW4"/>
+                        <outlet property="searchResultsDataSource" destination="Bw0-wo-7uR" id="5za-kt-m9k"/>
+                        <outlet property="searchResultsDelegate" destination="Bw0-wo-7uR" id="m6I-lv-Axk"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1240.8" y="118.29085457271366"/>
         </scene>
