@@ -8,12 +8,27 @@
 
 #import "MyAirViewController.h"
 #import "HMSegmentedControl.h"
+#import "OverDealTableViewCell.h"
+#import "IssuingTableViewCell.h"
+#import "HistoryTableViewCell.h"
 
-@interface MyAirViewController ()
+@interface MyAirViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *overDealTableView;
 @property (weak, nonatomic) IBOutlet UITableView *issuingTableView;
 @property (weak, nonatomic) IBOutlet UITableView *historyTableView;
+@property (weak, nonatomic) IBOutlet UILabel *routeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iRouteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hRouteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hTypeLabel;
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
 
 @end
@@ -26,6 +41,11 @@
     //调用设置导航栏的方法
     [self setNavigationItem];
     [self setSegment];
+    
+    //去掉tableview底部多余的线
+    _overDealTableView.tableFooterView = [UIView new];
+    _issuingTableView.tableFooterView = [UIView new];
+    _historyTableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,20 +60,20 @@
 //设置导航栏样式
 -(void)setNavigationItem{
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0, 128, 255)];
-    //实例化一个button
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //设置button的位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    //设置背景图片
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    //给按钮添加事件
-    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    //实例化一个button
+//    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+//    //设置button的位置大小
+//    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+//    //设置背景图片
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+//    //给按钮添加事件
+//    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
 }
 //自定义的返回按钮的事件
--(void)leftButtonAction:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//-(void)leftButtonAction:(UIButton *)sender{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 /*
 #pragma mark - Navigation
@@ -94,4 +114,34 @@
     [self.view addSubview:_segmentedControl];
 }
 
+#pragma mark - tableView
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _overDealTableView) {
+        OverDealTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"overDealCell" forIndexPath:indexPath];
+        return cell;
+    }else if (tableView == _issuingTableView){
+        IssuingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssuingCell" forIndexPath:indexPath];
+        return cell;
+    }else{
+        HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
+        return cell;
+    }
+}
+//设置细胞高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 200.f;
+}
+//设置每一组每一行的细胞被点击以后要做的事情
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //判断当前tableview是否为_activityTableView（这个条件判断常用在一个界面中有多个tableView的时候）
+    if([tableView isEqual:_issuingTableView]){
+        //取消选中
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
 @end
