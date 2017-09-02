@@ -64,7 +64,7 @@
     _imageArray = [NSMutableArray new];
     [self naviConfing];
     [self setDefaultDateForButton];
-    [self request];
+    //[self request];
     [self addZLImageViewDisPlayView];
 }
 
@@ -87,7 +87,7 @@
     imageViewDisplay.scrollInterval = 3;
     imageViewDisplay.animationInterVale = 0.6;
     [self.scrollView addSubview:imageViewDisplay];
-    
+    [self initializeData];
    /* [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
         NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
         UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -100,6 +100,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+
 }
 - (void)setDefaultDateForButton{
     //初始化日期格式器
@@ -156,8 +157,12 @@
 }
 */
 #pragma mark - request
-- (void)request{
+- (void)initializeData{
     _avi = [Utilities getCoverOnView:self.view];
+    [self request];
+}
+- (void)request{
+    //_avi = [Utilities getCoverOnView:self.view];
     //开始日期
     NSTimeInterval startTime = [Utilities cTimestampFromString:_firstDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
     //结束日期
@@ -171,6 +176,8 @@
         [Utilities popUpAlertViewWithMsg:@"请正确设置开始日期和结束日期" andTitle:@"提示" onView:self onCompletion:^{
         }];
     }else{
+        [[StorageMgr singletonStorageMgr] addKey:@"first" andValue:_firstDayBtn.titleLabel.text];
+        [[StorageMgr singletonStorageMgr] addKey:@"second" andValue:_secondDayBtn.titleLabel.text];
         NSLog(@"eeeee%ld",(long)_hotelID);
     NSDictionary *para = @{@"id" : @(_hotelID)};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
@@ -313,10 +320,17 @@
     NSString *theDate = [formatter stringFromDate:date];
     if (flag == 0) {
         [_firstDayBtn setTitle:theDate forState:UIControlStateNormal];
+        _firstDayBtn.titleLabel.text = theDate;
         [self request];
+        //[[StorageMgr singletonStorageMgr] addKey:@"first" andValue:_firstDayBtn.titleLabel.text];
+        NSLog(@"firstDayBtn.titleLabel.text = %@",_firstDayBtn.titleLabel.text);
+        
     }else{
         [_secondDayBtn setTitle:theDate forState:UIControlStateNormal];
+        _secondDayBtn.titleLabel.text = theDate;
         [self request];
+        //[[StorageMgr singletonStorageMgr] addKey:@"second" andValue:_secondDayBtn.titleLabel.text];
+        
     }
     _viewDate.hidden = YES;
     _toolBar.hidden = YES;

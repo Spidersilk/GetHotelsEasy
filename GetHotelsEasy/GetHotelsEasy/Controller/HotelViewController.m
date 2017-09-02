@@ -59,6 +59,12 @@
 @property (strong, nonatomic) NSIndexPath *cellindexPathTwo;
 
 @property (nonatomic) NSInteger sortingid;
+@property (strong, nonatomic) NSString *theDate;
+@property (strong, nonatomic) NSString *inDate;
+@property (strong, nonatomic) NSString *outDate;
+
+@property (strong, nonatomic) UIView * shadeView;
+
 @end
 
 @implementation HotelViewController
@@ -74,10 +80,13 @@
     _HotelTableView.tableFooterView = [UIView new];
     _collectionCellOne = @[@"  星级",@"全部",@"四星",@"五星"];
     _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"501-1000",@"",@"",@"501-1000",@"1000以上"];
-    _optionsArr = @[@"只能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
-    
+    _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
+    page = 1;
+    flag = 0;
     [self uilayout];//签署协议
     [self initial];
+    [self initialBtn];//初始化Btn
     [self dataInitialize];//这个方法专门做数据的处理
     // Do any additional setup after loading the view.
     [self locationStart];//这个方法处理开始定位
@@ -94,6 +103,64 @@
     
     
 }
+- (void) initialBtn{
+    if (flag == 0){
+        NSDate *date = [NSDate date];
+        //初始化一个日期格式器
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        //定义日期的格式为yyyy-MM-dd
+        formatter.dateFormat = @"MM-dd";
+        //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
+        NSString *Date = [formatter stringFromDate:date];
+        NSLog(@"date:%@",Date);
+        _inDate = [NSString stringWithFormat:@"%@",Date];
+        _outDate = [NSString stringWithFormat:@"%@",Date];
+    }
+
+    // 创建按钮对象
+    _Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 40)];
+    [_Btn1 setTitle:[NSString stringWithFormat:@"入住%@",_inDate] forState:UIControlStateNormal];
+    [_Btn1.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn1.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn1.layer setBorderWidth:0.3];//设置边框
+    _Btn1.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件1
+    [_Btn1 addTarget:self action:@selector(Btn1Action) forControlEvents:UIControlEventTouchUpInside];
+    
+    _Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4, 0, UI_SCREEN_W/4, 40)];
+    [_Btn2 setTitle:[NSString stringWithFormat:@"离店%@",_outDate] forState:UIControlStateNormal];
+    [_Btn2.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn2.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn2.layer setBorderWidth:0.3];//设置边框
+    _Btn2.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件2
+    [_Btn2 addTarget:self action:@selector(Btn2Action) forControlEvents:UIControlEventTouchUpInside];
+    
+    _Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*2, 0, UI_SCREEN_W/4, 40)];
+    [_Btn3 setTitle:@"智能排序" forState:UIControlStateNormal];
+    [_Btn3.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn3.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn3.layer setBorderWidth:0.3];//设置边框
+    _Btn3.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件3
+    [_Btn3 addTarget:self action:@selector(Btn3Action) forControlEvents:UIControlEventTouchUpInside];
+    
+    _Btn4 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*3, 0, UI_SCREEN_W/4, 40)];
+    [_Btn4 setTitle:@"筛选" forState:UIControlStateNormal];
+    [_Btn4.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [_Btn4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _Btn4.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
+    [_Btn4.layer setBorderWidth:0.3];//设置边框
+    _Btn4.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    //添加事件3
+    [_Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
+    
+
+
+}
 - (void)initial{
     //创建uiview放置选项标签
     _uiv = [[UIView alloc]initWithFrame:CGRectMake(0, 205, UI_SCREEN_W, 200)];
@@ -101,7 +168,14 @@
     _uiv.hidden = YES;
     [_HotelTableView addSubview:_uiv];
     _optionsTableView.frame = _uiv.bounds;
+    
+    _shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, UI_SCREEN_H)];
+    _shadeView.backgroundColor =UIColorFromRGBA(235, 234, 235, 1);
+    _shadeView.hidden = YES;
+    [_uiv addSubview:_shadeView];
     [_uiv addSubview:_optionsTableView];
+    
+    
 
 }
 
@@ -135,7 +209,7 @@
 }
 #pragma mack - 网络请求
 - (void)InitializeData{
-    page = 1;
+    
     //点击按钮的时候创建一个蒙层（菊花膜）并显示在当前页面（self.view）
     _avi = [Utilities getCoverOnView:self.view];
     [self request];
@@ -173,8 +247,9 @@
         price = [[[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] integerValue];//获取单例化全局变量
         NSLog(@"price:%ld",(long)price);
     }
-    
-    NSDictionary *prarmeter = @{@"city_name":@"无锡",@"pageNum" :@1,@"pageSize":@10,@"startId":@1,@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":@"2017-08-31",@"outTime":@"2017-09-01",@"wxlongitude":@"",@"wxlatitude":@""};
+
+   
+    NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@1,@"pageSize":@10,@"startId":@1,@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":[NSString stringWithFormat:@"2017-%@",_inDate],@"outTime":[NSString stringWithFormat:@"2017-%@",_outDate],@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
@@ -214,6 +289,9 @@
             //刷新表格（重载数据）
             [_HotelTableView reloadData];//reloadData重新加载activityTableView数据
 //
+            if (_arr ==NULL) {
+                [self nothingForTableView];
+            }
         }else{
             
 //            //业务逻辑失败的情况下
@@ -341,8 +419,7 @@
         
     } else {
         //不是第一次来到APP则将记忆城市与按钮上的城市名反向同步
-        NSString *userCity = [Utilities getUserDefaults:@"UserCity"];
-        [_cityBtn setTitle:userCity forState:UIControlStateNormal];
+        [_cityBtn setTitle:[Utilities getUserDefaults:@"UserCity"] forState:UIControlStateNormal];
     }
     
    
@@ -387,9 +464,27 @@
                 [[StorageMgr singletonStorageMgr] removeObjectForKey:@"LocCity"];
                 //将定位到的城市存进单例化全局变量
                 [[StorageMgr singletonStorageMgr] addKey:@"LocCity" andValue:cityStr];
-                //修改城市按钮标题
-                [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
-                _cityBtn.enabled = YES;
+                if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {
+                    //当定位到的城市和当前选择的城市不一样的时候，弹窗询问是否要切换城市
+                    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"当前定位到的城市为%@,是否切换",cityStr] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        //修改城市按钮标题
+                        [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
+                        _cityBtn.titleLabel.text = cityStr;
+                        //修改用户选择的城市
+                        [Utilities removeUserDefaults:@"UserCity"];
+                        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+                        //重新进行网络请求
+                        [self InitializeData];
+                        
+                    }];
+                    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alertView addAction:yesAction];
+                    [alertView addAction:noAction];
+                    [self presentViewController:alertView animated:YES completion:nil];
+                };
                 
             }
         }];
@@ -397,7 +492,20 @@
         [_locMgr stopUpdatingLocation];
     });
 }
-
+- (void) checkCityState:(NSNotification *)note {
+    NSString *cityStr = note.object;
+    if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {
+        //修改城市按钮标题
+        [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
+        _cityBtn.titleLabel.text = cityStr;
+        [Utilities removeUserDefaults:@"UserCity"];
+        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+        //[self dataInitialize];
+        //重新进行网络请求
+        [self InitializeData];
+    }
+    
+}
 
 /*
 #pragma mark - Navigation
@@ -495,6 +603,8 @@
             _optionsTableView.hidden = YES;
             _uiv.hidden = YES;
             _HotelTableView.scrollEnabled = YES;
+            _shadeView.hidden = YES;
+
         }
         
     
@@ -544,51 +654,6 @@
         [customView addSubview:bg];
         
         
-        
-        
-        // 创建按钮对象
-        _Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 40)];
-        [_Btn1 setTitle:@"入住03-24" forState:UIControlStateNormal];
-        [_Btn1.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-        [_Btn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _Btn1.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-        [_Btn1.layer setBorderWidth:0.3];//设置边框
-        _Btn1.layer.borderColor=[UIColor lightGrayColor].CGColor;
-        //添加事件1
-        [_Btn1 addTarget:self action:@selector(Btn1Action) forControlEvents:UIControlEventTouchUpInside];
-        
-        _Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4, 0, UI_SCREEN_W/4, 40)];
-        [_Btn2 setTitle:@"离店03-28" forState:UIControlStateNormal];
-        [_Btn2.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-        [_Btn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _Btn2.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-        [_Btn2.layer setBorderWidth:0.3];//设置边框
-        _Btn2.layer.borderColor=[UIColor lightGrayColor].CGColor;
-        //添加事件2
-        [_Btn2 addTarget:self action:@selector(Btn2Action) forControlEvents:UIControlEventTouchUpInside];
-        
-        _Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*2, 0, UI_SCREEN_W/4, 40)];
-        [_Btn3 setTitle:@"智能排序" forState:UIControlStateNormal];
-        [_Btn3.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-        [_Btn3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _Btn3.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-        [_Btn3.layer setBorderWidth:0.3];//设置边框
-        _Btn3.layer.borderColor=[UIColor lightGrayColor].CGColor;
-        //添加事件3
-        [_Btn3 addTarget:self action:@selector(Btn3Action) forControlEvents:UIControlEventTouchUpInside];
-        
-        _Btn4 = [[UIButton alloc] initWithFrame:CGRectMake(UI_SCREEN_W/4*3, 0, UI_SCREEN_W/4, 40)];
-        [_Btn4 setTitle:@"筛选" forState:UIControlStateNormal];
-        [_Btn4.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
-        [_Btn4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _Btn4.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-        [_Btn4.layer setBorderWidth:0.3];//设置边框
-        _Btn4.layer.borderColor=[UIColor lightGrayColor].CGColor;
-        //添加事件3
-        [_Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        
         UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         headerLabel.backgroundColor = [UIColor clearColor];
         headerLabel.opaque = NO;
@@ -628,16 +693,18 @@
     NSLog(@"Btn1被按了");
     
     //_picker.maximumDate = [NSDate dateTomorrow];//设置datePicker的最小时间
-    flag = 0;
+    flag = 1;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
+    _shadeView.hidden = NO;
 }
 - (void)Btn2Action{
     NSLog(@"Btn2被按了");
     //_picker.minimumDate = [NSDate dateTomorrow];//设置datePicker的最小时间
-    flag = 1;
+    flag = 2;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
+    _shadeView.hidden = NO;
 
 }
 - (void)Btn3Action{
@@ -651,6 +718,7 @@
     _HotelTableView.scrollEnabled = NO;
     _collectionView.scrollEnabled = NO;
     _collectionView.hidden = YES;
+    _shadeView.hidden = NO;
 
     
 }
@@ -667,6 +735,7 @@
     _collectionView.scrollEnabled = NO;
     _uiv.hidden = NO;
     _optionsTableView.hidden = YES;
+    _shadeView.hidden = NO;
     
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -687,23 +756,38 @@
 
 - (IBAction)Done:(UIBarButtonItem *)sender {
     //拿到当前datepicker选择的时间
-    NSDate *date = _picker.date;
+    NSDate *date= _picker.date;
+
+    
     //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
     formatter.dateFormat = @"MM-dd";
     //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
-    NSString *theDate = [formatter stringFromDate:date];
-    NSString *str = [NSString stringWithFormat:@"入住%@",theDate];
+    _theDate = [formatter stringFromDate:date];
+    NSLog(@"离店时间1：%@",_theDate);
     
-    if (flag == 0) {
+    
+    if (flag ==1) {
+        //_Btn1.titleLabel.text = theDate;
+        NSString *str = [NSString stringWithFormat:@"入住%@",_theDate];
         [_Btn1 setTitle:str forState:UIControlStateNormal];
-    }else{
+        NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
+        _inDate = _theDate;
+        [self InitializeData];
+    }else if(flag == 2){
+        
+        NSString *str = [NSString stringWithFormat:@"离店%@",_theDate];
         [_Btn2 setTitle:str forState:UIControlStateNormal];
+        _Btn2.titleLabel.text = _theDate;
+        NSLog(@"离店时间3：%@",_Btn2.titleLabel.text);
+        _outDate = _theDate;
+        [self InitializeData];
     }
     
     _picker.hidden = YES;
     _Toolbar.hidden = YES;
+    _shadeView.hidden = YES;
 }
 #pragma mack - collectionView
 - (void)collectionViewInitialize{
@@ -737,12 +821,13 @@
     //4.设置代理
     _collectionView.delegate = self;
     _collectionView.dataSource = self;//创建确定按钮
-    UIButton* DoneBtn = [[UIButton alloc] initWithFrame:CGRectMake((UI_SCREEN_W/2-UI_SCREEN_W/8), 170, UI_SCREEN_W/4, 30)];
-    [DoneBtn setTitle:@"入住03-24" forState:UIControlStateNormal];
+    UIButton* DoneBtn = [[UIButton alloc] initWithFrame:CGRectMake((UI_SCREEN_W/2-UI_SCREEN_W/8), 155, UI_SCREEN_W/4, 30)];
+    [DoneBtn setTitle:@"确定" forState:UIControlStateNormal];
     [DoneBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
     [DoneBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     DoneBtn.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [DoneBtn.layer setBorderWidth:0.3];//设置边框
+    [DoneBtn.layer setBorderWidth:0.8];//设置边框
+    DoneBtn.layer.cornerRadius = 8.0 ;
     DoneBtn.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件
     [DoneBtn addTarget:self action:@selector(DoneAction) forControlEvents:UIControlEventTouchUpInside];
@@ -785,6 +870,7 @@
             cell.lable.text = _collectionCellOne[indexPath.row];
             
             LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowOne];
+            beforecell.layer.cornerRadius = 8.0 ;
             beforecell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);;
               return cell;
             
@@ -803,6 +889,7 @@
             
             
             LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowTwo];
+            beforecell.layer.cornerRadius = 8.0 ;
             beforecell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);;
 
             cell.lable.text = _collectionCellTwo[indexPath.row];
@@ -883,9 +970,11 @@
             
             if(indexPath.row != _cellindexPathOne.row){
                 LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+                cell.layer.cornerRadius = 8.0 ;
                 cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
                 LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathOne];
                 //beforecell.backgroundView = [UIColor groupTableViewBackgroundColor];
+                
                 beforecell.backgroundColor =[UIColor whiteColor];
                 beforecell.selected = NO;
                 [_collectionView deselectItemAtIndexPath:_cellindexPathOne animated:YES];//这句是防止取消后，前面取消的cell被动选中；
@@ -894,6 +983,7 @@
             }
             if(indexPath.row != _cellindexPathNowOne.row){
                 LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+                cell.layer.cornerRadius = 8.0 ;
                 cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
                 LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowOne];
                 //beforecell.backgroundView = [UIColor groupTableViewBackgroundColor];
@@ -915,8 +1005,10 @@
             [[StorageMgr singletonStorageMgr] addKey:@"priceid" andValue:@(ns)];
             if(indexPath.row != _cellindexPathTwo.row ){
                 LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+                cell.layer.cornerRadius = 8.0 ;
                 cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
                 LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathTwo];
+                
                 beforecell.backgroundColor = [UIColor whiteColor];
                 beforecell.selected = YES;
                 [_collectionView deselectItemAtIndexPath:_cellindexPathTwo animated:YES];//取消选中状态
@@ -924,11 +1016,13 @@
             }
             if (indexPath.row != _cellindexPathNowTwo.row) {
                 LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+                cell.layer.cornerRadius = 8.0 ;
                 cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
                 LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowTwo];
+                
                 beforecell.backgroundColor = [UIColor whiteColor];
                 beforecell.selected = NO;
-                [_collectionView deselectItemAtIndexPath:_cellindexPathTwo animated:YES];//取消选中状态
+                [_collectionView deselectItemAtIndexPath:_cellindexPathNowTwo animated:YES];//取消选中状态
             }
             
 
@@ -949,8 +1043,8 @@
     _collectionView.scrollEnabled = YES;
     _cellindexPathNowOne =_cellindexPathOne ;
     _cellindexPathNowTwo = _cellindexPathTwo;
-    
-    
+    _collectionView.hidden = YES;
+    _shadeView.hidden = YES;
 }
 
 -(void)buttonAction{
@@ -993,6 +1087,16 @@
 
 }
 #pragma mack - 选项卡tableView
+//tableView没东西的时候运行
+- (void)nothingForTableView{
+    UIImageView *Img;
+    Img = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"no_things" ]];
+    Img.frame = CGRectMake(UI_SCREEN_W+(UI_SCREEN_W-100)/2, 250, 100, 100);
+    
+    
+    [_HotelTableView addSubview:Img];
+    
+}
 
 
 
