@@ -96,8 +96,8 @@
 
 //用model的方式返回上一页
 - (void)backAction{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popViewControllerAnimated:YES];//用push返回上一页
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];//用push返回上一页
 }
 
 - (void) dataInitialize {
@@ -170,8 +170,10 @@
     NSDictionary *city = sectionCities[indexPath.row];
     if (_flag ==1) {
         [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:[NSNotification notificationWithName:@"ResetHome" object:city[@"name"]] waitUntilDone:YES];
+    }else {
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:[NSNotification notificationWithName:@"AirCity" object:city[@"name"]] waitUntilDone:YES];
     }
-        [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //设置右侧快捷键的栏
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kaH-DS-6fG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zfO-NS-qR4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -419,12 +419,10 @@
                                     <constraint firstItem="QdC-Nv-CjP" firstAttribute="centerX" secondItem="uIr-q0-IHY" secondAttribute="centerX" id="vhB-4G-cdl"/>
                                 </constraints>
                             </scrollView>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-Ve-vbW">
-                                <rect key="frame" x="0.0" y="402" width="375" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="526198027.30439901">
-                                    <!--2017-09-04 06:07:07 +0000-->
-                                </date>
-                            </datePicker>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPy-9L-zFP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.32890089897260272" colorSpace="calibratedWhite"/>
+                            </view>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIR-dh-GBE">
                                 <rect key="frame" x="0.0" y="358" width="375" height="44"/>
                                 <items>
@@ -441,15 +439,27 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-Ve-vbW">
+                                <rect key="frame" x="0.0" y="402" width="375" height="216"/>
+                                <color key="backgroundColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <date key="date" timeIntervalSinceReferenceDate="526198027.30439901">
+                                    <!--2017-09-04 06:07:07 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="zh"/>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uIr-q0-IHY" firstAttribute="top" secondItem="eYF-ly-QtR" secondAttribute="bottom" id="0R2-hl-XjL"/>
                             <constraint firstItem="eYF-ly-QtR" firstAttribute="top" secondItem="2Ua-iC-QgV" secondAttribute="top" id="2oC-9l-FWK"/>
                             <constraint firstItem="Mkg-Ve-vbW" firstAttribute="top" secondItem="aIR-dh-GBE" secondAttribute="bottom" id="5pB-FR-2Ug"/>
+                            <constraint firstAttribute="bottom" secondItem="DPy-9L-zFP" secondAttribute="bottom" id="JGm-84-Y7g"/>
+                            <constraint firstItem="DPy-9L-zFP" firstAttribute="top" secondItem="2Ua-iC-QgV" secondAttribute="top" id="Nge-mb-WFi"/>
+                            <constraint firstAttribute="trailing" secondItem="DPy-9L-zFP" secondAttribute="trailing" id="TkT-3h-oVi"/>
                             <constraint firstItem="eYF-ly-QtR" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="WAG-vU-rRh"/>
                             <constraint firstAttribute="trailing" secondItem="Mkg-Ve-vbW" secondAttribute="trailing" id="b56-8g-gJ8"/>
                             <constraint firstAttribute="trailing" secondItem="eYF-ly-QtR" secondAttribute="trailing" id="dX6-0D-IDq"/>
+                            <constraint firstItem="DPy-9L-zFP" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="iWT-nk-aZS"/>
                             <constraint firstAttribute="trailing" secondItem="uIr-q0-IHY" secondAttribute="trailing" id="lH3-T3-1Ah"/>
                             <constraint firstAttribute="trailing" secondItem="aIR-dh-GBE" secondAttribute="trailing" id="o4o-eE-Acp"/>
                             <constraint firstAttribute="bottom" secondItem="uIr-q0-IHY" secondAttribute="bottom" id="r37-Xq-Nrs"/>
@@ -466,10 +476,12 @@
                     <connections>
                         <outlet property="DepartureTimeBtn" destination="wgf-up-cjW" id="Ngr-aT-cqS"/>
                         <outlet property="DepartureTimeView" destination="Waf-es-peW" id="CVK-Xm-37c"/>
+                        <outlet property="afterTomorrowLabel" destination="VF3-RS-yW9" id="vTm-Fh-nLI"/>
                         <outlet property="arrivalCityBtn" destination="Lz1-3J-2fj" id="aVT-oG-JLz"/>
                         <outlet property="arrivalCityView" destination="YXJ-cp-49Y" id="Vsg-d4-9be"/>
                         <outlet property="arrivalTimeBtn" destination="Y4e-5p-9vD" id="5in-O7-yye"/>
                         <outlet property="arrivalTimeView" destination="Y0f-FX-9Ht" id="tT8-T5-GKz"/>
+                        <outlet property="avi" destination="DPy-9L-zFP" id="WaE-nx-3e0"/>
                         <outlet property="backView" destination="exc-0O-y0R" id="ErM-uG-hm4"/>
                         <outlet property="datePicker" destination="Mkg-Ve-vbW" id="zb5-ls-aRh"/>
                         <outlet property="departureCityBtn" destination="wDO-09-dcc" id="7EF-KZ-o1R"/>
@@ -477,13 +489,14 @@
                         <outlet property="minimumPriceTextField" destination="kc8-UV-poU" id="0a8-cW-rsD"/>
                         <outlet property="mostPriceTextField" destination="4rT-WX-0pk" id="k58-ig-CF0"/>
                         <outlet property="scrollView" destination="uIr-q0-IHY" id="c3x-uj-laU"/>
+                        <outlet property="tomorrowLabel" destination="4aw-i1-neN" id="JSj-cX-pxF"/>
                         <outlet property="toolBar" destination="aIR-dh-GBE" id="WxV-Kw-Kza"/>
                         <outlet property="topConstraint" destination="b13-w9-PBD" id="hIq-Dq-BB8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BA-I6-dCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="797.60000000000002" y="78.710644677661179"/>
+            <point key="canvasLocation" x="465" y="79"/>
         </scene>
         <!--航空-->
         <scene sceneID="k2v-Ii-La9">
@@ -497,10 +510,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kaH-DS-6fG" kind="relationship" relationship="rootViewController" id="gB2-7d-9DG"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="143-7N-WwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="101.59999999999999" y="78.710644677661179"/>
+            <point key="canvasLocation" x="-254" y="79"/>
         </scene>
     </scenes>
     <resources>

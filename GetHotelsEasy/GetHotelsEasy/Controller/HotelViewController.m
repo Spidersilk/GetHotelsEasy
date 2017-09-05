@@ -84,7 +84,7 @@
     _collectionCellOne = @[@"  星级",@"全部",@"四星",@"五星"];
     _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"501-1000",@"",@"",@"501-1000",@"1000以上"];
     _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityStat:) name:@"ResetHome" object:nil];
     page = 1;
     flag = 0;
     [self uilayout];//签署协议
@@ -495,7 +495,7 @@
         [_locMgr stopUpdatingLocation];
     });
 }
-- (void) checkCityState:(NSNotification *)note {
+- (void) checkCityStat:(NSNotification *)note {
     NSString *cityStr = note.object;
     if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {
         //修改城市按钮标题

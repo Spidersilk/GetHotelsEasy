@@ -7,6 +7,7 @@
 //
 
 #import "AirReleaseViewController.h"
+#import "CityTableViewController.h"
 
 @interface AirReleaseViewController ()<UITextFieldDelegate>{
     NSInteger flag;
@@ -19,9 +20,12 @@
 @property (weak, nonatomic) IBOutlet UIView *arrivalTimeView;
 @property (weak, nonatomic) IBOutlet UIView *departureCityView;
 @property (weak, nonatomic) IBOutlet UIView *arrivalCityView;
+@property (weak, nonatomic) IBOutlet UIView *avi;
 
 @property (weak, nonatomic) IBOutlet UIButton *DepartureTimeBtn;
+@property (weak, nonatomic) IBOutlet UILabel *tomorrowLabel;
 @property (weak, nonatomic) IBOutlet UIButton *arrivalTimeBtn;
+@property (weak, nonatomic) IBOutlet UILabel *afterTomorrowLabel;
 @property (weak, nonatomic) IBOutlet UIButton *departureCityBtn;
 @property (weak, nonatomic) IBOutlet UIButton *arrivalCityBtn;
 
@@ -36,8 +40,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 
-
-
 @end
 
 @implementation AirReleaseViewController
@@ -48,10 +50,13 @@
     flag = 0;
     [self naviConfig];
     [self uiLayout];
+    [self setDefaultDateForButton];
     // Do any additional setup after loading the view.
     //监听键盘将要打开这一操作，打开后执行keyboardWillShow:方法
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"AirCity" object:nil];
     // 点击空白处收键盘
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
     [self.view addGestureRecognizer:singleTap];
@@ -69,12 +74,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)viewDidDisappear:(BOOL)animated{
-    
-    // 记得一定要注销通知监听，否则有时会导致crash
-    // 比如内存中两个类均收到通知，然后他们都想执行跳转,这个时候就crash了
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//当前页面将要显示的时候，隐藏导航栏
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
+//-(void)viewDidDisappear:(BOOL)animated{
+//    
+//    // 记得一定要注销通知监听，否则有时会导致crash
+//    // 比如内存中两个类均收到通知，然后他们都想执行跳转,这个时候就crash了
+//    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 //这个方法专门做导航条的控制
 - (void)naviConfig{
@@ -86,6 +96,21 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条是否被隐藏
     self.navigationController.navigationBar.hidden = NO;
+}
+-(void)setDefaultDateForButton{
+    //初始化一个日期格式器Formatter
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    //定义日期的格式为yyyy-MM-dd年月日
+    formatter.dateFormat = @"MM月dd日";
+    //后天的时间
+    NSDate *dateaftertomorrow = [NSDate dateWithDaysFromNow:2];
+    //明天的日期
+    NSDate *datetomorrow = [NSDate dateTomorrow];
+    NSString *datestr = [formatter stringFromDate:dateaftertomorrow];
+    NSString *datetomstr = [formatter stringFromDate:datetomorrow];
+    //将处理好的时间字符串设置给两个button
+    [_DepartureTimeBtn setTitle:datetomstr forState:UIControlStateNormal];
+    [_arrivalTimeBtn setTitle:datestr forState:UIControlStateNormal];
 }
 - (void)uiLayout{
     self.backView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -159,27 +184,61 @@
 }
 */
 - (void)DepartureTime {
+    _avi.hidden = NO;
     flag = 0;
     _toolBar.hidden = NO;
     _datePicker.hidden = NO;
-    NSLog(@"点击了page3");
 }
 
 - (void)arrivalTime {
+    _avi.hidden = NO;
     flag = 1;
     _toolBar.hidden = NO;
     _datePicker.hidden = NO;
 }
 
 - (void)departureCity {
-    
+    //_avi.hidden = NO;
+    flag = 2;
+    //获取要跳转过去的那个页面
+    CityTableViewController *city = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"City"];
+    city.flag = 2;
+    //执行跳转
+    [self.navigationController pushViewController:city animated:YES];
+    //[self presentViewController:city animated:YES completion:nil];
 }
 - (void)arrivalCity {
+    flag = 3;
+    //_avi.hidden = NO;
+    //获取要跳转过去的那个页面
+    CityTableViewController *city = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"City"];
+    city.flag = 3;
+    //执行跳转
+    [self.navigationController pushViewController:city animated:YES];
+    //[self presentViewController:city animated:YES completion:nil];
+}
+- (void) checkCityState:(NSNotification *)note {
+    NSString *cityStr = note.object;
+    if (![cityStr isEqualToString:_departureCityBtn.titleLabel.text]) {
+        if (flag == 2) {
+            //修改城市按钮标题
+            [_departureCityBtn setTitle:cityStr forState:UIControlStateNormal];
+            _departureCityBtn.titleLabel.text = cityStr;
+        }else if (flag == 3){
+            //修改城市按钮标题
+            [_arrivalCityBtn setTitle:cityStr forState:UIControlStateNormal];
+            _arrivalCityBtn.titleLabel.text = cityStr;
+        }
+        
+
+    }
     
 }
+
 - (IBAction)postedAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    _avi.hidden = YES;
     _toolBar.hidden = YES;
     _datePicker.hidden = YES;
 }
@@ -190,15 +249,27 @@
     //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
-    formatter.dateFormat = @"yyyy-MM-dd";
+    formatter.dateFormat = @"MM月dd日";
     //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
     NSString *theDate = [formatter stringFromDate:date];
     //flag等于0 则开始按钮变为时间，反之结束按钮变为时间
-    if (flag == 0) {
+    if (flag == 0 ) {
+        _tomorrowLabel.hidden = NO;
         [_DepartureTimeBtn setTitle:theDate forState:UIControlStateNormal];
+        if (![theDate isEqualToString: [formatter stringFromDate:[NSDate dateTomorrow]]]) {
+            _tomorrowLabel.hidden = YES;
+            [_DepartureTimeBtn setTitle:theDate forState:UIControlStateNormal];
+        }
     }else{
+        _afterTomorrowLabel.hidden = NO;
         [_arrivalTimeBtn setTitle:theDate forState:UIControlStateNormal];
-    }    _toolBar.hidden = YES;
+        if (![theDate isEqualToString: [formatter stringFromDate:[NSDate dateWithDaysFromNow:2]]]) {
+            _afterTomorrowLabel.hidden = YES;
+            [_arrivalTimeBtn setTitle:theDate forState:UIControlStateNormal];
+        }
+}
+    _avi.hidden = YES;
+    _toolBar.hidden = YES;
     _datePicker.hidden = YES;
 }
 @end
