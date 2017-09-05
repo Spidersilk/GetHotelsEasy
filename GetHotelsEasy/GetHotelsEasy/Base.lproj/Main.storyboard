@@ -55,7 +55,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jD1-TR-mG5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1694" y="336"/>
+            <point key="canvasLocation" x="1886" y="229"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Th4-T2-NsV">
@@ -76,15 +76,15 @@
             </objects>
             <point key="canvasLocation" x="1246" y="-65"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--AirRelease-->
         <scene sceneID="vSa-L7-r5D">
             <objects>
-                <viewControllerPlaceholder id="1E7-Jc-McF" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="AirRelease" id="1E7-Jc-McF" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="航空" id="mRu-B1-bfg"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oF7-HF-PXP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1858" y="-42"/>
+            <point key="canvasLocation" x="1905" y="-66"/>
         </scene>
         <!--Hotel-->
         <scene sceneID="ywC-4g-75c">
@@ -94,7 +94,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zP4-ZY-cXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1880" y="-492"/>
+            <point key="canvasLocation" x="1879" y="-390"/>
         </scene>
         <!--会员登录-->
         <scene sceneID="yKN-bH-9qb">

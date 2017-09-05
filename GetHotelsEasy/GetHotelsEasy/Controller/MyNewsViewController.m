@@ -33,21 +33,14 @@
 //设置导航栏样式
 -(void)setNavigationItem{
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0, 128, 255)];
-    //实例化一个button
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //设置button的位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    //设置背景图片
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    //给按钮添加事件
-    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
+    //导航栏的返回按钮只保留那个箭头，去掉后边的文字
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    self.navigationItem.backBarButtonItem = item;
 }
-//自定义的返回按钮的事件
--(void)leftButtonAction:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 /*
 #pragma mark - Navigation
 

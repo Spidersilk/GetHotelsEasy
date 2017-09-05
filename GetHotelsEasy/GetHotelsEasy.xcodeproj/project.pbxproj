@@ -45,7 +45,6 @@
 		8494FBA21F5A48C000937C1B /* IssuingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494FBA11F5A48C000937C1B /* IssuingTableViewCell.m */; };
 		8494FBA51F5A48DF00937C1B /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494FBA41F5A48DF00937C1B /* HistoryTableViewCell.m */; };
 		8494FBAB1F5A880500937C1B /* OfferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494FBAA1F5A880500937C1B /* OfferTableViewCell.m */; };
-		8494FBAE1F5A8B9400937C1B /* OfferDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494FBAD1F5A8B9400937C1B /* OfferDetailViewController.m */; };
 		8499B5851F4C47910060AB52 /* HotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499B5841F4C47910060AB52 /* HotelViewController.m */; };
 		849C68C51F52C52000933056 /* HotelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849C68C41F52C52000933056 /* HotelCollectionViewCell.m */; };
 		84AD9C6A1F4E5C9F00C36022 /* HotelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AD9C691F4E5C9F00C36022 /* HotelTableViewCell.m */; };
@@ -67,18 +66,21 @@
 		BC13EFE21F4BBCB200B37EA3 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFD71F4BBCB200B37EA3 /* openssl_wrapper.m */; };
 		BC13EFE31F4BBCB200B37EA3 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFD91F4BBCB200B37EA3 /* RSADataSigner.m */; };
 		BC13EFE41F4BBCB200B37EA3 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = BC13EFDB1F4BBCB200B37EA3 /* RSADataVerifier.m */; };
-		BC6030E41F493A6D00FDF90A /* MyAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E31F493A6D00FDF90A /* MyAirViewController.m */; };
-		BC6030E71F493A9100FDF90A /* MyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E61F493A9100FDF90A /* MyNewsViewController.m */; };
-		BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030E91F493AB200FDF90A /* AccountSettingsViewController.m */; };
-		BC6030ED1F493AD000FDF90A /* UseAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030EC1F493AD000FDF90A /* UseAgreementViewController.m */; };
+		BC4A38861F5E2D39006211A5 /* AccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4A38791F5E2D39006211A5 /* AccountSettingsViewController.m */; };
+		BC4A38871F5E2D39006211A5 /* MyAirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4A387B1F5E2D39006211A5 /* MyAirViewController.m */; };
+		BC4A38881F5E2D39006211A5 /* MyHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4A387D1F5E2D39006211A5 /* MyHotelViewController.m */; };
+		BC4A38891F5E2D39006211A5 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4A387F1F5E2D39006211A5 /* MyInfoViewController.m */; };
+		BC4A388A1F5E2D39006211A5 /* MyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4A38811F5E2D39006211A5 /* MyNewsViewController.m */; };
+		BC4A388B1F5E2D39006211A5 /* OfferDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4A38831F5E2D39006211A5 /* OfferDetailViewController.m */; };
+		BC4A388C1F5E2D39006211A5 /* UseAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4A38851F5E2D39006211A5 /* UseAgreementViewController.m */; };
 		BC6030F01F493AFC00FDF90A /* ContactCustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6030EF1F493AFC00FDF90A /* ContactCustomerServiceViewController.m */; };
-		BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */; };
 		BC6C3CF21F4864E20057F416 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */; };
-		BC6C3CF51F4865A10057F416 /* MyHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */; };
 		BCD208761F4AF16F003E523A /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD208751F4AF16F003E523A /* HMSegmentedControl.m */; };
 		BCD208841F4B179B003E523A /* AllOrdersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD208831F4B179B003E523A /* AllOrdersTableViewCell.m */; };
 		BCD208871F4B17B2003E523A /* WorkableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD208861F4B17B2003E523A /* WorkableTableViewCell.m */; };
 		BCD2088A1F4B17CD003E523A /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD208891F4B17CD003E523A /* ExpiredTableViewCell.m */; };
+		BCD3AF921F5D78BA000B0C54 /* AirRelease.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD3AF911F5D78BA000B0C54 /* AirRelease.storyboard */; };
+		BCD3AF971F5D7912000B0C54 /* AirReleaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD3AF961F5D7912000B0C54 /* AirReleaseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,8 +170,6 @@
 		8494FBA41F5A48DF00937C1B /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
 		8494FBA91F5A880500937C1B /* OfferTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferTableViewCell.h; sourceTree = "<group>"; };
 		8494FBAA1F5A880500937C1B /* OfferTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferTableViewCell.m; sourceTree = "<group>"; };
-		8494FBAC1F5A8B9400937C1B /* OfferDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferDetailViewController.h; sourceTree = "<group>"; };
-		8494FBAD1F5A8B9400937C1B /* OfferDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferDetailViewController.m; sourceTree = "<group>"; };
 		8499B5831F4C47910060AB52 /* HotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelViewController.h; sourceTree = "<group>"; };
 		8499B5841F4C47910060AB52 /* HotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelViewController.m; sourceTree = "<group>"; };
 		849C68C31F52C52000933056 /* HotelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelCollectionViewCell.h; sourceTree = "<group>"; };
@@ -211,22 +211,24 @@
 		BC13EFD91F4BBCB200B37EA3 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		BC13EFDA1F4BBCB200B37EA3 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		BC13EFDB1F4BBCB200B37EA3 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
-		BC6030E21F493A6D00FDF90A /* MyAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAirViewController.h; sourceTree = "<group>"; };
-		BC6030E31F493A6D00FDF90A /* MyAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAirViewController.m; sourceTree = "<group>"; };
-		BC6030E51F493A9100FDF90A /* MyNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNewsViewController.h; sourceTree = "<group>"; };
-		BC6030E61F493A9100FDF90A /* MyNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNewsViewController.m; sourceTree = "<group>"; };
-		BC6030E81F493AB200FDF90A /* AccountSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingsViewController.h; sourceTree = "<group>"; };
-		BC6030E91F493AB200FDF90A /* AccountSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingsViewController.m; sourceTree = "<group>"; };
-		BC6030EB1F493AD000FDF90A /* UseAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UseAgreementViewController.h; sourceTree = "<group>"; };
-		BC6030EC1F493AD000FDF90A /* UseAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UseAgreementViewController.m; sourceTree = "<group>"; };
+		BC4A38781F5E2D39006211A5 /* AccountSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingsViewController.h; sourceTree = "<group>"; };
+		BC4A38791F5E2D39006211A5 /* AccountSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingsViewController.m; sourceTree = "<group>"; };
+		BC4A387A1F5E2D39006211A5 /* MyAirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAirViewController.h; sourceTree = "<group>"; };
+		BC4A387B1F5E2D39006211A5 /* MyAirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAirViewController.m; sourceTree = "<group>"; };
+		BC4A387C1F5E2D39006211A5 /* MyHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotelViewController.h; sourceTree = "<group>"; };
+		BC4A387D1F5E2D39006211A5 /* MyHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotelViewController.m; sourceTree = "<group>"; };
+		BC4A387E1F5E2D39006211A5 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
+		BC4A387F1F5E2D39006211A5 /* MyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoViewController.m; sourceTree = "<group>"; };
+		BC4A38801F5E2D39006211A5 /* MyNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNewsViewController.h; sourceTree = "<group>"; };
+		BC4A38811F5E2D39006211A5 /* MyNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNewsViewController.m; sourceTree = "<group>"; };
+		BC4A38821F5E2D39006211A5 /* OfferDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferDetailViewController.h; sourceTree = "<group>"; };
+		BC4A38831F5E2D39006211A5 /* OfferDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferDetailViewController.m; sourceTree = "<group>"; };
+		BC4A38841F5E2D39006211A5 /* UseAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UseAgreementViewController.h; sourceTree = "<group>"; };
+		BC4A38851F5E2D39006211A5 /* UseAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UseAgreementViewController.m; sourceTree = "<group>"; };
 		BC6030EE1F493AFC00FDF90A /* ContactCustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCustomerServiceViewController.h; sourceTree = "<group>"; };
 		BC6030EF1F493AFC00FDF90A /* ContactCustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCustomerServiceViewController.m; sourceTree = "<group>"; };
-		BC6C3CEC1F4862FC0057F416 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
-		BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoViewController.m; sourceTree = "<group>"; };
 		BC6C3CF01F4864E20057F416 /* MyInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoTableViewCell.h; sourceTree = "<group>"; };
 		BC6C3CF11F4864E20057F416 /* MyInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewCell.m; sourceTree = "<group>"; };
-		BC6C3CF31F4865A10057F416 /* MyHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotelViewController.h; sourceTree = "<group>"; };
-		BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotelViewController.m; sourceTree = "<group>"; };
 		BCD208741F4AF16F003E523A /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		BCD208751F4AF16F003E523A /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		BCD208821F4B179B003E523A /* AllOrdersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrdersTableViewCell.h; sourceTree = "<group>"; };
@@ -235,6 +237,9 @@
 		BCD208861F4B17B2003E523A /* WorkableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkableTableViewCell.m; sourceTree = "<group>"; };
 		BCD208881F4B17CD003E523A /* ExpiredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpiredTableViewCell.h; sourceTree = "<group>"; };
 		BCD208891F4B17CD003E523A /* ExpiredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpiredTableViewCell.m; sourceTree = "<group>"; };
+		BCD3AF911F5D78BA000B0C54 /* AirRelease.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AirRelease.storyboard; sourceTree = "<group>"; };
+		BCD3AF951F5D7912000B0C54 /* AirReleaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirReleaseViewController.h; sourceTree = "<group>"; };
+		BCD3AF961F5D7912000B0C54 /* AirReleaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirReleaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +431,7 @@
 		848139F01F484DEA00BD090D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BCD3AF931F5D78C8000B0C54 /* AirReleaseController */,
 				8499B5821F4C47550060AB52 /* HotelViewController */,
 				844D27BA1F4B150D00026E12 /* CreateUserController */,
 				84B3095B1F4B124400AF8C24 /* HotelOrdelViewController */,
@@ -489,6 +495,7 @@
 				848139C31F4845F800BD090D /* Assets.xcassets */,
 				84813A4F1F48573E00BD090D /* MyInfo.storyboard */,
 				84813A511F4857F300BD090D /* Order.storyboard */,
+				BCD3AF911F5D78BA000B0C54 /* AirRelease.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -583,20 +590,20 @@
 		BC6C3CEB1F4862B70057F416 /* MyInfoController */ = {
 			isa = PBXGroup;
 			children = (
-				BC6C3CEC1F4862FC0057F416 /* MyInfoViewController.h */,
-				BC6C3CED1F4862FC0057F416 /* MyInfoViewController.m */,
-				BC6C3CF31F4865A10057F416 /* MyHotelViewController.h */,
-				BC6C3CF41F4865A10057F416 /* MyHotelViewController.m */,
-				BC6030E21F493A6D00FDF90A /* MyAirViewController.h */,
-				BC6030E31F493A6D00FDF90A /* MyAirViewController.m */,
-				8494FBAC1F5A8B9400937C1B /* OfferDetailViewController.h */,
-				8494FBAD1F5A8B9400937C1B /* OfferDetailViewController.m */,
-				BC6030E51F493A9100FDF90A /* MyNewsViewController.h */,
-				BC6030E61F493A9100FDF90A /* MyNewsViewController.m */,
-				BC6030E81F493AB200FDF90A /* AccountSettingsViewController.h */,
-				BC6030E91F493AB200FDF90A /* AccountSettingsViewController.m */,
-				BC6030EB1F493AD000FDF90A /* UseAgreementViewController.h */,
-				BC6030EC1F493AD000FDF90A /* UseAgreementViewController.m */,
+				BC4A387E1F5E2D39006211A5 /* MyInfoViewController.h */,
+				BC4A387F1F5E2D39006211A5 /* MyInfoViewController.m */,
+				BC4A387C1F5E2D39006211A5 /* MyHotelViewController.h */,
+				BC4A387D1F5E2D39006211A5 /* MyHotelViewController.m */,
+				BC4A387A1F5E2D39006211A5 /* MyAirViewController.h */,
+				BC4A387B1F5E2D39006211A5 /* MyAirViewController.m */,
+				BC4A38801F5E2D39006211A5 /* MyNewsViewController.h */,
+				BC4A38811F5E2D39006211A5 /* MyNewsViewController.m */,
+				BC4A38781F5E2D39006211A5 /* AccountSettingsViewController.h */,
+				BC4A38791F5E2D39006211A5 /* AccountSettingsViewController.m */,
+				BC4A38821F5E2D39006211A5 /* OfferDetailViewController.h */,
+				BC4A38831F5E2D39006211A5 /* OfferDetailViewController.m */,
+				BC4A38841F5E2D39006211A5 /* UseAgreementViewController.h */,
+				BC4A38851F5E2D39006211A5 /* UseAgreementViewController.m */,
 				BC6030EE1F493AFC00FDF90A /* ContactCustomerServiceViewController.h */,
 				BC6030EF1F493AFC00FDF90A /* ContactCustomerServiceViewController.m */,
 			);
@@ -634,6 +641,15 @@
 				BCD208891F4B17CD003E523A /* ExpiredTableViewCell.m */,
 			);
 			name = MyHotel;
+			sourceTree = "<group>";
+		};
+		BCD3AF931F5D78C8000B0C54 /* AirReleaseController */ = {
+			isa = PBXGroup;
+			children = (
+				BCD3AF951F5D7912000B0C54 /* AirReleaseViewController.h */,
+				BCD3AF961F5D7912000B0C54 /* AirReleaseViewController.m */,
+			);
+			name = AirReleaseController;
 			sourceTree = "<group>";
 		};
 		BCE662F61F4E6D3300447C28 /* MyInfoModel */ = {
@@ -755,6 +771,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84813A521F4857F300BD090D /* Order.storyboard in Resources */,
+				BCD3AF921F5D78BA000B0C54 /* AirRelease.storyboard in Resources */,
 				848139C71F4845F800BD090D /* LaunchScreen.storyboard in Resources */,
 				848139C41F4845F800BD090D /* Assets.xcassets in Resources */,
 				84813A501F48573E00BD090D /* MyInfo.storyboard in Resources */,
@@ -837,15 +854,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC13EFE41F4BBCB200B37EA3 /* RSADataVerifier.m in Sources */,
+				BC4A38881F5E2D39006211A5 /* MyHotelViewController.m in Sources */,
 				BC13EFE31F4BBCB200B37EA3 /* RSADataSigner.m in Sources */,
+				BC4A38861F5E2D39006211A5 /* AccountSettingsViewController.m in Sources */,
 				84B3095E1F4B128200AF8C24 /* HotelOrdelViewController.m in Sources */,
 				84813A301F484DEB00BD090D /* NSData+Base64.m in Sources */,
 				8494FBA21F5A48C000937C1B /* IssuingTableViewCell.m in Sources */,
 				BC13EFE21F4BBCB200B37EA3 /* openssl_wrapper.m in Sources */,
 				BCD208841F4B179B003E523A /* AllOrdersTableViewCell.m in Sources */,
 				84AD9C6A1F4E5C9F00C36022 /* HotelTableViewCell.m in Sources */,
-				BC6030EA1F493AB200FDF90A /* AccountSettingsViewController.m in Sources */,
 				BC13EFE11F4BBCB200B37EA3 /* NSDataEx.m in Sources */,
+				BC4A388C1F5E2D39006211A5 /* UseAgreementViewController.m in Sources */,
 				844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */,
 				84F5CF551F503CF900FBFE0A /* detailModel.m in Sources */,
 				8494FB9F1F5A48AA00937C1B /* OverDealTableViewCell.m in Sources */,
@@ -858,12 +877,10 @@
 				84813A231F484DEB00BD090D /* Order.m in Sources */,
 				BCD208761F4AF16F003E523A /* HMSegmentedControl.m in Sources */,
 				BC13EFE01F4BBCB200B37EA3 /* MD5DataSigner.m in Sources */,
-				BC6030ED1F493AD000FDF90A /* UseAgreementViewController.m in Sources */,
 				8443DC231F4EE6BD0023076C /* MyInfoModel.m in Sources */,
 				8494FBAB1F5A880500937C1B /* OfferTableViewCell.m in Sources */,
 				84813A2D1F484DEB00BD090D /* AppAPIClient.m in Sources */,
 				84813A3D1F484E4500BD090D /* ViewController.m in Sources */,
-				BC6030E41F493A6D00FDF90A /* MyAirViewController.m in Sources */,
 				84813A221F484DEB00BD090D /* BasicEncodingRules.m in Sources */,
 				84B7B68F1F543F030031F4C6 /* CityTableViewController.m in Sources */,
 				84813A351F484DEB00BD090D /* StorageMgr.m in Sources */,
@@ -872,20 +889,21 @@
 				84813A341F484DEB00BD090D /* RequestAPI.m in Sources */,
 				84813A321F484DEB00BD090D /* NSDateFormatter+Category.m in Sources */,
 				BC13EFDF1F4BBCB200B37EA3 /* DataVerifier.m in Sources */,
-				BC6C3CEE1F4862FC0057F416 /* MyInfoViewController.m in Sources */,
-				BC6030E71F493A9100FDF90A /* MyNewsViewController.m in Sources */,
 				BCD2088A1F4B17CD003E523A /* ExpiredTableViewCell.m in Sources */,
 				849C68C51F52C52000933056 /* HotelCollectionViewCell.m in Sources */,
 				84D29A111F568D7A0094518C /* LabelCollectionViewCell.m in Sources */,
+				BCD3AF971F5D7912000B0C54 /* AirReleaseViewController.m in Sources */,
 				BC6030F01F493AFC00FDF90A /* ContactCustomerServiceViewController.m in Sources */,
+				BC4A388A1F5E2D39006211A5 /* MyNewsViewController.m in Sources */,
 				84813A2F1F484DEB00BD090D /* JSONS.m in Sources */,
 				848139B91F4845F800BD090D /* AppDelegate.m in Sources */,
+				BC4A38891F5E2D39006211A5 /* MyInfoViewController.m in Sources */,
 				84813A2E1F484DEB00BD090D /* ErrorHandler.m in Sources */,
 				848139B61F4845F800BD090D /* main.m in Sources */,
 				BC6C3CF21F4864E20057F416 /* MyInfoTableViewCell.m in Sources */,
 				84813A311F484DEB00BD090D /* NSDate+Utility.m in Sources */,
-				8494FBAE1F5A8B9400937C1B /* OfferDetailViewController.m in Sources */,
-				BC6C3CF51F4865A10057F416 /* MyHotelViewController.m in Sources */,
+				BC4A388B1F5E2D39006211A5 /* OfferDetailViewController.m in Sources */,
+				BC4A38871F5E2D39006211A5 /* MyAirViewController.m in Sources */,
 				BC13EFDD1F4BBCB200B37EA3 /* base64.m in Sources */,
 				84813A371F484DEB00BD090D /* Utilities.m in Sources */,
 				8494FBA51F5A48DF00937C1B /* HistoryTableViewCell.m in Sources */,

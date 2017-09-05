@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNavigationItem];
     // Do any additional setup after loading the view.
 }
 
@@ -26,10 +27,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)shadow{
-    
+//设置导航栏样式
+-(void)setNavigationItem{
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0, 128, 255)];
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
+    //导航栏的返回按钮只保留那个箭头，去掉后边的文字
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    self.navigationItem.backBarButtonItem = item;
 }
-
 /*
 #pragma mark - Navigation
 
