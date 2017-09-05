@@ -11,6 +11,7 @@
 
 @interface SearchViewController ()<UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *SearcBar;
+@property (strong, nonatomic) NSMutableArray *SearcArr;
 
 @end
 
@@ -18,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _SearcArr = [NSMutableArray new];
     // Do any additional setup after loading the view.
     [self naviConfing];
 }
@@ -93,11 +95,15 @@
             NSArray *content = responseObject[@"content"];
             for(NSDictionary *dict in content){
                 detailModel * detailmodel = [[detailModel alloc]initWhitDictionary:dict];
+                [_SearcArr addObject:detailmodel];
             }
+            [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:[NSNotification notificationWithName:@"SearcHome" object:_SearcArr] waitUntilDone:YES];
+            [self.navigationController popViewControllerAnimated:YES];
+            
             //NSString *business_id
             //业务逻辑成功的情况下
         }else{
-            [Utilities popUpAlertViewWithMsg:@"哈哈" andTitle:nil onView:self];
+            [Utilities popUpAlertViewWithMsg:@"没找到你需要的酒店" andTitle:nil onView:self];
         }
     } failure:^(NSInteger statusCode, NSError *error) {
     [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];

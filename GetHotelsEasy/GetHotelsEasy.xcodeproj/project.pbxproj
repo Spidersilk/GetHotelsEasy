@@ -41,6 +41,7 @@
 		84813A4E1F48504B00BD090D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84813A4D1F48504B00BD090D /* libz.tbd */; };
 		84813A501F48573E00BD090D /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A4F1F48573E00BD090D /* MyInfo.storyboard */; };
 		84813A521F4857F300BD090D /* Order.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84813A511F4857F300BD090D /* Order.storyboard */; };
+		8485E2D91F5E740A00D1534C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8485E2D81F5E740A00D1534C /* SearchViewController.m */; };
 		8494FB9F1F5A48AA00937C1B /* OverDealTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494FB9E1F5A48AA00937C1B /* OverDealTableViewCell.m */; };
 		8494FBA21F5A48C000937C1B /* IssuingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494FBA11F5A48C000937C1B /* IssuingTableViewCell.m */; };
 		8494FBA51F5A48DF00937C1B /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494FBA41F5A48DF00937C1B /* HistoryTableViewCell.m */; };
@@ -162,6 +163,8 @@
 		84813A4D1F48504B00BD090D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		84813A4F1F48573E00BD090D /* MyInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyInfo.storyboard; sourceTree = "<group>"; };
 		84813A511F4857F300BD090D /* Order.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Order.storyboard; sourceTree = "<group>"; };
+		8485E2D71F5E740A00D1534C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		8485E2D81F5E740A00D1534C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		8494FB9D1F5A48AA00937C1B /* OverDealTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverDealTableViewCell.h; sourceTree = "<group>"; };
 		8494FB9E1F5A48AA00937C1B /* OverDealTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverDealTableViewCell.m; sourceTree = "<group>"; };
 		8494FBA01F5A48C000937C1B /* IssuingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuingTableViewCell.h; sourceTree = "<group>"; };
@@ -505,6 +508,8 @@
 			children = (
 				8499B5831F4C47910060AB52 /* HotelViewController.h */,
 				8499B5841F4C47910060AB52 /* HotelViewController.m */,
+				8485E2D71F5E740A00D1534C /* SearchViewController.h */,
+				8485E2D81F5E740A00D1534C /* SearchViewController.m */,
 				84B7B68D1F543F030031F4C6 /* CityTableViewController.h */,
 				84B7B68E1F543F030031F4C6 /* CityTableViewController.m */,
 			);
@@ -859,6 +864,7 @@
 				BC4A38861F5E2D39006211A5 /* AccountSettingsViewController.m in Sources */,
 				84B3095E1F4B128200AF8C24 /* HotelOrdelViewController.m in Sources */,
 				84813A301F484DEB00BD090D /* NSData+Base64.m in Sources */,
+				8485E2D91F5E740A00D1534C /* SearchViewController.m in Sources */,
 				8494FBA21F5A48C000937C1B /* IssuingTableViewCell.m in Sources */,
 				BC13EFE21F4BBCB200B37EA3 /* openssl_wrapper.m in Sources */,
 				BCD208841F4B179B003E523A /* AllOrdersTableViewCell.m in Sources */,

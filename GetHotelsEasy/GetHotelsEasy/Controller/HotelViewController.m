@@ -85,6 +85,8 @@
     _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"501-1000",@"",@"",@"501-1000",@"1000以上"];
     _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityStat:) name:@"ResetHome" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Searc:) name:@"SearcHome" object:nil];
+    
     page = 1;
     flag = 0;
     [self uilayout];//签署协议
@@ -509,6 +511,17 @@
     }
     
 }
+- (void) Searc:(NSNotification *)note {
+    NSMutableArray *arr = [NSMutableArray new];
+    arr = note.object;
+    _arr = arr;
+    NSLog(@"%@",_arr);
+    
+    [_HotelTableView reloadData];
+    
+    
+}
+
 
 /*
 #pragma mark - Navigation
@@ -753,7 +766,7 @@
 - (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event {
      CityTableViewController *city = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"City"];
     city.flag =1;
-    [self presentViewController:city animated:YES completion:nil];
+    [self.navigationController pushViewController:city animated:NO];
 }
 
 - (IBAction)searchBtnAction:(UIButton *)sender {
