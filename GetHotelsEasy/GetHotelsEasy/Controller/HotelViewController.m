@@ -16,6 +16,8 @@
 #import "HotelCollectionViewCell.h"
 #import "LabelCollectionViewCell.h"
 #import "HotelOrdelViewController.h"
+#import "SearchViewController.h"
+#import "CityTableViewController.h"
 
 @interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>{
     BOOL firstVisit;
@@ -31,6 +33,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *cityBtn;
 - (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)searchBtnAction:(UIButton *)sender;
 @property (strong, nonatomic) NSDictionary *cities;
 @property (strong, nonatomic) NSArray *keys;
 @property (strong, nonatomic) CLLocationManager *locMgr;
@@ -748,6 +751,16 @@
 }
 
 - (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event {
+     CityTableViewController *city = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"City"];
+    city.flag =1;
+    [self presentViewController:city animated:YES completion:nil];
+}
+
+- (IBAction)searchBtnAction:(UIButton *)sender {
+    SearchViewController *search = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"search"];
+    search.inDate = _inDate;
+    search.outDate = _outDate;
+        [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)cancel:(UIBarButtonItem *)sender {
     _picker.hidden = YES;

@@ -40,6 +40,11 @@
     //关掉开关
     [_locMgr stopUpdatingLocation];
 }
+//将要来到此页面（隐藏导航栏）
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -163,8 +168,10 @@
     //根据组的名称作为键，来查询到对应的值（这个值就是这一组城市对应城市数组）
     NSArray *sectionCities = _cities[key];
     NSDictionary *city = sectionCities[indexPath.row];
-    [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:[NSNotification notificationWithName:@"ResetHome" object:city[@"name"]] waitUntilDone:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_flag ==1) {
+        [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:[NSNotification notificationWithName:@"ResetHome" object:city[@"name"]] waitUntilDone:YES];
+    }
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 //设置右侧快捷键的栏
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {

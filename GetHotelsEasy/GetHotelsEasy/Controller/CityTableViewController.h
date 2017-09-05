@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CityTableViewController : UITableViewController
-
+@property (nonatomic)NSInteger flag;
 @end
