@@ -118,7 +118,7 @@
 //细胞选中后调用
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if([Utilities nullAndNilCheck:[[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"] replaceBy:nil]){
+    if([Utilities loginCheck]){
         if (indexPath.section == 0) {
             switch (indexPath.row) {
                 case 0:
@@ -169,14 +169,14 @@
     UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self exit];
     }];
-    UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:actionA];
     [alert addAction:actionB];
     [self presentViewController:alert animated:YES completion:nil];
 }
 -(void)exit{
-    [[StorageMgr singletonStorageMgr]removeObjectForKey:@"MemberInfo"];
-    if (![Utilities nullAndNilCheck:[[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"] replaceBy:nil]) {
+    [[StorageMgr singletonStorageMgr]removeObjectForKey:@"MemberId"];
+    if (![Utilities loginCheck]) {
         //未登录
         _loginBtn.hidden = NO;
         _cName.hidden = YES;
