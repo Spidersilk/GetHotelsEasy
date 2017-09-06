@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface OfferTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *oRouteLabel;
-@property (weak, nonatomic) IBOutlet UILabel *oPriceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *oTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *oType;
-@property (weak, nonatomic) IBOutlet UILabel *flightLabel;
+@property (weak, nonatomic) IBOutlet UILabel *oRouteLabel;//路线
+@property (weak, nonatomic) IBOutlet UILabel *oPriceLabel;//价格
+@property (weak, nonatomic) IBOutlet UILabel *oTimeLabel;//时间
+@property (weak, nonatomic) IBOutlet UILabel *oType;//舱的类型
+@property (weak, nonatomic) IBOutlet UILabel *flightLabel;//航班
 @property (weak, nonatomic) IBOutlet UIView *backView;
+@property (weak, nonatomic) IBOutlet UIButton *payBtn;
 
 @end

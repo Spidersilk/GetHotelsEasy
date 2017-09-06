@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface HistoryTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *routeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hRouteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hTypeLabel;
 
 @end

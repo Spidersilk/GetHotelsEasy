@@ -103,8 +103,8 @@
    }
     return cell;
 }
-//设置组的底部视图高度
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//设置组的头部视图高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 5.f;
     }else{
@@ -142,9 +142,9 @@
                 case 1:
                     [self performSegueWithIdentifier:@"myInfoToUseAgreement"sender:self];
                     break;
-                case 2:
-                    [self performSegueWithIdentifier:@"myInfoToContactCustomerService"sender:self];
-                    break;
+                //case 2:
+                    //[self performSegueWithIdentifier:@"myInfoToContactCustomerService"sender:self];
+                    //break;
                 default:
                     break;
             }
@@ -166,10 +166,10 @@
 }
 - (IBAction)exitBtn:(UIButton *)sender forEvent:(UIEvent *)event {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否退出登录" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self exit];
     }];
-    UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:actionA];
     [alert addAction:actionB];
     [self presentViewController:alert animated:YES completion:nil];

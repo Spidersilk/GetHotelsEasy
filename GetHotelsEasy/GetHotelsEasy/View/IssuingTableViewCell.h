@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface IssuingTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *routeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iRouteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iTypeLabel;
 
 @end

@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface OverDealTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *routeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *routeLabel;//路线
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;//价格
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;//起飞时间
+@property (weak, nonatomic) IBOutlet UILabel *typeLabel;//公司和舱的类型
 
 @end

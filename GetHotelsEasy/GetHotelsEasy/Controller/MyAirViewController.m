@@ -11,25 +11,16 @@
 #import "OverDealTableViewCell.h"
 #import "IssuingTableViewCell.h"
 #import "HistoryTableViewCell.h"
+//#import "MyAirModel.h"
 
 @interface MyAirViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *overDealTableView;
 @property (weak, nonatomic) IBOutlet UITableView *issuingTableView;
 @property (weak, nonatomic) IBOutlet UITableView *historyTableView;
-@property (weak, nonatomic) IBOutlet UILabel *routeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *iRouteLabel;
-@property (weak, nonatomic) IBOutlet UILabel *iPriceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *iTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *iTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *hRouteLabel;
-@property (weak, nonatomic) IBOutlet UILabel *hPriceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *hTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *hTypeLabel;
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
+@property (strong, nonatomic)NSArray *arr;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 
 @end
 
@@ -37,15 +28,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view.
     //调用设置导航栏的方法
     [self setNavigationItem];
-    [self setSegment];
     
+    [self setSegment];
     //去掉tableview底部多余的线
     _overDealTableView.tableFooterView = [UIView new];
     _issuingTableView.tableFooterView = [UIView new];
     _historyTableView.tableFooterView = [UIView new];
+    NSDictionary *dictA = @{@"oRoute":@"8-15 广州—无锡 机票",@"oPrice":@"546",@"oTime":@"5:40 ——7:30",@"oType":@"经济舱",};
+    NSDictionary *dictB = @{@"oRoute":@"8-15 广州—无锡 机票",@"oPrice":@"750",@"oTime":@"5:40 ——7:30",@"oType":@"商务舱",};
+    NSDictionary *dictC = @{@"oRoute":@"8-15 广州—无锡 机票",@"oPrice":@"830",@"oTime":@"5:40 ——7:30",@"oType":@"头等舱"};
+    NSDictionary *dictD = @{@"oRoute":@"8-15 广州—无锡 机票",@"oPrice":@"546",@"oTime":@"5:20 ——7:10",@"oType":@"经济舱"};
+    NSDictionary *dictE = @{@"oRoute":@"8-15 广州—无锡 机票",@"oPrice":@"900",@"oTime":@"5:20 ——7:10",@"oType":@"头等舱"};
+    _arr =@[dictA,dictB,dictC,dictD,dictE];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,7 +80,7 @@
 - (void)setSegment{
     _segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"已成交",@"正在发布",@"历史发布"]];
     //设置位置
-    _segmentedControl.frame = CGRectMake(0, 60, UI_SCREEN_W, 50);
+    _segmentedControl.frame = CGRectMake(0, 0, UI_SCREEN_W, 40);
     //设置默认选中的项
     _segmentedControl.selectedSegmentIndex = 0;
     //设置菜单栏的背景色
@@ -91,7 +88,7 @@
     //设置线的高度
     _segmentedControl.selectionIndicatorHeight = 2.5f;
     //设置选中状态的样式
-    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     //选中时的标记的位置
     _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     //设置未选中的标题样式
@@ -104,18 +101,54 @@
         [weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
     }];
     
-    [self.view addSubview:_segmentedControl];
+    [_backView addSubview:_segmentedControl];
+}
+//scrollView已经停止减速
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (scrollView == _scrollView) {
+        NSInteger page = [self scrollCheck:scrollView];
+        //NSLog(@"page = %ld", (long)page);
+        //将_segmentedControl设置选中的index为page（scrollView当前显示的tableview）
+        [_segmentedControl setSelectedSegmentIndex:page animated:YES];
+    }
+}
+//scrollView已经结束滑动的动画
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    if (scrollView == _scrollView) {
+        [self scrollCheck:scrollView];
+    }
+}
+//判断scrollView滑动到那里了
+- (NSInteger)scrollCheck: (UIScrollView *)scrollView{
+    NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
+    
+    return page;
 }
 
 #pragma mark - tableView
+//多少组
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (tableView == _overDealTableView) {
+        return _arr.count;
+    }else if (tableView == _issuingTableView) {
+        return _arr.count;
+    }else{
+        return _arr.count;
+    }
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return _arr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _overDealTableView) {
         OverDealTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"overDealCell" forIndexPath:indexPath];
+        NSDictionary *dict = _arr[indexPath.row];
+        cell.routeLabel.text =dict[@"oRoute"];
+        cell.timeLabel.text =dict[@"oTime"];
+        cell.priceLabel.text =dict[@"oprice"];
+        cell.typeLabel.text =dict[@"oType"];
         return cell;
     }else if (tableView == _issuingTableView){
         IssuingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssuingCell" forIndexPath:indexPath];
@@ -127,7 +160,7 @@
 }
 //设置细胞高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 200.f;
+    return 150.f;
 }
 //设置每一组每一行的细胞被点击以后要做的事情
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -136,5 +169,9 @@
         //取消选中
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+}
+//设置组的头部视图高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10.f;
 }
 @end
