@@ -195,8 +195,8 @@
                                                 <rect key="frame" x="190" y="118" width="140" height="36"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="价格区间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPB-fb-Rc0">
-                                                <rect key="frame" x="15" y="169" width="45" height="13.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="价格区间（元）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPB-fb-Rc0">
+                                                <rect key="frame" x="15" y="169" width="79" height="13.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -439,34 +439,45 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-Ve-vbW">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5C2-OG-SEz">
                                 <rect key="frame" x="0.0" y="402" width="375" height="216"/>
-                                <color key="backgroundColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <date key="date" timeIntervalSinceReferenceDate="526198027.30439901">
-                                    <!--2017-09-04 06:07:07 +0000-->
-                                </date>
-                                <locale key="locale" localeIdentifier="zh"/>
-                            </datePicker>
+                                <subviews>
+                                    <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-Ve-vbW">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="526198027.30439901">
+                                            <!--2017-09-04 06:07:07 +0000-->
+                                        </date>
+                                        <locale key="locale" localeIdentifier="zh"/>
+                                    </datePicker>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Mkg-Ve-vbW" secondAttribute="bottom" id="3l2-fl-vsQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mkg-Ve-vbW" secondAttribute="trailing" id="6Wy-7p-SbE"/>
+                                    <constraint firstItem="Mkg-Ve-vbW" firstAttribute="top" secondItem="5C2-OG-SEz" secondAttribute="top" id="Fkw-Qp-208"/>
+                                    <constraint firstItem="Mkg-Ve-vbW" firstAttribute="leading" secondItem="5C2-OG-SEz" secondAttribute="leading" id="RzQ-X3-Bqc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uIr-q0-IHY" firstAttribute="top" secondItem="eYF-ly-QtR" secondAttribute="bottom" id="0R2-hl-XjL"/>
                             <constraint firstItem="eYF-ly-QtR" firstAttribute="top" secondItem="2Ua-iC-QgV" secondAttribute="top" id="2oC-9l-FWK"/>
-                            <constraint firstItem="Mkg-Ve-vbW" firstAttribute="top" secondItem="aIR-dh-GBE" secondAttribute="bottom" id="5pB-FR-2Ug"/>
                             <constraint firstAttribute="bottom" secondItem="DPy-9L-zFP" secondAttribute="bottom" id="JGm-84-Y7g"/>
+                            <constraint firstItem="5C2-OG-SEz" firstAttribute="top" secondItem="aIR-dh-GBE" secondAttribute="bottom" id="KZN-It-7pr"/>
                             <constraint firstItem="DPy-9L-zFP" firstAttribute="top" secondItem="2Ua-iC-QgV" secondAttribute="top" id="Nge-mb-WFi"/>
                             <constraint firstAttribute="trailing" secondItem="DPy-9L-zFP" secondAttribute="trailing" id="TkT-3h-oVi"/>
                             <constraint firstItem="eYF-ly-QtR" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="WAG-vU-rRh"/>
-                            <constraint firstAttribute="trailing" secondItem="Mkg-Ve-vbW" secondAttribute="trailing" id="b56-8g-gJ8"/>
                             <constraint firstAttribute="trailing" secondItem="eYF-ly-QtR" secondAttribute="trailing" id="dX6-0D-IDq"/>
                             <constraint firstItem="DPy-9L-zFP" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="iWT-nk-aZS"/>
                             <constraint firstAttribute="trailing" secondItem="uIr-q0-IHY" secondAttribute="trailing" id="lH3-T3-1Ah"/>
                             <constraint firstAttribute="trailing" secondItem="aIR-dh-GBE" secondAttribute="trailing" id="o4o-eE-Acp"/>
                             <constraint firstAttribute="bottom" secondItem="uIr-q0-IHY" secondAttribute="bottom" id="r37-Xq-Nrs"/>
-                            <constraint firstItem="hI6-t2-5cR" firstAttribute="top" secondItem="Mkg-Ve-vbW" secondAttribute="bottom" id="rNr-Gd-UUN"/>
+                            <constraint firstItem="hI6-t2-5cR" firstAttribute="top" secondItem="5C2-OG-SEz" secondAttribute="bottom" id="sY4-S9-o69"/>
                             <constraint firstItem="uIr-q0-IHY" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="tIy-XR-eFp"/>
-                            <constraint firstItem="Mkg-Ve-vbW" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="txd-FG-hjo"/>
+                            <constraint firstAttribute="trailing" secondItem="5C2-OG-SEz" secondAttribute="trailing" id="td0-bj-CGA"/>
                             <constraint firstItem="aIR-dh-GBE" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="wZP-Eh-l7J"/>
+                            <constraint firstItem="5C2-OG-SEz" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="wa6-U1-dCC"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="航空" image="aviation" id="iG7-Z5-tBR"/>
@@ -476,6 +487,7 @@
                     <connections>
                         <outlet property="DepartureTimeBtn" destination="wgf-up-cjW" id="Ngr-aT-cqS"/>
                         <outlet property="DepartureTimeView" destination="Waf-es-peW" id="CVK-Xm-37c"/>
+                        <outlet property="TitleTextField" destination="J4R-Bv-ZYx" id="lYd-cH-thm"/>
                         <outlet property="afterTomorrowLabel" destination="VF3-RS-yW9" id="vTm-Fh-nLI"/>
                         <outlet property="arrivalCityBtn" destination="Lz1-3J-2fj" id="aVT-oG-JLz"/>
                         <outlet property="arrivalCityView" destination="YXJ-cp-49Y" id="Vsg-d4-9be"/>
@@ -484,8 +496,10 @@
                         <outlet property="avi" destination="DPy-9L-zFP" id="WaE-nx-3e0"/>
                         <outlet property="backView" destination="exc-0O-y0R" id="ErM-uG-hm4"/>
                         <outlet property="datePicker" destination="Mkg-Ve-vbW" id="zb5-ls-aRh"/>
+                        <outlet property="datePickerView" destination="5C2-OG-SEz" id="0l8-Ml-Uhw"/>
                         <outlet property="departureCityBtn" destination="wDO-09-dcc" id="7EF-KZ-o1R"/>
                         <outlet property="departureCityView" destination="2Kt-xb-xVB" id="lw8-2H-0ef"/>
+                        <outlet property="detailTextField" destination="GFP-SS-SKL" id="zJB-No-dgj"/>
                         <outlet property="minimumPriceTextField" destination="kc8-UV-poU" id="0a8-cW-rsD"/>
                         <outlet property="mostPriceTextField" destination="4rT-WX-0pk" id="k58-ig-CF0"/>
                         <outlet property="scrollView" destination="uIr-q0-IHY" id="c3x-uj-laU"/>
@@ -496,7 +510,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BA-I6-dCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="79"/>
+            <point key="canvasLocation" x="464.80000000000001" y="78.710644677661179"/>
         </scene>
         <!--航空-->
         <scene sceneID="k2v-Ii-La9">
