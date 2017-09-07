@@ -11,6 +11,7 @@
 #import "OverDealTableViewCell.h"
 #import "IssuingTableViewCell.h"
 #import "HistoryTableViewCell.h"
+#import "OfferDetailViewController.h"
 //#import "MyAirModel.h"
 
 @interface MyAirViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
@@ -20,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *historyTableView;
 @property (strong, nonatomic)HMSegmentedControl *segmentedControl;
 @property (strong, nonatomic)NSArray *arr;
-@property (weak, nonatomic) IBOutlet UIView *backView;
+
 
 @end
 
@@ -33,6 +34,7 @@
     [self setNavigationItem];
     
     [self setSegment];
+    [self request];
     //去掉tableview底部多余的线
     _overDealTableView.tableFooterView = [UIView new];
     _issuingTableView.tableFooterView = [UIView new];
@@ -74,13 +76,11 @@
     // Pass the selected object to the new view controller.
 }
 */
-#pragma mark - setSegment设置菜单栏
-
 //初始化菜单栏的方法
 - (void)setSegment{
     _segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"已成交",@"正在发布",@"历史发布"]];
     //设置位置
-    _segmentedControl.frame = CGRectMake(0, 0, UI_SCREEN_W, 40);
+    _segmentedControl.frame = CGRectMake(0, 64, UI_SCREEN_W, 50);
     //设置默认选中的项
     _segmentedControl.selectedSegmentIndex = 0;
     //设置菜单栏的背景色
@@ -101,8 +101,35 @@
         [weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
     }];
     
-    [_backView addSubview:_segmentedControl];
+    [self.view addSubview:_segmentedControl];
 }
+- (void) request {
+    
+    //参数
+    NSDictionary *para = @{@"wxcode" :[[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"],@"page" :@5 ,@"state":@0};
+    //网络请求
+    [RequestAPI requestURL:@"/findAllIssue" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"哈哈:%@",responseObject);
+        //当网络请求成功时停止动画
+       
+        if ([responseObject[@"result"] integerValue] == 1) {
+            
+      
+        }else{
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
+            }];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+            [Utilities popUpAlertViewWithMsg:@"网络似乎不太给力,请稍后再试" andTitle:@"提示" onView:self onCompletion:^{
+        }];
+        
+        
+    }];
+    
+}
+
 //scrollView已经停止减速
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView == _scrollView) {
@@ -127,15 +154,15 @@
 
 #pragma mark - tableView
 //多少组
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == _overDealTableView) {
-        return _arr.count;
-    }else if (tableView == _issuingTableView) {
-        return _arr.count;
-    }else{
-        return _arr.count;
-    }
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+//    if (tableView == _overDealTableView) {
+//        return _arr.count;
+//    }else if (tableView == _issuingTableView) {
+//        return _arr.count;
+//    }else{
+//        return _arr.count;
+//    }
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _arr.count;
@@ -164,10 +191,12 @@
 }
 //设置每一组每一行的细胞被点击以后要做的事情
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //取消选中
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //判断当前tableview是否为_activityTableView（这个条件判断常用在一个界面中有多个tableView的时候）
     if([tableView isEqual:_issuingTableView]){
-        //取消选中
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        OfferDetailViewController *offervc = [Utilities getStoryboardInstance:@"MyInfo" byIdentity:@"offerDetail"];
+        [self.navigationController pushViewController:offervc animated:YES];
     }
 }
 //设置组的头部视图高度

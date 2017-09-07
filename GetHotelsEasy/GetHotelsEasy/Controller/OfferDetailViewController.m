@@ -9,7 +9,9 @@
 #import "OfferDetailViewController.h"
 #import "OfferTableViewCell.h"
 
-@interface OfferDetailViewController ()
+@interface OfferDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *offerTableView;
+- (IBAction)payAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 
 @end
@@ -20,6 +22,8 @@
     [super viewDidLoad];
     [self setNavigationItem];
     // Do any additional setup after loading the view.
+    //去掉tableview底部多余的线
+    _offerTableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,5 +51,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 6;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    OfferTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"offerCell" forIndexPath:indexPath];
+    cell.backView.layer.shadowColor = [UIColor grayColor].CGColor;//shadowColor阴影颜色
+    cell.backView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    cell.backView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+    cell.backView.layer.shadowRadius = 2;//阴影半径，默认3
+
+    return cell;
+}
+
+- (IBAction)payAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end
