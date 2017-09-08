@@ -66,30 +66,30 @@
         _loginBtn.hidden = YES;
         _cName.hidden = NO;
         _level.hidden = NO;
+        _level1Img.hidden = NO;
+        _level2Img.hidden = NO;
+        _level3Img.hidden = NO;
         _exitaction.hidden = NO;
         MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
         [_heardImageView sd_setImageWithURL:[NSURL URLWithString:usermodel.picture] placeholderImage:[UIImage imageNamed:@"icon"]];
         _cName.text = usermodel.name;
         if (usermodel.grade  == 0  ) {
-            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
-            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
-            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+            _level1Img.image = [UIImage imageNamed:@"星级2"];
+            _level2Img.image = [UIImage imageNamed:@"星级2"];
+            _level3Img.image = [UIImage imageNamed:@"星级2"];
         }else if (usermodel.grade == 1) {
-            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
-            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
-            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+            _level1Img.image = [UIImage imageNamed:@"星级"];
+            _level2Img.image = [UIImage imageNamed:@"星级2"];
+            _level3Img.image = [UIImage imageNamed:@"星级2"];
         }else if (usermodel.grade == 2) {
-            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
-            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
-            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+            _level1Img.image = [UIImage imageNamed:@"星级"];
+            _level2Img.image = [UIImage imageNamed:@"星级"];
+            _level3Img.image = [UIImage imageNamed:@"星级2"];
         }else if (usermodel.grade == 3) {
-            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
-            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
-            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+            _level1Img.image = [UIImage imageNamed:@"星级"];
+            _level2Img.image = [UIImage imageNamed:@"星级"];
+            _level3Img.image = [UIImage imageNamed:@"星级"];
         }
-        _level1Img.hidden = NO;
-        _level2Img.hidden = NO;
-        _level3Img.hidden = NO;
     }else{
         //未登录
         _loginBtn.hidden = NO;
@@ -224,6 +224,7 @@
     _backView.hidden = YES;
 }
 - (IBAction)quiteAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    _backView.hidden = YES;
     [[StorageMgr singletonStorageMgr]removeObjectForKey:@"MemberId"];
     if (![Utilities loginCheck]) {
         //未登录
@@ -236,6 +237,5 @@
         _exitaction.hidden = YES;
         _heardImageView.image = [UIImage imageNamed:@"icon"];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
