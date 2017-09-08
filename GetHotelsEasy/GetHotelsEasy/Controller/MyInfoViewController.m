@@ -26,6 +26,18 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 - (IBAction)exitBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIButton *exitaction;
+@property (weak, nonatomic) IBOutlet UILabel *quiteLab;
+@property (weak, nonatomic) IBOutlet UILabel *callingLab;
+@property (weak, nonatomic) IBOutlet UILabel *phoneNumLab;
+- (IBAction)connetAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)cancelAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)closeAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIButton *connectBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *level1Img;
+@property (weak, nonatomic) IBOutlet UIImageView *level2Img;
+@property (weak, nonatomic) IBOutlet UIImageView *level3Img;
+@property (weak, nonatomic) IBOutlet UIView *backView;
+
 
 @end
 
@@ -187,4 +199,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)connetAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+
+- (IBAction)cancelAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+
+- (IBAction)closeAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end
