@@ -138,7 +138,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="61"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PHu-iL-i32" id="Eus-aB-Fys">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bFN-9h-lcv">
@@ -183,7 +183,7 @@
                                     <constraint firstItem="BwW-uZ-Cj5" firstAttribute="top" secondItem="Yta-vT-0tx" secondAttribute="top" constant="5" id="cj7-HW-JWv"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ydt-bw-fAG">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ydt-bw-fAG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2vV-QT-nIb">
@@ -211,7 +211,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xA-2t-G8L">
-                                                <rect key="frame" x="173" y="107" width="31" height="30"/>
+                                                <rect key="frame" x="142" y="107" width="31" height="30"/>
                                                 <state key="normal" title="取消">
                                                     <color key="titleColor" red="0.517983078956604" green="0.51797288656234741" blue="0.51797980070114136" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
@@ -234,20 +234,29 @@
                                                 <color key="textColor" red="0.4039215686" green="0.4039215686" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5q-38-tXd">
+                                                <rect key="frame" x="203" y="107" width="62" height="30"/>
+                                                <state key="normal" title="退出登录"/>
+                                                <connections>
+                                                    <action selector="quiteAction:forEvent:" destination="uEI-gL-Sgf" eventType="touchUpInside" id="fKh-fv-geS"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="6i9-Qh-B5P" secondAttribute="bottom" constant="30" id="2Pg-Sb-oDu"/>
+                                            <constraint firstAttribute="trailing" secondItem="a5q-38-tXd" secondAttribute="trailing" constant="30" id="8iv-DJ-e4C"/>
                                             <constraint firstItem="X9A-Cr-Z2W" firstAttribute="top" secondItem="tLz-Pa-gfw" secondAttribute="bottom" constant="10" id="CGV-At-meE"/>
+                                            <constraint firstItem="a5q-38-tXd" firstAttribute="leading" secondItem="7xA-2t-G8L" secondAttribute="trailing" constant="30" id="CRj-Cf-OQu"/>
                                             <constraint firstItem="vPs-hr-Kjj" firstAttribute="leading" secondItem="2vV-QT-nIb" secondAttribute="leading" constant="50" id="KEk-tV-V3l"/>
                                             <constraint firstItem="X9A-Cr-Z2W" firstAttribute="leading" secondItem="tLz-Pa-gfw" secondAttribute="leading" id="Koc-I8-dto"/>
-                                            <constraint firstItem="6i9-Qh-B5P" firstAttribute="leading" secondItem="7xA-2t-G8L" secondAttribute="trailing" constant="30" id="Mfi-ss-eS1"/>
                                             <constraint firstItem="tLz-Pa-gfw" firstAttribute="top" secondItem="2vV-QT-nIb" secondAttribute="top" constant="50" id="Neu-W4-6fx"/>
                                             <constraint firstItem="6i9-Qh-B5P" firstAttribute="centerY" secondItem="7xA-2t-G8L" secondAttribute="centerY" id="Rya-mJ-Fgw"/>
                                             <constraint firstAttribute="trailing" secondItem="DYH-6I-gjB" secondAttribute="trailing" constant="20" id="fL4-VP-cYG"/>
                                             <constraint firstItem="vPs-hr-Kjj" firstAttribute="top" secondItem="2vV-QT-nIb" secondAttribute="top" constant="50" id="fN7-mX-g2I"/>
                                             <constraint firstItem="DYH-6I-gjB" firstAttribute="top" secondItem="2vV-QT-nIb" secondAttribute="top" constant="15" id="jKW-W4-l2x"/>
                                             <constraint firstAttribute="trailing" secondItem="6i9-Qh-B5P" secondAttribute="trailing" constant="30" id="lzm-ds-se2"/>
+                                            <constraint firstAttribute="bottom" secondItem="a5q-38-tXd" secondAttribute="bottom" constant="30" id="sya-mi-Kpx"/>
                                             <constraint firstItem="tLz-Pa-gfw" firstAttribute="leading" secondItem="2vV-QT-nIb" secondAttribute="leading" constant="40" id="wwr-wU-17Q"/>
                                         </constraints>
                                     </view>
@@ -293,6 +302,7 @@
                         <outlet property="loginBtn" destination="YMY-Wv-iHs" id="XXD-Qz-NT0"/>
                         <outlet property="myInfoTableView" destination="BwW-uZ-Cj5" id="EP7-kf-VfO"/>
                         <outlet property="phoneNumLab" destination="X9A-Cr-Z2W" id="gie-A0-SEV"/>
+                        <outlet property="quiteBtn" destination="a5q-38-tXd" id="XJb-cw-Wz9"/>
                         <outlet property="quiteLab" destination="vPs-hr-Kjj" id="qgR-2D-4Ua"/>
                         <segue destination="wbj-4G-jsX" kind="show" identifier="myInfoToMyAir" id="fDF-YR-dtI"/>
                         <segue destination="j6s-yp-t40" kind="show" identifier="myInfoToMyNews" id="1ne-S4-kTq"/>

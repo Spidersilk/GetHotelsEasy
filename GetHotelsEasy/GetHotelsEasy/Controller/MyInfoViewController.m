@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *level2Img;
 @property (weak, nonatomic) IBOutlet UIImageView *level3Img;
 @property (weak, nonatomic) IBOutlet UIView *backView;
+- (IBAction)quiteAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIButton *quiteBtn;
 
 
 @end
@@ -206,5 +208,7 @@
 }
 
 - (IBAction)closeAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+- (IBAction)quiteAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
 @end
