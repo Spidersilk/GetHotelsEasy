@@ -34,7 +34,7 @@
     [self setNavigationItem];
     
     [self setSegment];
-    [self request];
+    [self overDealRequest];
     //去掉tableview底部多余的线
     _overDealTableView.tableFooterView = [UIView new];
     _issuingTableView.tableFooterView = [UIView new];
@@ -103,33 +103,7 @@
     
     [self.view addSubview:_segmentedControl];
 }
-- (void) request {
-    
-    //参数
-    NSDictionary *para = @{@"wxcode" :[[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"],@"page" :@5 ,@"state":@0};
-    //网络请求
-    [RequestAPI requestURL:@"/findAllIssue" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"哈哈:%@",responseObject);
-        //当网络请求成功时停止动画
-       
-        if ([responseObject[@"result"] integerValue] == 1) {
-            
-      
-        }else{
-            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
-            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
-            }];
-        }
-        
-    } failure:^(NSInteger statusCode, NSError *error) {
-            [Utilities popUpAlertViewWithMsg:@"网络似乎不太给力,请稍后再试" andTitle:@"提示" onView:self onCompletion:^{
-        }];
-        
-        
-    }];
-    
-}
-
+#pragma mark - scollView
 //scrollView已经停止减速
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView == _scrollView) {
@@ -151,21 +125,105 @@
     
     return page;
 }
+#pragma mark - Request
+//已成交的网络请求
+- (void) overDealRequest {
+    
+    //参数
+    NSDictionary *para = @{@"openid" :[[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"],@"page" :@1 ,@"state":@1};
+    //网络请求
+    [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"哈哈:%@",responseObject);
+        //当网络请求成功时停止动画
+       
+        if ([responseObject[@"result"] integerValue] == 1) {
+            
+      
+        }else{
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
+            }];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+            [Utilities popUpAlertViewWithMsg:@"网络似乎不太给力,请稍后再试" andTitle:@"提示" onView:self onCompletion:^{
+        }];
+        
+        
+    }];
+    
+}
+//正在发布的网络请求
+- (void) issuingRequest {
+    
+    //参数
+    NSDictionary *para = @{@"openid" :[[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"],@"page" :@1 ,@"state":@1};
+    //网络请求
+    [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"哈哈:%@",responseObject);
+        //当网络请求成功时停止动画
+        
+        if ([responseObject[@"result"] integerValue] == 1) {
+            
+            
+        }else{
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
+            }];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [Utilities popUpAlertViewWithMsg:@"网络似乎不太给力,请稍后再试" andTitle:@"提示" onView:self onCompletion:^{
+        }];
+        
+        
+    }];
+    
+}
+//历史发布的网络请求
+- (void) HistoryRequest {
+    
+    //参数
+    NSDictionary *para = @{@"openid" :[[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"],@"page" :@1 ,@"state":@1};
+    //网络请求
+    [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"哈哈:%@",responseObject);
+        //当网络请求成功时停止动画
+        
+        if ([responseObject[@"result"] integerValue] == 1) {
+            
+            
+        }else{
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
+            }];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [Utilities popUpAlertViewWithMsg:@"网络似乎不太给力,请稍后再试" andTitle:@"提示" onView:self onCompletion:^{
+        }];
+        
+        
+    }];
+    
+}
+
+
 
 #pragma mark - tableView
 //多少组
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    if (tableView == _overDealTableView) {
-//        return _arr.count;
-//    }else if (tableView == _issuingTableView) {
-//        return _arr.count;
-//    }else{
-//        return _arr.count;
-//    }
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (tableView == _overDealTableView) {
+        return _arr.count;
+    }else if (tableView == _issuingTableView) {
+        return 6;
+    }else{
+        return 6;
+    }
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _arr.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
