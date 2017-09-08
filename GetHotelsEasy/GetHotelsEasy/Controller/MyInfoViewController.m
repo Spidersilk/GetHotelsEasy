@@ -33,9 +33,9 @@
 - (IBAction)cancelAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)closeAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIButton *connectBtn;
-@property (weak, nonatomic) IBOutlet UIImageView *level1Img;
-@property (weak, nonatomic) IBOutlet UIImageView *level2Img;
-@property (weak, nonatomic) IBOutlet UIImageView *level3Img;
+@property (strong, nonatomic) IBOutlet UIImageView *level1Img;
+@property (strong, nonatomic) IBOutlet UIImageView *level2Img;
+@property (strong, nonatomic) IBOutlet UIImageView *level3Img;
 @property (weak, nonatomic) IBOutlet UIView *backView;
 - (IBAction)quiteAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIButton *quiteBtn;
@@ -70,13 +70,34 @@
         MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
         [_heardImageView sd_setImageWithURL:[NSURL URLWithString:usermodel.picture] placeholderImage:[UIImage imageNamed:@"icon"]];
         _cName.text = usermodel.name;
-        _level.text = [NSString stringWithFormat:@"等级：%ld",(long)usermodel.grade];
-        
+        if (usermodel.grade  == 0  ) {
+            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+        }else if (usermodel.grade == 1) {
+            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+        }else if (usermodel.grade == 2) {
+            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级2"]];
+        }else if (usermodel.grade == 3) {
+            _level1Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+            _level2Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+            _level3Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"星级"]];
+        }
+        _level1Img.hidden = NO;
+        _level2Img.hidden = NO;
+        _level3Img.hidden = NO;
     }else{
         //未登录
         _loginBtn.hidden = NO;
         _cName.hidden = YES;
         _level.hidden = YES;
+        _level1Img.hidden = YES;
+        _level2Img.hidden = YES;
+        _level3Img.hidden = YES;
         _exitaction.hidden = YES;
         _heardImageView.image = [UIImage imageNamed:@"icon"];
     }
@@ -120,9 +141,9 @@
 //设置组的头部视图高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return 5.f;
+        return 0.0001f;
     }else{
-        return 1.f;
+        return 5.f;
     }
 }
 //细胞高度
@@ -156,9 +177,14 @@
                 case 1:
                     [self performSegueWithIdentifier:@"myInfoToUseAgreement"sender:self];
                     break;
-                //case 2:
-                    //[self performSegueWithIdentifier:@"myInfoToContactCustomerService"sender:self];
-                    //break;
+                case 2:
+                    _backView.hidden = NO;
+                    _quiteLab.hidden = YES;
+                    _quiteBtn.hidden = YES;
+                    _callingLab.hidden = NO;
+                    _phoneNumLab.hidden = NO;
+                    _connectBtn.hidden = NO;
+                    
                 default:
                     break;
             }
@@ -179,36 +205,37 @@
     [self presentViewController:signNavi animated:YES completion:nil];
 }
 - (IBAction)exitBtn:(UIButton *)sender forEvent:(UIEvent *)event {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否退出登录" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self exit];
-    }];
-    UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:actionA];
-    [alert addAction:actionB];
-    [self presentViewController:alert animated:YES completion:nil];
-}
--(void)exit{
-    [[StorageMgr singletonStorageMgr]removeObjectForKey:@"MemberId"];
-    if (![Utilities loginCheck]) {
-        //未登录
-        _loginBtn.hidden = NO;
-        _cName.hidden = YES;
-        _level.hidden = YES;
-        _exitaction.hidden = YES;
-        _heardImageView.image = [UIImage imageNamed:@"icon"];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    _backView.hidden = NO;
+    _callingLab.hidden = YES;
+    _phoneNumLab.hidden = YES;
+    _connectBtn.hidden = YES;
+    _quiteLab.hidden = NO;
+    _quiteBtn.hidden = NO;
 }
 
 - (IBAction)connetAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
 
 - (IBAction)cancelAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    _backView.hidden = YES;
 }
 
 - (IBAction)closeAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    _backView.hidden = YES;
 }
 - (IBAction)quiteAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    [[StorageMgr singletonStorageMgr]removeObjectForKey:@"MemberId"];
+    if (![Utilities loginCheck]) {
+        //未登录
+        _loginBtn.hidden = NO;
+        _cName.hidden = YES;
+        _level.hidden = YES;
+        _level1Img.hidden = YES;
+        _level2Img.hidden = YES;
+        _level3Img.hidden = YES;
+        _exitaction.hidden = YES;
+        _heardImageView.image = [UIImage imageNamed:@"icon"];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
