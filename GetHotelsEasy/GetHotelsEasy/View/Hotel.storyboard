@@ -128,7 +128,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAn-io-6Ch">
-                                        <rect key="frame" x="147" y="29.5" width="82" height="21"/>
+                                        <rect key="frame" x="147" y="34.5" width="82" height="11"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -141,7 +141,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLs-gC-YCv">
-                                        <rect key="frame" x="310" y="55" width="11" height="11"/>
+                                        <rect key="frame" x="307" y="55" width="10.5" height="11"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -173,7 +173,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILB-3D-8Sc">
-                                        <rect key="frame" x="77" y="60" width="220" height="30"/>
+                                        <rect key="frame" x="77" y="55" width="220" height="30"/>
                                         <color key="backgroundColor" red="0.023623710498213768" green="0.42796227335929871" blue="0.84764248132705688" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="  🔍"/>
                                         <userDefinedRuntimeAttributes>
@@ -189,7 +189,8 @@
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="06Z-ZS-hnE" firstAttribute="centerY" secondItem="tor-wi-HI5" secondAttribute="centerY" id="9QF-PE-Bex"/>
-                                    <constraint firstItem="1Ya-Fb-QxL" firstAttribute="leading" secondItem="dLs-gC-YCv" secondAttribute="trailing" constant="5" id="LHQ-b5-miP"/>
+                                    <constraint firstItem="Tmc-7q-800" firstAttribute="leading" secondItem="dLs-gC-YCv" secondAttribute="leading" id="Ahz-OA-2Ej"/>
+                                    <constraint firstItem="dLs-gC-YCv" firstAttribute="top" secondItem="ILB-3D-8Sc" secondAttribute="top" id="RVp-Hy-ePj"/>
                                     <constraint firstItem="Tmc-7q-800" firstAttribute="leading" secondItem="ILB-3D-8Sc" secondAttribute="trailing" constant="10" id="Ybn-bG-zcx"/>
                                     <constraint firstItem="1Ya-Fb-QxL" firstAttribute="top" secondItem="dLs-gC-YCv" secondAttribute="top" id="aBL-4M-b6Y"/>
                                     <constraint firstItem="ILB-3D-8Sc" firstAttribute="leading" secondItem="06Z-ZS-hnE" secondAttribute="trailing" constant="10" id="bDc-7M-L5b"/>
@@ -295,6 +296,10 @@
                         <outlet property="optionsTableView" destination="xfu-VQ-xXV" id="NnP-AX-ecx"/>
                         <outlet property="picker" destination="c86-Mv-f5l" id="vVJ-s0-y5w"/>
                         <outlet property="searchDisplayController" destination="Klk-h9-hXV" id="tcK-0y-8Jd"/>
+                        <outlet property="tempLable" destination="dLs-gC-YCv" id="uUh-Ks-bJG"/>
+                        <outlet property="temperatureLable" destination="dLs-gC-YCv" id="Idp-eN-rfD"/>
+                        <outlet property="weatherImg" destination="1Ya-Fb-QxL" id="fHL-vy-4FB"/>
+                        <outlet property="weatherLabel" destination="Tmc-7q-800" id="Lym-bk-7kA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBU-81-kOr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -323,6 +328,7 @@
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="cOf-ud-9eS">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="barTintColor" red="0.78808718919754028" green="0.78791451454162598" blue="0.80853986740112305" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="Lnv-S9-gcO" id="dn6-l9-L6f"/>

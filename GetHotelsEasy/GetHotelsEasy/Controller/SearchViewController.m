@@ -21,7 +21,7 @@
     [super viewDidLoad];
     _SearcArr = [NSMutableArray new];
     // Do any additional setup after loading the view.
-    [self naviConfing];
+    [self setNavigationItem];
 }
 //将要来到此页面（隐藏导航栏）
 - (void)viewWillAppear:(BOOL)animated{
@@ -34,29 +34,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)naviConfing
-{
-    //self.navigationController.navigationBar.backgroundColor = [UIColor blueColor];
-    //设置导航条的风格颜色
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(1, 150, 255);
+//设置导航栏样式
+-(void)setNavigationItem{
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(201,201,206)];
     //设置导航条标题颜色
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    //设置导航条是否被隐藏
-    self.navigationController.navigationBar.hidden = NO;
-    //设置导航条按钮的分格颜色
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    //是否需要毛玻璃的效果
-    self.navigationController.navigationBar.translucent = YES;
-    //实例化一个button 类型为UIButtonTypeSystem
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 22, 22);
-    //设置其背景图片为返回图片
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    //给按钮添加事件
-    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
+    //导航栏的返回按钮只保留那个箭头，去掉后边的文字
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    self.navigationItem.backBarButtonItem = item;
 }
 //自定的返回按钮的事件
 - (void)leftButtonAction: (UIButton *)sender{

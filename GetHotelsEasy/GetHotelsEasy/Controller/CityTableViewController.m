@@ -112,7 +112,7 @@
         NSDictionary *fileContent = [NSDictionary dictionaryWithContentsOfFile:filePath];
         //判断读取到的内容是否存在（判断文件是否损坏）
         if (fileContent) {
-            NSLog(@"fileContent:%@",fileContent);
+            //NSLog(@"fileContent:%@",fileContent);
             _cities = fileContent;
             //获取字典所有的键
             NSArray *rawKeys = [fileContent allKeys];

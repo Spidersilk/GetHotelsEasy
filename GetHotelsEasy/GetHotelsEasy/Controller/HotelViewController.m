@@ -18,6 +18,7 @@
 #import "HotelOrdelViewController.h"
 #import "SearchViewController.h"
 #import "CityTableViewController.h"
+#import "JSONS.h"
 
 @interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>{
     BOOL firstVisit;
@@ -67,6 +68,16 @@
 @property (strong, nonatomic) NSString *outDate;
 
 @property (strong, nonatomic) UIView * shadeView;
+@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureLable;
+@property (weak, nonatomic) IBOutlet UILabel *tempLable;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherImg;
+@property (weak, nonatomic) NSString* icon;//天气图片
+
+@property (nonatomic, strong) CLGeocoder *geoC;
+
+@property (nonatomic) NSInteger teg;
+@property (nonatomic) NSInteger teger;
 
 @end
 
@@ -74,6 +85,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;//q去掉状态栏的空白
     //self.navigationController.navigationBar.translucent = NO;
     firstVisit = YES;
@@ -86,6 +98,8 @@
     _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityStat:) name:@"ResetHome" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Searc:) name:@"SearcHome" object:nil];
+  
+    
     
     page = 1;
     flag = 0;
@@ -117,7 +131,7 @@
         formatter.dateFormat = @"MM-dd";
         //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
         NSString *Date = [formatter stringFromDate:date];
-        NSLog(@"date:%@",Date);
+        //NSLog(@"date:%@",Date);
         _inDate = [NSString stringWithFormat:@"%@",Date];
         _outDate = [NSString stringWithFormat:@"%@",Date];
     }
@@ -244,13 +258,13 @@
         start = 1;
     }else{
         start = [[[StorageMgr singletonStorageMgr] objectForKey:@"start"] integerValue];//获取单例化全局变量
-        NSLog(@"start:%ld",(long)start);
+        //NSLog(@"start:%ld",(long)start);
     }
     if ([[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] == NULL) {
         price = 1;
     }else{
         price = [[[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] integerValue];//获取单例化全局变量
-        NSLog(@"price:%ld",(long)price);
+        //NSLog(@"price:%ld",(long)price);
     }
 
    
@@ -259,7 +273,7 @@
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
         //成功以后要做的事情
-        NSLog(@"responseObject = %@",responseObject);
+        //NSLog(@"responseObject = %@",responseObject);
  //       [self endAnimation];
         if ([responseObject[@"result"] integerValue] == 1) {
             //业务逻辑成功的情况下
@@ -288,7 +302,7 @@
                 //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
                 detailModel *detailmodel = [[detailModel alloc] initWhitDictionary:dict];
                 //将上述实例化好的ActivityModel对象插入_arr数组中
-                NSLog(@"hotelID:%ld",(long)detailmodel.hotelID);
+               // NSLog(@"hotelID:%ld",(long)detailmodel.hotelID);
                 [_arr addObject:detailmodel];
             }
             //刷新表格（重载数据）
@@ -316,6 +330,61 @@
 
 
 
+}
+- (void) WeatherRequest{
+        // Do any additional setup after loading the view, typically from a nib.
+    
+    //NSString *weatherURLStr = @"http://api.openweathermap.org/data/2.5/weather?q=Wuxi,cn&appid=5ee88a19ade27e1f2dbc3730ea80d661";
+    //获得全宇宙天气的接口（当前这一刻的天气）（api.openweathermap.org是一个开放天气接口提供商）
+    //NSString *weatherURLStr =@"http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139,cn&appid=5ee88a19ade27e1f2dbc3730ea80d661";
+    NSString *weatherURLStr =[NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=5ee88a19ade27e1f2dbc3730ea80d661&lang=zh_cn&find?q=London&units=metric&weather?q=London",_location.coordinate.latitude,_location.coordinate.longitude];
+    
+    //NSLog(@"经度：%f",_location.coordinate.latitude);
+    //NSLog(@"纬度：%f",_location.coordinate.longitude);
+    
+    //将字符串转换成NSURL对象
+    NSURL *weatherURL = [NSURL URLWithString:weatherURLStr];
+    //初始化单例化的NSURLSession对象(专门用来进行网络请求的类)
+    NSURLSession *session = [NSURLSession sharedSession];
+    //创建一个基于NSURLSession的请求（除了请求任务还有上传和下载任务可以选择）任务并处理完成后的回调
+    NSURLSessionDataTask *jsonDataTask = [session dataTaskWithURL:weatherURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //NSLog(@"请求完成，开始做事");
+        if (!error) {
+            NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)response;
+            if (httpRes.statusCode == 200) {//成功
+                //NSLog(@"网络请求成功，真的开始做事");
+                //将JSON格式的数据流data用JSONS工具包里的NSData下的Category中的JSONCol方法转化为OC对象（Array或Dictionary）
+                id jsonObject = [data JSONCol];//把数据流改为oc语言对象
+                NSInteger temp= [jsonObject[@"main"][@"temp"]integerValue]/1;
+                //NSLog(@"温度：%ld",(long)temp);
+                NSString* description = jsonObject[@"weather"][0][@"description"];
+                //NSLog(@"天气：%@",description);
+                _icon = jsonObject[@"weather"][0][@"icon"];
+                //NSLog(@"图片：%@",_icon);
+                
+                
+
+                
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _weatherLabel.text = description;
+                    _tempLable.text = [NSString stringWithFormat:@"%ld°c",(long)temp];
+                    [_weatherImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://openweathermap.org/img/w/%@.png",_icon]] placeholderImage:[UIImage imageNamed:@"png2"]];
+                    
+
+                    
+                });
+                 //NSLog(@"%@", jsonObject);
+            } else {
+                NSLog(@"%ld", (long)httpRes.statusCode);
+            }
+        } else {
+            NSLog(@"%@", error.description);
+        }
+    }];
+        //让任务开始执行
+    [jsonDataTask resume];
 }
 
 
@@ -440,11 +509,13 @@
     //NSLog(@"纬度:%f",newLocation.coordinate.latitude);
     //NSLog(@"经度:%f",newLocation.coordinate.longitude);
     _location = newLocation;
+    
     //用flag思想判断是否可以去根据定位拿到城市
     //NSLog(@"%@",[firstVisit]);
     if (firstVisit) {
         //NSLog(@"%@",firstVisit);
         firstVisit = !firstVisit;
+        
         //根据定位拿到城市
         [self getRegeoViaCoordinate];
     }
@@ -462,10 +533,10 @@
             if (!error) {
                 CLPlacemark *first = placemarks.firstObject;
                 NSDictionary *locDict = first.addressDictionary;
-                NSLog(@"locDict:%@",locDict);
+                //NSLog(@"locDict:%@",locDict);
                 NSString *cityStr = locDict[@"City"];
                 cityStr = [cityStr substringToIndex:(cityStr.length - 1)];
-                NSLog(@"locDict:%@",cityStr);
+                //NSLog(@"locDict:%@",cityStr);
                 [[StorageMgr singletonStorageMgr] removeObjectForKey:@"LocCity"];
                 //将定位到的城市存进单例化全局变量
                 [[StorageMgr singletonStorageMgr] addKey:@"LocCity" andValue:cityStr];
@@ -493,6 +564,10 @@
                 
             }
         }];
+        [self WeatherRequest];
+    
+        
+
 
         [_locMgr stopUpdatingLocation];
     });
@@ -507,15 +582,44 @@
         [Utilities setUserDefaults:@"UserCity" content:cityStr];
         //[self dataInitialize];
         //重新进行网络请求
+        [self geoCoder:cityStr];//地理编码
         [self InitializeData];
     }
     
 }
+//懒加载
+-(CLGeocoder *)geoC
+{
+    if (!_geoC) {
+        _geoC = [[CLGeocoder alloc] init];
+    }
+    return _geoC;
+}
+//地理编码
+- (void)geoCoder:(NSString*)cityStr {
+    // 容错
+    if([cityStr length] == 0)
+        return;
+    [self geoC];
+    [_geoC geocodeAddressString:cityStr completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        CLPlacemark *pl = [placemarks firstObject];
+        if(!error)
+        {
+            _location= pl.location;
+            [self WeatherRequest];
+        }else
+        {
+            NSLog(@"错误");
+        }
+    }];
+}
+
+
 - (void) Searc:(NSNotification *)note {
     NSMutableArray *arr = [NSMutableArray new];
     arr = note.object;
     _arr = arr;
-    NSLog(@"%@",_arr);
+    
     
     [_HotelTableView reloadData];
     
@@ -602,7 +706,7 @@
     if (tableView == _HotelTableView) {
         HotelOrdelViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"ordelDetail"];
         detailModel *detail = _arr [indexPath.row];
-        NSLog(@"zhebian:%ld",(long)detail.hotelID);
+        //NSLog(@"zhebian:%ld",(long)detail.hotelID);
         purchaseVC.hotelID = detail.hotelID;
         [self.navigationController pushViewController:purchaseVC animated:YES];
     }else{
@@ -632,10 +736,10 @@
 }
 //第一页最后一个细胞将要出现的时候
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //NSLog(@"姐夫姐夫");
+   
     if (tableView ==_HotelTableView) {
         if (indexPath.row == _arr.count-1) {
-            if (!pageLast) {
+            if (pageLast!=0) {
                 page++;
                 [self request];
                 NSLog(@"还有下一页");
@@ -791,14 +895,14 @@
     formatter.dateFormat = @"MM-dd";
     //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
     _theDate = [formatter stringFromDate:date];
-    NSLog(@"离店时间1：%@",_theDate);
+    //NSLog(@"离店时间1：%@",_theDate);
     
     
     if (flag ==1) {
         //_Btn1.titleLabel.text = theDate;
         NSString *str = [NSString stringWithFormat:@"入住%@",_theDate];
         [_Btn1 setTitle:str forState:UIControlStateNormal];
-        NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
+        //NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
         _inDate = _theDate;
         [self InitializeData];
     }else if(flag == 2){
@@ -806,7 +910,7 @@
         NSString *str = [NSString stringWithFormat:@"离店%@",_theDate];
         [_Btn2 setTitle:str forState:UIControlStateNormal];
         _Btn2.titleLabel.text = _theDate;
-        NSLog(@"离店时间3：%@",_Btn2.titleLabel.text);
+        //NSLog(@"离店时间3：%@",_Btn2.titleLabel.text);
         _outDate = _theDate;
         [self InitializeData];
     }
@@ -983,7 +1087,7 @@
 {   _collectionView.allowsMultipleSelection = YES;
 //    HotelCollectionViewCell *cell = (HotelCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     NSInteger msg = (long)indexPath.row;
-    NSLog(@"%ld",msg);
+    //NSLog(@"%ld",msg);
     if (indexPath.row == 0) {
         return;
         
@@ -1062,7 +1166,7 @@
     //_uiv.hidden = YES;
 }
 - (void)DoneAction{
-    NSLog(@"Btn4被按了");
+    (@"Btn4被按了");
     [self InitializeData];
     _uiv.hidden = YES;
     _HotelTableView.scrollEnabled = YES;
@@ -1123,6 +1227,19 @@
     [_HotelTableView addSubview:Img];
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
