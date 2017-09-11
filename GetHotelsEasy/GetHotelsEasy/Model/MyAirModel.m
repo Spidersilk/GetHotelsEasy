@@ -14,30 +14,30 @@
 - (instancetype)initWithDict: (NSDictionary *)dict{
     self = [super init];
     if (self) {
-        self.oRoute = [Utilities nullAndNilCheck:dict[@"oRoute"] replaceBy:@""];
-        self.oTime = [Utilities nullAndNilCheck:dict[@"oRoute"] replaceBy:@""];
-        self.oType = [Utilities nullAndNilCheck:dict[@"oType"] replaceBy:@""];
-        self.oPrice = [Utilities nullAndNilCheck:dict[@"oPrice"] replaceBy:@""];
+        self.route = [Utilities nullAndNilCheck:dict[@"aviation_demand_title"] replaceBy:@""];
+        self.start_time_str = [Utilities nullAndNilCheck:dict[@"start_time_str"] replaceBy:@""];
+        _start_time = [dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"start_time"] integerValue];
+        self.price = [Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:@""];
+        self.company = [[Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""] integerValue];
     }
     return self;
 }
 - (instancetype)initWithDictForIssuing: (NSDictionary *)dict{
     self = [super init];
     if (self) {
-        self.iRoute = [Utilities nullAndNilCheck:dict[@"iRoute"] replaceBy:@""];
-        self.iTime = [Utilities nullAndNilCheck:dict[@"iRoute"] replaceBy:@""];
-        self.iType = [Utilities nullAndNilCheck:dict[@"iType"] replaceBy:@""];
-        self.iPrice = [Utilities nullAndNilCheck:dict[@"iPrice"] replaceBy:@""];
+        self.route = [Utilities nullAndNilCheck:dict[@"aviation_demand_title"] replaceBy:@""];
+        self.start_time_str = [Utilities nullAndNilCheck:dict[@"start_time_str"] replaceBy:@""];
+        _start_time = [dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"start_time"] integerValue];
+        self.highPrice = [Utilities nullAndNilCheck:dict[@"high_price"] replaceBy:@""];
+        self.lowPrice = [Utilities nullAndNilCheck:dict[@"low_price"] replaceBy:@""];
+        self.demand = [Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""];
     }
     return self;
 }
 - (instancetype)initWithDictForHistory: (NSDictionary *)dict{
     self = [super init];
     if (self) {
-        self.hRoute = [Utilities nullAndNilCheck:dict[@"hRoute"] replaceBy:@""];
-        self.hTime = [Utilities nullAndNilCheck:dict[@"hRoute"] replaceBy:@""];
-        self.hType = [Utilities nullAndNilCheck:dict[@"hType"] replaceBy:@""];
-        self.hPrice = [Utilities nullAndNilCheck:dict[@"hPrice"] replaceBy:@""];
+        
     }
     return self;
 }

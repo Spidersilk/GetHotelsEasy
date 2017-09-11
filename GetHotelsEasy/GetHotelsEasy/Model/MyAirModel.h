@@ -10,20 +10,16 @@
 
 @interface MyAirModel : NSObject
 
-@property(strong, nonatomic)NSString *oRoute;
-@property(strong, nonatomic)NSString *oPrice;
-@property(strong, nonatomic)NSString *oTime;
-@property(strong, nonatomic)NSString *oType;
+@property(strong, nonatomic)NSString *start_time_str;   //出发时间
+@property(strong, nonatomic)NSString *route;        //从哪到哪
+@property(nonatomic)NSInteger company;              //航空公司
+@property(strong, nonatomic)NSString *price;        //成交价
+@property(strong, nonatomic)NSString *highPrice;    //最高价
+@property(strong, nonatomic)NSString *lowPrice;     //最低价价
+@property(strong, nonatomic)NSString *demand;       //要求
+@property(nonatomic)NSInteger Id;                   //订单id
+@property (nonatomic) NSTimeInterval start_time;
 
-@property(strong, nonatomic)NSString *iRoute;
-@property(strong, nonatomic)NSString *iPrice;
-@property(strong, nonatomic)NSString *iTime;
-@property(strong, nonatomic)NSString *iType;
-
-@property(strong, nonatomic)NSString *hRoute;
-@property(strong, nonatomic)NSString *hPrice;
-@property(strong, nonatomic)NSString *hTime;
-@property(strong, nonatomic)NSString *hType;
 
 - (instancetype)initWithDict: (NSDictionary *)dict;
 - (instancetype)initWithDictForIssuing: (NSDictionary *)dict;

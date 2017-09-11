@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		843521F11F62430400F9153B /* MyAirModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 843521EE1F62430400F9153B /* MyAirModel.m */; };
+		843521F21F62430400F9153B /* OfferListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 843521F01F62430400F9153B /* OfferListModel.m */; };
 		84439AD91F4E7668000B5503 /* ZLImageViewDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84439AD81F4E7668000B5503 /* ZLImageViewDisplayView.m */; };
 		8443DC231F4EE6BD0023076C /* MyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443DC221F4EE6BD0023076C /* MyInfoModel.m */; };
 		844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844D27BC1F4B153F00026E12 /* CreateUserViewController.m */; };
@@ -104,6 +106,10 @@
 /* Begin PBXFileReference section */
 		76D5A7FA4D178068D2ED6442 /* Pods-GetHotelsEasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotelsEasy.release.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotelsEasy/Pods-GetHotelsEasy.release.xcconfig"; sourceTree = "<group>"; };
 		7BC1A352D32C2578F60726DF /* Pods-GetHotelsEasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotelsEasy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotelsEasy/Pods-GetHotelsEasy.debug.xcconfig"; sourceTree = "<group>"; };
+		843521ED1F62430400F9153B /* MyAirModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAirModel.h; sourceTree = "<group>"; };
+		843521EE1F62430400F9153B /* MyAirModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAirModel.m; sourceTree = "<group>"; };
+		843521EF1F62430400F9153B /* OfferListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferListModel.h; sourceTree = "<group>"; };
+		843521F01F62430400F9153B /* OfferListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferListModel.m; sourceTree = "<group>"; };
 		84439AD71F4E7668000B5503 /* ZLImageViewDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLImageViewDisplayView.h; sourceTree = "<group>"; };
 		84439AD81F4E7668000B5503 /* ZLImageViewDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLImageViewDisplayView.m; sourceTree = "<group>"; };
 		8443DC211F4EE6BD0023076C /* MyInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoModel.h; sourceTree = "<group>"; };
@@ -319,6 +325,17 @@
 			name = MyIssue;
 			sourceTree = "<group>";
 		};
+		843521EC1F6242B500F9153B /* MyAirModel */ = {
+			isa = PBXGroup;
+			children = (
+				843521ED1F62430400F9153B /* MyAirModel.h */,
+				843521EE1F62430400F9153B /* MyAirModel.m */,
+				843521EF1F62430400F9153B /* OfferListModel.h */,
+				843521F01F62430400F9153B /* OfferListModel.m */,
+			);
+			name = MyAirModel;
+			sourceTree = "<group>";
+		};
 		84439AD61F4E7668000B5503 /* ZLImageViewDisplay */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +466,7 @@
 		848139F11F484DEA00BD090D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				843521EC1F6242B500F9153B /* MyAirModel */,
 				84F5CF521F503B4F00FBFE0A /* DetailModel */,
 				BCE662F61F4E6D3300447C28 /* MyInfoModel */,
 				84813A381F484E3100BD090D /* GetHotelsEasy.xcdatamodeld */,
@@ -872,6 +890,7 @@
 				BC13EFE11F4BBCB200B37EA3 /* NSDataEx.m in Sources */,
 				BC4A388C1F5E2D39006211A5 /* UseAgreementViewController.m in Sources */,
 				844D27BD1F4B153F00026E12 /* CreateUserViewController.m in Sources */,
+				843521F21F62430400F9153B /* OfferListModel.m in Sources */,
 				84F5CF551F503CF900FBFE0A /* detailModel.m in Sources */,
 				8494FB9F1F5A48AA00937C1B /* OverDealTableViewCell.m in Sources */,
 				84B27C541F4AFDCB00800D9C /* LoginViewController.m in Sources */,
@@ -910,6 +929,7 @@
 				84813A311F484DEB00BD090D /* NSDate+Utility.m in Sources */,
 				BC4A388B1F5E2D39006211A5 /* OfferDetailViewController.m in Sources */,
 				BC4A38871F5E2D39006211A5 /* MyAirViewController.m in Sources */,
+				843521F11F62430400F9153B /* MyAirModel.m in Sources */,
 				BC13EFDD1F4BBCB200B37EA3 /* base64.m in Sources */,
 				84813A371F484DEB00BD090D /* Utilities.m in Sources */,
 				8494FBA51F5A48DF00937C1B /* HistoryTableViewCell.m in Sources */,

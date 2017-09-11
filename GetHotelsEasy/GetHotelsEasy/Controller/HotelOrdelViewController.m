@@ -312,6 +312,7 @@
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
     //拿到当前datepicker选择的时间
     NSDate *date = _datePicker.date;
+    NSLog(@"date = %@",date);
     //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd

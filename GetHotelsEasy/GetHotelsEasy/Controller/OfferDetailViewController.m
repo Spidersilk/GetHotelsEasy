@@ -9,10 +9,14 @@
 #import "OfferDetailViewController.h"
 #import "OfferTableViewCell.h"
 
-@interface OfferDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface OfferDetailViewController ()<UITableViewDelegate, UITableViewDataSource>{
+    
+}
 @property (weak, nonatomic) IBOutlet UITableView *offerTableView;
 - (IBAction)payAction:(UIButton *)sender forEvent:(UIEvent *)event;
-
+@property (strong, nonatomic) NSMutableArray *detailArr;
+@property (strong, nonatomic) UIImageView *detailNothingImg;
+@property (strong, nonatomic) UIActivityIndicatorView *avi;;
 
 @end
 
