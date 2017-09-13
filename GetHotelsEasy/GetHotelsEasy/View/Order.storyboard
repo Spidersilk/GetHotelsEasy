@@ -61,6 +61,9 @@
                                                         </fragment>
                                                     </attributedString>
                                                 </state>
+                                                <connections>
+                                                    <action selector="mapsAction:forEvent:" destination="Wh8-Xl-Vpg" eventType="touchUpInside" id="hwJ-HE-963"/>
+                                                </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" translatesAutoresizingMaskIntoConstraints="NO" id="U39-jw-jbm">
                                                 <rect key="frame" x="15" y="5" width="20" height="20"/>
@@ -518,11 +521,33 @@
                         <outlet property="viewDate" destination="Woq-bM-pzm" id="UG8-Yh-uaJ"/>
                         <outlet property="wakeUpLabel" destination="aZK-YV-AaC" id="njc-wv-DA1"/>
                         <outlet property="wifiLabel" destination="BOt-LO-Z59" id="HjQ-nB-eXL"/>
+                        <segue destination="jPA-dS-FI3" kind="show" identifier="MapsToLocation" id="ogO-Tg-Z67"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T52-Xb-xdu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4272.8000000000002" y="62.518740629685162"/>
+            <point key="canvasLocation" x="4132" y="63"/>
+        </scene>
+        <!--Maps View Controller-->
+        <scene sceneID="Yzw-Fu-u3f">
+            <objects>
+                <viewController id="jPA-dS-FI3" customClass="MapsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dWe-gg-ggE"/>
+                        <viewControllerLayoutGuide type="bottom" id="JIJ-cL-fae"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CGw-Z0-9gi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hta-rW-iKi"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UiS-fG-1PU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4942" y="-65"/>
         </scene>
         <!--Purchase Table View Controller-->
         <scene sceneID="ve1-E5-UZ4">
@@ -608,7 +633,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZd-v8-fFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5149.6000000000004" y="62.518740629685162"/>
+            <point key="canvasLocation" x="4942" y="590"/>
         </scene>
     </scenes>
     <resources>

@@ -13,6 +13,7 @@
 @interface HotelOrdelViewController (){
     NSInteger flag;
 }
+- (IBAction)mapsAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 @property (weak, nonatomic) IBOutlet UIImageView *HotelNameImage;
 @property (weak, nonatomic) IBOutlet UILabel *HotelNameLabel;
@@ -336,5 +337,8 @@
     _viewDate.hidden = YES;
     _toolBar.hidden = YES;
     _datePicker.hidden = YES;
+}
+- (IBAction)mapsAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    [self performSegueWithIdentifier:@"MapsToLocation" sender:nil];
 }
 @end
