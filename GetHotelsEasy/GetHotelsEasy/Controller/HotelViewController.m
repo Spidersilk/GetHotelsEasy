@@ -93,7 +93,7 @@
     _arr = [NSMutableArray new];
     _imageArray = [NSMutableArray new];
     _HotelTableView.tableFooterView = [UIView new];
-    _collectionCellOne = @[@"  星级",@"全部",@"四星",@"五星"];
+    _collectionCellOne = @[@"星级",@"全部",@"四星",@"五星"];
     _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"501-1000",@"",@"",@"501-1000",@"1000以上"];
     _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityStat:) name:@"ResetHome" object:nil];
@@ -114,7 +114,7 @@
     _picker.backgroundColor = UIColorFromRGB(235, 235, 241);
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.allowsSelection = NO;
+    _collectionView.allowsSelection = YES;
     
     //_collectionView = [UICollectionView new];
     //_collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 30, UI_SCREEN_W/4, 80)];
@@ -187,11 +187,11 @@
     _uiv.hidden = YES;
     [_HotelTableView addSubview:_uiv];
     _optionsTableView.frame = _uiv.bounds;
-    
-    _shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, UI_SCREEN_H)];
-    _shadeView.backgroundColor =UIColorFromRGBA(235, 234, 235, 1);
-    _shadeView.hidden = YES;
-    [_uiv addSubview:_shadeView];
+    [self collectionViewInitialize];
+//    _shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, UI_SCREEN_H)];
+//    _shadeView.backgroundColor =UIColorFromRGBA(235, 234, 235, 1);
+//    _shadeView.hidden = YES;
+//    [_uiv addSubview:_shadeView];
     [_uiv addSubview:_optionsTableView];
     
     
@@ -258,22 +258,22 @@
         start = 1;
     }else{
         start = [[[StorageMgr singletonStorageMgr] objectForKey:@"start"] integerValue];//获取单例化全局变量
-        //NSLog(@"start:%ld",(long)start);
+        NSLog(@"start:%ld",(long)start);
     }
     if ([[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] == NULL) {
         price = 1;
     }else{
         price = [[[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] integerValue];//获取单例化全局变量
-        //NSLog(@"price:%ld",(long)price);
+        NSLog(@"price:%ld",(long)price);
     }
 
    
-    NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@1,@"pageSize":@10,@"startId":@1,@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":[NSString stringWithFormat:@"2017-%@",_inDate],@"outTime":[NSString stringWithFormat:@"2017-%@",_outDate],@"wxlongitude":@"",@"wxlatitude":@""};
+    NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@(page),@"pageSize":@10,@"startId":@1,@"priceId":@1,@"sortingId":@(_sortingid) ,@"inTime":[NSString stringWithFormat:@"2017-09-12"],@"outTime":[NSString stringWithFormat:@"2017-09-30"],@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
         //成功以后要做的事情
-        //NSLog(@"responseObject = %@",responseObject);
+        NSLog(@"responseObject = %@",responseObject);
  //       [self endAnimation];
         if ([responseObject[@"result"] integerValue] == 1) {
             //业务逻辑成功的情况下
@@ -361,12 +361,7 @@
                 //NSLog(@"天气：%@",description);
                 _icon = jsonObject[@"weather"][0][@"icon"];
                 //NSLog(@"图片：%@",_icon);
-                
-                
-
-                
-                
-                
+         
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _weatherLabel.text = description;
                     _tempLable.text = [NSString stringWithFormat:@"%ld°c",(long)temp];
@@ -729,17 +724,13 @@
         
     
     }
-    
-   
-
-    
 }
 //第一页最后一个细胞将要出现的时候
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
    
     if (tableView ==_HotelTableView) {
         if (indexPath.row == _arr.count-1) {
-            if (pageLast!=0) {
+            if (!pageLast) {
                 page++;
                 [self request];
                 NSLog(@"还有下一页");
@@ -844,17 +835,23 @@
 }
 - (void)Btn4Action{
     NSLog(@"Btn4被按了");
-    [self collectionViewInitialize];
+    if (_cellindexPathOne != _cellindexPathNowOne) {
+        [self selectedIndexPathNowpath:_cellindexPathNowOne Beforepath:_cellindexPathOne];
+    }
+    if (_cellindexPathTwo != _cellindexPathNowTwo) {
+        [self selectedIndexPathNowpath:_cellindexPathNowTwo Beforepath:_cellindexPathTwo];
+    }
     if (_arr.count != 0) {
         [_HotelTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
     
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-    
+    _optionsTableView.hidden = YES;
+    _collectionView.hidden = NO;
     _HotelTableView.scrollEnabled = NO;
     _collectionView.scrollEnabled = NO;
     _uiv.hidden = NO;
-    _optionsTableView.hidden = YES;
+    
     _shadeView.hidden = NO;
     
 }
@@ -933,11 +930,12 @@
     //该方法也可以设置itemSize
     //layout.itemSize =CGSizeMake(UI_SCREEN_W, 300);
     
-    _collectionView = nil;
+    
     //2.初始化collectionView
     _collectionView = [[UICollectionView alloc] initWithFrame:_uiv.bounds collectionViewLayout:layout];
     //_collectionView.bounds = CGRectMake(0, 0, UI_SCREEN_W, _uiv.frame);
     [_uiv addSubview:_collectionView];
+    _collectionView.hidden = YES;
     _collectionView.backgroundColor = UIColorFromRGBA(255, 255, 255, 1);
     
     //3.注册collectionViewCell
@@ -950,15 +948,17 @@
     
     //4.设置代理
     _collectionView.delegate = self;
-    _collectionView.dataSource = self;//创建确定按钮
-    UIButton* DoneBtn = [[UIButton alloc] initWithFrame:CGRectMake((UI_SCREEN_W/2-UI_SCREEN_W/8), 155, UI_SCREEN_W/4, 30)];
+    _collectionView.dataSource = self;
+    //创建确定按钮
+    UIButton* DoneBtn = [[UIButton alloc] initWithFrame:CGRectMake((UI_SCREEN_W/2-(UI_SCREEN_W/4+25)/2), 155, UI_SCREEN_W/4+30, 25)];
     [DoneBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [DoneBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:11]];//设置字体大小
+    [DoneBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];//设置字体大小
     [DoneBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    DoneBtn.backgroundColor = UIColorFromRGBA(255, 255, 255, 0.8);
-    [DoneBtn.layer setBorderWidth:0.8];//设置边框
-    DoneBtn.layer.cornerRadius = 8.0 ;
-    DoneBtn.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    DoneBtn.backgroundColor = UIColorFromRGBA(73, 162, 254, 1);
+    //[DoneBtn.layer setBorderWidth:0.8];//设置边框
+    DoneBtn.layer.cornerRadius = 5.0 ;
+    DoneBtn.titleLabel.textColor = [UIColor whiteColor];
+    //DoneBtn.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件
     [DoneBtn addTarget:self action:@selector(DoneAction) forControlEvents:UIControlEventTouchUpInside];
     [_collectionView addSubview:DoneBtn];
@@ -990,18 +990,19 @@
             HotelCollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"BtnCell" forIndexPath:indexPath];
             NSString *str = _collectionCellOne[indexPath.row];
             [cell.button setTitle:str forState:UIControlStateNormal];
-            //cell.backgroundColor = [UIColor yellowColor];
+            
             
             return cell;
             
         }else{
-            
+            _cellindexPathOne = [NSIndexPath indexPathForRow:1 inSection:0];
+            _cellindexPathNowOne =[NSIndexPath indexPathForRow:1 inSection:0];
             LabelCollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"lableCell" forIndexPath:indexPath];
             cell.lable.text = _collectionCellOne[indexPath.row];
             
             LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowOne];
-            beforecell.layer.cornerRadius = 8.0 ;
-            beforecell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);;
+            beforecell.lable.textColor = UIColorFromRGB(104, 187, 238);
+            beforecell.lable.layer.borderColor = [UIColorFromRGB(104, 187, 238) CGColor];
               return cell;
             
         }
@@ -1016,12 +1017,12 @@
             if (indexPath.row == 4||indexPath.row == 5) {
                 cell.lable.hidden = YES;
             }
-            
-            
+            _cellindexPathTwo = [NSIndexPath indexPathForRow:1 inSection:1];
+            _cellindexPathNowTwo =[NSIndexPath indexPathForRow:1 inSection:1];
             LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowTwo];
-            beforecell.layer.cornerRadius = 8.0 ;
-            beforecell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);;
-
+            //beforecell.layer.cornerRadius = 5.0 ;
+            beforecell.lable.textColor = UIColorFromRGB(104, 187, 238);
+            beforecell.lable.layer.borderColor = [UIColorFromRGB(104, 187, 238) CGColor];
             cell.lable.text = _collectionCellTwo[indexPath.row];
             return cell;
         }
@@ -1058,12 +1059,12 @@
         
     }else{
         if (indexPath.section == 0) {
-            return CGSizeMake(50, 30);
+            return CGSizeMake(50, 27);
         }else{
             if(indexPath.row == 4){
-             return CGSizeMake(10, 30);
+             return CGSizeMake(10, 27);
             }
-            return CGSizeMake(70, 30);
+            return CGSizeMake(70, 27);
         }
     }
 
@@ -1099,74 +1100,33 @@
             [[StorageMgr singletonStorageMgr] addKey:@"start" andValue:@(str)];
             
             if(indexPath.row != _cellindexPathOne.row){
-                LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-                cell.layer.cornerRadius = 8.0 ;
-                cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
-                LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathOne];
-                //beforecell.backgroundView = [UIColor groupTableViewBackgroundColor];
-                
-                beforecell.backgroundColor =[UIColor whiteColor];
-                beforecell.selected = NO;
-                [_collectionView deselectItemAtIndexPath:_cellindexPathOne animated:YES];//这句是防止取消后，前面取消的cell被动选中；
-//                 [collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-                 _cellindexPathOne= indexPath;
+                _cellindexPathOne = [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathOne];
             }
             if(indexPath.row != _cellindexPathNowOne.row){
-                LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-                cell.layer.cornerRadius = 8.0 ;
-                cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
-                LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowOne];
-                //beforecell.backgroundView = [UIColor groupTableViewBackgroundColor];
-                beforecell.backgroundColor =[UIColor whiteColor];
-                beforecell.selected = NO;
-                [_collectionView deselectItemAtIndexPath:_cellindexPathNowOne animated:YES];//这句是防止取消后，前面取消的cell被动选中；
-                //                 [collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+                [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathNowOne];
+//                NSLog(@"星级：%ld.%ld",(long)_cellindexPathNowOne.row,_cellindexPathNowOne.section);
+                
             }
 
-
-            
         }else{
             NSInteger ns = indexPath.row;
             if (ns >3) {
                 ns=ns-2;
             }
             [[StorageMgr singletonStorageMgr]removeObjectForKey:@"priceid"];
-            
             [[StorageMgr singletonStorageMgr] addKey:@"priceid" andValue:@(ns)];
             if(indexPath.row != _cellindexPathTwo.row ){
-                LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-                cell.layer.cornerRadius = 8.0 ;
-                cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
-                LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathTwo];
-                
-                beforecell.backgroundColor = [UIColor whiteColor];
-                beforecell.selected = YES;
-                [_collectionView deselectItemAtIndexPath:_cellindexPathTwo animated:YES];//取消选中状态
-                _cellindexPathTwo = indexPath;
+                _cellindexPathTwo = [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathTwo];
             }
             if (indexPath.row != _cellindexPathNowTwo.row) {
-                LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-                cell.layer.cornerRadius = 8.0 ;
-                cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
-                LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowTwo];
+                 [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathNowTwo];
                 
-                beforecell.backgroundColor = [UIColor whiteColor];
-                beforecell.selected = NO;
-                [_collectionView deselectItemAtIndexPath:_cellindexPathNowTwo animated:YES];//取消选中状态
             }
-            
-
-            
-
         }
     }
-
-    
-    //_collectionView.hidden = YES;
-    //_uiv.hidden = YES;
 }
 - (void)DoneAction{
-    (@"Btn4被按了");
+    page = 1;
     [self InitializeData];
     _uiv.hidden = YES;
     _HotelTableView.scrollEnabled = YES;
@@ -1175,8 +1135,26 @@
     _cellindexPathNowTwo = _cellindexPathTwo;
     _collectionView.hidden = YES;
     _shadeView.hidden = YES;
+    
 }
+- (NSIndexPath *)selectedIndexPathNowpath:(NSIndexPath *)nowpath Beforepath:(NSIndexPath *)beforepath{
+    
+        NSLog(@"现在的%ld",(long)nowpath.row);
+        
+        NSLog(@"旧的%ld",(long)beforepath.row);
+        LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:nowpath];
+        //cell.layer.cornerRadius = 5.0 ;
+        //cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
+        cell.lable.textColor = UIColorFromRGB(104, 187, 238);
+        cell.lable.layer.borderColor = [UIColorFromRGB(104, 187, 238) CGColor];
+        LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:beforepath];
+        beforecell.lable.textColor = [UIColor lightGrayColor];
+    beforecell.lable.layer.borderColor =[ [UIColor lightGrayColor]CGColor];
 
+        //beforecell.selected = NO;
+        [_collectionView deselectItemAtIndexPath:beforepath animated:YES];//这句是防止取消后，前面取消的cell被动选中；
+        return nowpath;
+}
 -(void)buttonAction{
     _uiv.hidden = YES;
     

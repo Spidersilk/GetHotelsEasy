@@ -110,6 +110,7 @@
                                                 <constraint firstItem="SzE-S2-OL9" firstAttribute="centerY" secondItem="PTH-a1-ADe" secondAttribute="centerY" id="vLA-b1-WV4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" red="0.40931141376495361" green="0.73412507772445679" blue="0.93408817052841187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="address" destination="SzE-S2-OL9" id="pzV-1h-3Nm"/>
                                             <outlet property="distanceLabel" destination="2gP-TM-woa" id="3J9-C3-VLO"/>

@@ -22,9 +22,11 @@
         //_lable.font = [UIFont systemFontOfSize:15];
         //_lable.backgroundColor = [UIColor purpleColor];
         [_lable.layer setBorderWidth:0.8];//设置边框
-        _lable.layer.cornerRadius = 8.0 ;
-        [_lable setFont:[UIFont boldSystemFontOfSize:9]];
+        _lable.layer.cornerRadius = 5.0 ;
+        [_lable setFont:[UIFont boldSystemFontOfSize:13]];
  //       _lable.backgroundColor = [UIColor clearColor];
+        _lable.textColor = [UIColor lightGrayColor];
+        _lable.layer.borderColor =[ [UIColor lightGrayColor]CGColor];
         [self.contentView addSubview:_lable];
     }
     
