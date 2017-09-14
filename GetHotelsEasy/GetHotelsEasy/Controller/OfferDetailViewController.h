@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyAirModel.h"
 
 @interface OfferDetailViewController : UIViewController
+
+@property (strong, nonatomic) MyAirModel *AirModel;
 
 @end

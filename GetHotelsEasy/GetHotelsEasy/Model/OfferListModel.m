@@ -13,11 +13,14 @@
 - (instancetype)initWithDict: (NSDictionary *)dict{
     self = [super init];
     if (self) {
-        self.oRoute = [Utilities nullAndNilCheck:dict[@"oRoute"] replaceBy:@""];
-        self.flight = [Utilities nullAndNilCheck:dict[@"flight"] replaceBy:@""];
-        self.oTime = [Utilities nullAndNilCheck:dict[@"oTime"] replaceBy:@""];
-        self.oType = [Utilities nullAndNilCheck:dict[@"oType"] replaceBy:@""];
-        self.oPrice = [Utilities nullAndNilCheck:dict[@"oPrice"] replaceBy:@""];
+        self.aviation_cabin = [Utilities nullAndNilCheck:dict[@"aviation_cabin"] replaceBy:@""];
+        self.aviation_company = [Utilities nullAndNilCheck:dict[@"aviation_company"] replaceBy:@""];
+        _in_time = [dict[@"in_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"in_time"] integerValue];
+        _out_time = [dict[@"out_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"out_time"] integerValue];
+        self.final_price = [Utilities nullAndNilCheck:dict[@"high_price"] replaceBy:@""];
+        self.destination = [Utilities nullAndNilCheck:dict[@"description"] replaceBy:@""];
+        self.departure = [Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""];
+        self.flight_no = [Utilities nullAndNilCheck:dict[@"flight_no"] replaceBy:@""];
     }
     return self;
 }

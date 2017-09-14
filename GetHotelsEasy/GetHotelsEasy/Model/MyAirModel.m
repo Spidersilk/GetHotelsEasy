@@ -31,6 +31,7 @@
         self.highPrice = [Utilities nullAndNilCheck:dict[@"high_price"] replaceBy:@""];
         self.lowPrice = [Utilities nullAndNilCheck:dict[@"low_price"] replaceBy:@""];
         self.demand = [Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""];
+        _Id = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:@""] integerValue];
     }
     return self;
 }

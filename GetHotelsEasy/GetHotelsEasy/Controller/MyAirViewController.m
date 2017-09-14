@@ -198,15 +198,6 @@
     [self HistoryRequest];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - scollView
 //scrollView已经停止减速
@@ -247,19 +238,20 @@
 - (void) overDealRequest {
      MyInfoModel *myinfo = [[StorageMgr singletonStorageMgr] objectForKey:@"MemberInfo"];
     //参数
-    NSDictionary *para = @{@"openid" :myinfo.openid,@"pageNum" :@1 ,@"pageSize":@1,@"state":@0};
+    NSDictionary *para = @{@"openid" :myinfo.openid,@"pageNum" :@(overDealPageNum) ,@"pageSize":@10,@"state":@0};
     //网络请求
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"overDealRequest哈哈:%@",responseObject);
         //当网络请求成功时停止动画
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
-//            NSDictionary *result = responseObject[@"content"];
-//            NSArray *list = result[@"list"];
-//            for (NSDictionary *dict in list) {
-//                MyAirModel *airmodel = [[MyAirModel alloc]initWithDict:dict];
-//                [_overDealArr addObject:airmodel];
-//            }
+            NSDictionary *result = responseObject[@"content"];
+            NSArray *list = result[@"list"];
+            overDaelLastPage = [result[@"isLastPage"] boolValue];
+            for (NSDictionary *dict in list) {
+                MyAirModel *airmodel = [[MyAirModel alloc]initWithDict:dict];
+                [_overDealArr addObject:airmodel];
+            }
             //当数组没有数据显示时，将图片显示，反之隐藏
             if (_overDealArr.count == 0) {
                 _overDealNothingImg.hidden = NO;
@@ -287,7 +279,7 @@
 - (void) issuingRequest {
     MyInfoModel *myinfo = [[StorageMgr singletonStorageMgr] objectForKey:@"MemberInfo"];
     //参数
-    NSDictionary *para = @{@"openid" :myinfo.openid,@"pageNum" :@1 ,@"pageSize":@1,@"state":@1};
+    NSDictionary *para = @{@"openid" :myinfo.openid,@"pageNum" :@(issuingPageNum) ,@"pageSize":@10,@"state":@1};
     //网络请求
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"issuingRequest哈哈:%@",responseObject);
@@ -298,11 +290,11 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *result = responseObject[@"content"];
             NSArray *list = result[@"list"];
+            issuingLastpage = [result[@"isLastPage"] boolValue];
             //当页码为1的时候让数据先清空，再重新添加
             if (issuingPageNum == 1) {
                 [_issuingArr removeAllObjects];
             }
-            //issuinglast = [result[@"isLastPage"] boolValue];
             for (NSDictionary *dict in list) {
                 MyAirModel *airmodel = [[MyAirModel alloc]initWithDictForIssuing:dict];
                 [_issuingArr addObject:airmodel];
@@ -313,6 +305,7 @@
             }else{
                 _overDealNothingImg.hidden = YES;
             }
+            
             [_issuingTableView reloadData];
             
         }else{
@@ -337,13 +330,23 @@
 - (void) HistoryRequest {
      MyInfoModel *myinfo = [[StorageMgr singletonStorageMgr] objectForKey:@"MemberInfo"];    
     //参数
-    NSDictionary *para = @{@"openid" :myinfo.openid,@"pageNum" :@1 ,@"pageSize":@10,@"state":@2};
+    NSDictionary *para = @{@"openid" :myinfo.openid,@"pageNum" :@(historyPageNum) ,@"pageSize":@10,@"state":@2};
     //网络请求
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"HistoryRequest哈哈:%@",responseObject);
+        UIRefreshControl *ref = (UIRefreshControl *)[_historyTableView viewWithTag:10003];
+        [ref endRefreshing];
         //当网络请求成功时停止动画
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *result = responseObject[@"content"];
+            //NSArray *list = result[@"list"];
+            historyLastPage = [result[@"isLastPage"] boolValue];
+            //当页码为1的时候让数据先清空，再重新添加
+            if (historyPageNum == 1) {
+                [_historyArr removeAllObjects];
+            }
+
             //当数组没有数据显示时，将图片显示，反之隐藏
             if (_historyArr.count == 0) {
                 _historyNothingImg.hidden = NO;
@@ -361,6 +364,8 @@
     } failure:^(NSInteger statusCode, NSError *error) {
         [Utilities popUpAlertViewWithMsg:@"网络似乎不太给力,请稍后再试" andTitle:@"提示" onView:self onCompletion:^{
         }];
+        UIRefreshControl *ref = (UIRefreshControl *)[_historyTableView viewWithTag:10003];
+        [ref endRefreshing];
         [_avi stopAnimating];
         
     }];
@@ -388,6 +393,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _overDealTableView) {
         OverDealTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"overDealCell" forIndexPath:indexPath];
+        //MyAirModel *overDeal = _overDealArr[indexPath.section];
         return cell;
     }else if (tableView == _issuingTableView){
         IssuingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssuingCell" forIndexPath:indexPath];
@@ -433,7 +439,13 @@
     //判断当前tableview是否为_activityTableView（这个条件判断常用在一个界面中有多个tableView的时候）
     if([tableView isEqual:_issuingTableView]){
         OfferDetailViewController *offervc = [Utilities getStoryboardInstance:@"MyInfo" byIdentity:@"offerDetail"];
+        //[self.navigationController pushViewController:offervc animated:YES];
+        //根据当前点击的组号拿到对应的model
+        MyAirModel *AirModel = _issuingArr[indexPath.section];
+        //通过performSegueWithIdentifier根据箭头的名字调转页面，sender可以将需要的任意类型的参数传递到目标页面
+        offervc.AirModel = AirModel;
         [self.navigationController pushViewController:offervc animated:YES];
+        //[self performSegueWithIdentifier:@"taskToDetail" sender:nil];
     }
 }
 //设置组的头部视图高度

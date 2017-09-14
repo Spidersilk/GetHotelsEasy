@@ -281,6 +281,7 @@
         [ref endRefreshing];
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
+            
             //当数组没有数据显示时，将图片显示，反之隐藏
             if (_workableArr.count == 0) {
                 _workableNothingImg.hidden = NO;
