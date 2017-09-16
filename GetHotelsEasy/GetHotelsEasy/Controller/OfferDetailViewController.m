@@ -176,14 +176,14 @@
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
     formatter1.dateFormat = @"HH:mm";
-    NSString *date1 = [formatter stringFromDate:confromTimesp1];
+    NSString *date1 = [formatter1 stringFromDate:confromTimesp1];
     //结束时间
     NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:_listModel.out_time/1000];
     //初始化一个日期格式器
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
     formatter2.dateFormat = @"HH:mm";
-    NSString *date2 = [formatter stringFromDate:confromTimesp2];
+    NSString *date2 = [formatter2 stringFromDate:confromTimesp2];
     cell.oTimeLabel.text = [NSString stringWithFormat:@"%@——%@",date1,date2];
     cell.flightLabel.text = [NSString stringWithFormat:@"%@ %@",_listModel.aviation_company,_listModel.flight_no];
     cell.oType.text = _listModel.aviation_cabin;
