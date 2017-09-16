@@ -117,9 +117,7 @@
     _collectionView.dataSource = self;
     _collectionView.allowsSelection = YES;
     
-    //_collectionView = [UICollectionView new];
-    //_collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 30, UI_SCREEN_W/4, 80)];
-
+    
     
     
 }
