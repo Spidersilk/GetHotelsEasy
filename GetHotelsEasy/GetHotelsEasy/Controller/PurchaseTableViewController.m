@@ -45,13 +45,14 @@
     self.navigationItem.title = @"支付";
 }
 -(void)setFootViewForTableView{
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, 45)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, 80)];
     UIButton *exitBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    exitBtn.frame = CGRectMake(0, 5, UI_SCREEN_W, 60.f);
+    exitBtn.frame = CGRectMake(0, 30, UI_SCREEN_W, 80.f);
     [exitBtn setTitle:@"确定支付" forState:UIControlStateNormal];
     exitBtn.backgroundColor = [UIColor whiteColor];
     //设置按钮标题字体的大小
-    exitBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.f];
+    //exitBtn.titleLabel.font = [UIFont boldSystemFontOfSize:20.f];
+    exitBtn.titleLabel.font = [UIFont systemFontOfSize:20.f weight:UIFontWeightLight];
     [exitBtn setTitleColor:UIColorFromRGB(0, 128.f, 255.f) forState:UIControlStateNormal];
     [exitBtn addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:exitBtn];
