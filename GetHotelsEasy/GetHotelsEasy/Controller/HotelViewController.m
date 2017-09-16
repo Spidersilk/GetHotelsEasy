@@ -19,7 +19,6 @@
 #import "SearchViewController.h"
 #import "CityTableViewController.h"
 #import "JSONS.h"
-#import "NSDate+Utility.h"
 
 @interface HotelViewController ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>{
     BOOL firstVisit;
@@ -95,13 +94,13 @@
     _imageArray = [NSMutableArray new];
     _HotelTableView.tableFooterView = [UIView new];
     _collectionCellOne = @[@"星级",@"全部",@"四星",@"五星"];
-    _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"301-500",@"",@"",@"501-1000",@"1000以上"];
+    _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"501-1000",@"",@"",@"501-1000",@"1000以上"];
     _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityStat:) name:@"ResetHome" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Searc:) name:@"SearcHome" object:nil];
   
     
-    _picker.minimumDate = [NSDate date];
+    
     page = 1;
     flag = 0;
     [self uilayout];//签署协议
@@ -126,17 +125,15 @@
 - (void) initialBtn{
     if (flag == 0){
         NSDate *date = [NSDate date];
-        NSDate *tomorrowdate =[NSDate dateTomorrow];
         //初始化一个日期格式器
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         //定义日期的格式为yyyy-MM-dd
         formatter.dateFormat = @"MM-dd";
         //将日期转换为字符串（通过日期格式器中的stringFromDate方法）
         NSString *Date = [formatter stringFromDate:date];
-        NSString *tomorrowDate = [formatter stringFromDate:tomorrowdate];
         //NSLog(@"date:%@",Date);
         _inDate = [NSString stringWithFormat:@"%@",Date];
-        _outDate = [NSString stringWithFormat:@"%@",tomorrowDate];
+        _outDate = [NSString stringWithFormat:@"%@",Date];
     }
 
     // 创建按钮对象
@@ -191,16 +188,12 @@
     [_HotelTableView addSubview:_uiv];
     _optionsTableView.frame = _uiv.bounds;
     [self collectionViewInitialize];
-    _shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, _uiv.frame.origin.y+205, UI_SCREEN_W, UI_SCREEN_H)];
-    _shadeView.backgroundColor =UIColorFromRGBA(235, 234, 235, 0.7);
-    _shadeView.hidden = YES;
-    [_HotelTableView addSubview:_shadeView];
+//    _shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, UI_SCREEN_H)];
+//    _shadeView.backgroundColor =UIColorFromRGBA(235, 234, 235, 1);
+//    _shadeView.hidden = YES;
+//    [_uiv addSubview:_shadeView];
     [_uiv addSubview:_optionsTableView];
-    //创建手势
-    UITapGestureRecognizer *r5 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doTapChange)];
-    //r5.numberOfTapsRequired = 1;
-    //NSLog(@"阀门%lu",(unsigned long)r5.numberOfTapsRequired);
-    [_shadeView addGestureRecognizer:r5];
+    
     
 
 }
@@ -273,10 +266,9 @@
         price = [[[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] integerValue];//获取单例化全局变量
         NSLog(@"price:%ld",(long)price);
     }
-    NSLog(@"入店时间%@",_inDate);
-    NSLog(@"离店时间%@",_outDate);
-    NSLog(@"这是排序ID:%ld",(long)_sortingid);
-    NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@(page),@"pageSize":@5 ,@"startId":@(start),@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":[NSString stringWithFormat:@"2017-%@",_inDate],@"outTime":[NSString stringWithFormat:@"2017-%@",_outDate],@"wxlongitude":@"",@"wxlatitude":@""};
+
+   
+    NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@(page),@"pageSize":@10,@"startId":@1,@"priceId":@1,@"sortingId":@(_sortingid) ,@"inTime":[NSString stringWithFormat:@"2017-09-12"],@"outTime":[NSString stringWithFormat:@"2017-09-30"],@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
@@ -480,8 +472,7 @@
 //这个方法专门做数据的处理
 - (void)dataInitialize{
     BOOL appInit = NO;
-    
-    if ([[Utilities getUserDefaults:@"UserCityop"] isKindOfClass:[NSNull class]]) {
+    if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
         //说明是第一次打开APP
         appInit = YES;
     } else {
@@ -715,7 +706,6 @@
         [self.navigationController pushViewController:purchaseVC animated:YES];
     }else{
         if (indexPath !=_tableViewIndexPath) {
-            page = 1;
             UITableViewCell *cell = [_optionsTableView cellForRowAtIndexPath:indexPath];
             cell.textLabel.textColor = UIColorFromRGB(10, 127, 254);
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -817,7 +807,7 @@
     flag = 1;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
-    
+    _shadeView.hidden = NO;
 }
 - (void)Btn2Action{
     NSLog(@"Btn2被按了");
@@ -825,10 +815,11 @@
     flag = 2;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
-    
+    _shadeView.hidden = NO;
+
 }
 - (void)Btn3Action{
-    
+       
     NSLog(@"Btn3被按了");
     if (_arr.count != 0) {
         [_HotelTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -966,7 +957,7 @@
     DoneBtn.backgroundColor = UIColorFromRGBA(73, 162, 254, 1);
     //[DoneBtn.layer setBorderWidth:0.8];//设置边框
     DoneBtn.layer.cornerRadius = 5.0 ;
-    DoneBtn.titleLabel.textColor = [UIColor redColor];
+    DoneBtn.titleLabel.textColor = [UIColor whiteColor];
     //DoneBtn.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件
     [DoneBtn addTarget:self action:@selector(DoneAction) forControlEvents:UIControlEventTouchUpInside];
@@ -1201,19 +1192,6 @@
 //}
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     _uiv.hidden = YES;
-    _shadeView.hidden = YES;
-    _HotelTableView.scrollEnabled = YES;
-    _collectionView.scrollEnabled = YES;
-
-}
-
-
-
--(void)doTapChange{
-    _uiv.hidden = YES;
-    _shadeView.hidden = YES;
-    _HotelTableView.scrollEnabled = YES;
-    _collectionView.scrollEnabled = YES;
 
 }
 #pragma mack - 选项卡tableView

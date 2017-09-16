@@ -42,7 +42,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mpx-f6-d6u">
-                                <rect key="frame" x="0.0" y="100" width="375" height="518"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="567"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="QQZ-yw-f7E">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -54,7 +54,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6sP-bt-7cE" id="PTH-a1-ADe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aircraft" translatesAutoresizingMaskIntoConstraints="NO" id="oK8-If-dtc">
@@ -209,7 +209,7 @@
                                 </constraints>
                             </view>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vbw-Uh-nEq">
-                                <rect key="frame" x="0.0" y="358" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="407" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="取消" id="RfO-n8-s9L">
                                         <connections>
@@ -225,7 +225,7 @@
                                 </items>
                             </toolbar>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c86-Mv-f5l">
-                                <rect key="frame" x="0.0" y="402" width="375" height="216"/>
+                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="525508439.93069798">
                                     <!--2017-08-27 06:33:59 +0000-->
                                 </date>
@@ -278,16 +278,17 @@
                             <constraint firstItem="c86-Mv-f5l" firstAttribute="top" secondItem="Vbw-Uh-nEq" secondAttribute="bottom" id="KhQ-aC-NCG"/>
                             <constraint firstItem="Vbw-Uh-nEq" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="M6r-ZE-iCW"/>
                             <constraint firstAttribute="trailing" secondItem="Vbw-Uh-nEq" secondAttribute="trailing" id="PE4-wx-Qsn"/>
-                            <constraint firstItem="aRo-fl-i6G" firstAttribute="top" secondItem="mpx-f6-d6u" secondAttribute="bottom" id="SxU-fs-YRg"/>
                             <constraint firstItem="aRo-fl-i6G" firstAttribute="top" secondItem="c86-Mv-f5l" secondAttribute="bottom" id="UfB-xo-rhO"/>
                             <constraint firstAttribute="trailing" secondItem="KoC-Yh-UdE" secondAttribute="trailing" id="X0z-D9-FMD"/>
                             <constraint firstAttribute="trailing" secondItem="c86-Mv-f5l" secondAttribute="trailing" id="bfZ-PE-kxx"/>
                             <constraint firstItem="mpx-f6-d6u" firstAttribute="top" secondItem="KoC-Yh-UdE" secondAttribute="bottom" id="ckQ-9T-cZc"/>
                             <constraint firstItem="mpx-f6-d6u" firstAttribute="leading" secondItem="OxG-dU-LfM" secondAttribute="leading" id="qZA-dG-j1x"/>
+                            <constraint firstAttribute="bottom" secondItem="mpx-f6-d6u" secondAttribute="bottom" id="spk-8t-i2i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sks-DK-yik"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="HotelTableView" destination="mpx-f6-d6u" id="qn9-UQ-DZd"/>
                         <outlet property="Toolbar" destination="Vbw-Uh-nEq" id="bvP-cf-ab9"/>
@@ -405,7 +406,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iQq-Z8-fzJ">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
