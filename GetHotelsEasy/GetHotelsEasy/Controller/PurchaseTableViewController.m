@@ -64,10 +64,8 @@
     [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if([obj isKindOfClass:[OfferDetailViewController class]]){
             _hotelNameLabel.text = [NSString stringWithFormat:@"%@ %@——%@",_offerList.aviation_company,_offerList.departure,_offerList.destination];
-            NSString *inStr = [Utilities  dateStrFromCstampTime:_offerList.in_time withDateFormat:@"MM-dd"];
-             NSString *outStr = [Utilities  dateStrFromCstampTime:_offerList.out_time withDateFormat:@"MM-dd"];
+            NSString *inStr = [Utilities  dateStrFromCstampTime:_offerList.in_time withDateFormat:@"MM月-dd日 HH:mm 起飞"];
             _inDateLabel.text = [NSString stringWithFormat:@"%@",inStr];
-            _outDateLabel.text = [NSString stringWithFormat:@"%@",outStr];
             _priceLabel.text = [NSString stringWithFormat:@"%@元",_offerList.final_price];
             NSLog(@"%@",_priceLabel.text);
             *stop = YES;
