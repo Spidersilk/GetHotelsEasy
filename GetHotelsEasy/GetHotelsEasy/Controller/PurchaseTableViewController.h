@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "detailModel.h"
+#import "OfferListModel.h"
 @interface PurchaseTableViewController : UITableViewController
 @property (strong, nonatomic) detailModel *detail;
+@property (strong, nonatomic) OfferListModel *offerList;
 @end

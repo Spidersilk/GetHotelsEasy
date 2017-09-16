@@ -11,7 +11,8 @@
 @interface MyAirModel : NSObject
 
 @property(strong, nonatomic)NSString *start_time_str;   //出发时间
-@property(strong, nonatomic)NSString *route;        //从哪到哪
+@property(strong, nonatomic)NSString *departure;        //出发地
+@property(strong, nonatomic)NSString *destination;      //目的地
 @property(nonatomic)NSInteger company;              //航空公司
 @property(strong, nonatomic)NSString *price;        //成交价
 @property(strong, nonatomic)NSString *highPrice;    //最高价

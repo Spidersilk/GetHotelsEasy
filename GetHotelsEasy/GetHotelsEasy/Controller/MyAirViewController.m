@@ -397,15 +397,15 @@
         return cell;
     }else if (tableView == _issuingTableView){
         IssuingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssuingCell" forIndexPath:indexPath];
-        MyAirModel *issuing = _issuingArr[indexPath.section];
+        MyAirModel *issuingModel = _issuingArr[indexPath.section];
         
-        NSString *str = [NSString stringWithFormat:@"%@ %@ 机票",issuing.start_time_str,issuing.route];
+        NSString *str = [NSString stringWithFormat:@"%@ %@——%@ 机票",issuingModel.start_time_str,issuingModel.departure,issuingModel.destination];
         
         cell.iRouteLabel.text = str;
         //NSLog(@"cell.iRouteLabel.text = %@",issuing.route);
-        cell.iPriceLabel.text = [NSString stringWithFormat:@"价格区间：%@-%@",issuing.lowPrice,issuing.highPrice];
+        cell.iPriceLabel.text = [NSString stringWithFormat:@"价格区间：%@-%@",issuingModel.lowPrice,issuingModel.highPrice];
         
-        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:issuing.start_time/1000];
+        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:issuingModel.start_time/1000];
 //        NSLog(@"hahaha%f",issuing.start_time);
 //        NSLog(@"hahaha%@",issuing.lowPrice);
         //初始化一个日期格式器
@@ -420,7 +420,7 @@
             i = i - 12;
             cell.iTimeLabel.text = [NSString stringWithFormat:@"大约下午%ld点",(long)i];
         }
-        cell.iTypeLabel.text = issuing.demand;
+        cell.iTypeLabel.text = issuingModel.demand;
         //NSLog(@"i = %ld",(long)i);
         return cell;
     }else{
