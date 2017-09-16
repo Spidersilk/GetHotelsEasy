@@ -62,10 +62,6 @@
     _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price];
     _inDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"first" ];
     _outDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"second"];
-    //NSString *dueTimeStr = [Utilities dateStrFromCstampTime:_detail.start_time withDateFormat:@"MM-dd"];
-   // NSString *startTimeStr = [Utilities dateStrFromCstampTime:_detail.out_time withDateFormat:@"MM-dd"];
-    //_inDateLabel.text = [NSString stringWithFormat:@"%@", dueTimeStr];
-   // _outDateLabel.text = [NSString stringWithFormat:@"%@", startTimeStr];;
     self.tableView.tableFooterView = [UIView new];
     //将表格视图设置为“编辑”
     self.tableView.editing = YES;
@@ -77,7 +73,7 @@
     switch (self.tableView.indexPathForSelectedRow.row) {
         case 0:{
             NSString *tradeNo = [GBAlipayManager generateTradeNO];
-            [GBAlipayManager alipayWithProductName:_detail.hotel_name amount:[NSString stringWithFormat:@"%ld元",(long)_detail.price] tradeNO:tradeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@价钱",_detail.hotel_name]  itBPay:@"30"];
+            [GBAlipayManager alipayWithProductName:_detail.hotel_name amount:[NSString stringWithFormat:@"%ld",(long)_detail.price] tradeNO:tradeNo notifyURL:nil productDescription:_detail.hotel_name  itBPay:@"30"];
         }
             break;
         case 1:
