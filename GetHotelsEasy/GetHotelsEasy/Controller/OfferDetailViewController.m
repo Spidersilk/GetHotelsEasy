@@ -158,35 +158,35 @@
     CGColorRef color = CGColorCreate(colorSpaceRef, (CGFloat[]){26/255.0,143/255.0,246/255.0,1});
     [cell.payBtn.layer setBorderColor:color];
     //设置细胞
-    OfferListModel *offerList = _detailArr[indexPath.section];
-    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:offerList.in_time/1000];
+    _listModel = _detailArr[indexPath.section];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:_listModel.in_time/1000];
     //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
     formatter.dateFormat = @"MM-dd";
     NSString *date = [formatter stringFromDate:confromTimesp];
-    NSString *str = [NSString stringWithFormat:@"%@ %@——%@ 机票",date,offerList.departure,offerList.destination];
+    NSString *str = [NSString stringWithFormat:@"%@ %@——%@ 机票",date,_listModel.departure,_listModel.destination];
     //NSLog(@"%@",offerList.destination);
     cell.oRouteLabel.text = str;
 //    //NSLog(@"cell.iRouteLabel.text = %@",issuing.route);
-    cell.oPriceLabel.text = [NSString stringWithFormat:@"¥%@",offerList.final_price];
+    cell.oPriceLabel.text = [NSString stringWithFormat:@"¥%@",_listModel.final_price];
     //开始时间
-    NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:offerList.in_time/1000];
+    NSDate *confromTimesp1 = [NSDate dateWithTimeIntervalSince1970:_listModel.in_time/1000];
     //初始化一个日期格式器
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
     formatter1.dateFormat = @"HH:mm";
     NSString *date1 = [formatter stringFromDate:confromTimesp1];
     //结束时间
-    NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:offerList.out_time/1000];
+    NSDate *confromTimesp2 = [NSDate dateWithTimeIntervalSince1970:_listModel.out_time/1000];
     //初始化一个日期格式器
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
     formatter2.dateFormat = @"HH:mm";
     NSString *date2 = [formatter stringFromDate:confromTimesp2];
     cell.oTimeLabel.text = [NSString stringWithFormat:@"%@——%@",date1,date2];
-    cell.flightLabel.text = [NSString stringWithFormat:@"%@ %@",offerList.aviation_company,offerList.flight_no];
-    cell.oType.text = offerList.aviation_cabin;
+    cell.flightLabel.text = [NSString stringWithFormat:@"%@ %@",_listModel.aviation_company,_listModel.flight_no];
+    cell.oType.text = _listModel.aviation_cabin;
     return cell;
 }
 //设置每一组每一行的细胞被点击以后要做的事情
@@ -196,10 +196,11 @@
 }
 
 - (IBAction)payAction:(UIButton *)sender forEvent:(UIEvent *)event {
-     PurchaseTableViewController*purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"Purchase"];
+     PurchaseTableViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"Purchase"];
     //根据当前点击的组号拿到对应的model
     //OfferListModel *listModel = _detailArr[];
     purchaseVC.offerList = _listModel;
+    NSLog(@"_listModel = %@",_listModel);
     [self.navigationController pushViewController:purchaseVC animated:YES];
 }
 @end

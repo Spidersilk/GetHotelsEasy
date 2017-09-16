@@ -7,7 +7,8 @@
 //
 
 #import "PurchaseTableViewController.h"
-
+#import "HotelOrdelViewController.h"
+#import "OfferDetailViewController.h"
 @interface PurchaseTableViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *hotelNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *inDateLabel;
@@ -59,22 +60,47 @@
     [self.tableView setTableFooterView:view];
 }
 - (void)uiLayout{
-    _hotelNameLabel.text = _detail.hotel_name;
-    _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price];
-    _inDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"first" ];
-    _outDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"second"];
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if([obj isKindOfClass:[OfferDetailViewController class]]){
+            _hotelNameLabel.text = [NSString stringWithFormat:@"%@ %@——%@",_offerList.aviation_company,_offerList.departure,_offerList.destination];
+            NSString *inStr = [Utilities  dateStrFromCstampTime:_offerList.in_time withDateFormat:@"MM-dd"];
+             NSString *outStr = [Utilities  dateStrFromCstampTime:_offerList.out_time withDateFormat:@"MM-dd"];
+            _inDateLabel.text = [NSString stringWithFormat:@"%@",inStr];
+            _outDateLabel.text = [NSString stringWithFormat:@"%@",outStr];
+            _priceLabel.text = [NSString stringWithFormat:@"%@元",_offerList.final_price];
+            NSLog(@"%@",_priceLabel.text);
+            *stop = YES;
+        }
+        if([obj isKindOfClass:[HotelOrdelViewController class]]){
+            _hotelNameLabel.text = _detail.hotel_name;
+            _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price];
+            _inDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"first" ];
+            _outDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"second"];
+        }
+    }];
     self.tableView.tableFooterView = [UIView new];
     //将表格视图设置为“编辑”
     self.tableView.editing = YES;
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
     //用代码表格视图中的某个cell
     [self.tableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionNone];
+    
 }
 - (void)payAction{
     switch (self.tableView.indexPathForSelectedRow.row) {
         case 0:{
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if([obj isKindOfClass:[HotelOrdelViewController class]]){
             NSString *tradeNo = [GBAlipayManager generateTradeNO];
             [GBAlipayManager alipayWithProductName:_detail.hotel_name amount:[NSString stringWithFormat:@"%ld",(long)_detail.price] tradeNO:tradeNo notifyURL:nil productDescription:_detail.hotel_name  itBPay:@"30"];
+                }
+                if([obj isKindOfClass:[OfferDetailViewController class]]){
+                    NSString *tradeNo = [GBAlipayManager generateTradeNO];
+                    [GBAlipayManager alipayWithProductName:_offerList.aviation_company amount:[NSString stringWithFormat:@"%@",_offerList.final_price] tradeNO:tradeNo notifyURL:nil productDescription:_offerList.aviation_company  itBPay:@"30"];
+                }
+            }];
         }
             break;
         case 1:
