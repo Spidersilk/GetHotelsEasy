@@ -265,23 +265,23 @@
         start = 1;
     }else{
         start = [[[StorageMgr singletonStorageMgr] objectForKey:@"start"] integerValue];//获取单例化全局变量
-        NSLog(@"start:%ld",(long)start);
+        //NSLog(@"start:%ld",(long)start);
     }
     if ([[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] == NULL) {
         price = 1;
     }else{
         price = [[[StorageMgr singletonStorageMgr] objectForKey:@"priceid"] integerValue];//获取单例化全局变量
-        NSLog(@"price:%ld",(long)price);
+        //NSLog(@"price:%ld",(long)price);
     }
-    NSLog(@"入店时间%@",_inDate);
-    NSLog(@"离店时间%@",_outDate);
-    NSLog(@"这是排序ID:%ld",(long)_sortingid);
+    //NSLog(@"入店时间%@",_inDate);
+    //NSLog(@"离店时间%@",_outDate);
+    //NSLog(@"这是排序ID:%ld",(long)_sortingid);
     NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@(page),@"pageSize":@5 ,@"startId":@(start),@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":[NSString stringWithFormat:@"2017-%@",_inDate],@"outTime":[NSString stringWithFormat:@"2017-%@",_outDate],@"wxlongitude":@"",@"wxlatitude":@""};
     //开始请求
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
         //成功以后要做的事情
-        NSLog(@"responseObject = %@",responseObject);
+        //NSLog(@"responseObject = %@",responseObject);
  //       [self endAnimation];
         if ([responseObject[@"result"] integerValue] == 1) {
             //业务逻辑成功的情况下
@@ -380,10 +380,10 @@
                 });
                  //NSLog(@"%@", jsonObject);
             } else {
-                NSLog(@"%ld", (long)httpRes.statusCode);
+                //NSLog(@"%ld", (long)httpRes.statusCode);
             }
         } else {
-            NSLog(@"%@", error.description);
+            //NSLog(@"%@", error.description);
         }
     }];
         //让任务开始执行
@@ -1148,9 +1148,9 @@
 }
 - (NSIndexPath *)selectedIndexPathNowpath:(NSIndexPath *)nowpath Beforepath:(NSIndexPath *)beforepath{
     
-        NSLog(@"现在的%ld",(long)nowpath.row);
+        //NSLog(@"现在的%ld",(long)nowpath.row);
         
-        NSLog(@"旧的%ld",(long)beforepath.row);
+        //NSLog(@"旧的%ld",(long)beforepath.row);
         LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:nowpath];
         //cell.layer.cornerRadius = 5.0 ;
         //cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
