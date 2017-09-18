@@ -60,6 +60,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _datePicker.minimumDate = [NSDate date];
     // Do any additional setup after loading the view.
     _strFacility = [NSMutableArray new];
     _imageArray = [NSMutableArray new];
@@ -312,7 +313,14 @@
     if (flag == 0) {
         [_firstDayBtn setTitle:theDate forState:UIControlStateNormal];
         _firstDayBtn.titleLabel.text = theDate;
-        [self request];
+        NSTimeInterval startTime = [Utilities cTimestampFromString:_firstDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
+        //结束日期
+        NSTimeInterval endTime = [Utilities cTimestampFromString:_secondDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
+        if (startTime >= endTime) {
+            NSDate *secondDate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];
+            NSString *str = [formatter stringFromDate:secondDate];
+            [_secondDayBtn setTitle:str forState:UIControlStateNormal];
+        }
         //[[StorageMgr singletonStorageMgr] addKey:@"first" andValue:_firstDayBtn.titleLabel.text];
         NSLog(@"firstDayBtn.titleLabel.text = %@",_firstDayBtn.titleLabel.text);
         
