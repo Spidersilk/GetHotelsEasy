@@ -67,6 +67,11 @@
 @property (strong, nonatomic) NSString *theDate;
 @property (strong, nonatomic) NSString *inDate;
 @property (strong, nonatomic) NSString *outDate;
+@property (strong, nonatomic) NSDate * indate;//储存入住时间戳
+@property (strong, nonatomic) NSDate * outdate;//储存离店时间戳
+
+
+
 
 @property (strong, nonatomic) UIView * shadeView;
 @property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
@@ -99,7 +104,7 @@
     _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityStat:) name:@"ResetHome" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Searc:) name:@"SearcHome" object:nil];
-  
+    
     
     _picker.minimumDate = [NSDate date];
     page = 1;
@@ -124,8 +129,10 @@
 - (void) initialBtn{
     if (flag == 0){
         NSDate *date = [NSDate date];
+        _indate = date;
         NSDate *tomorrowdate =[NSDate dateTomorrow];
         //初始化一个日期格式器
+        _outdate = tomorrowdate;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         //定义日期的格式为yyyy-MM-dd
         formatter.dateFormat = @"MM-dd";
@@ -136,7 +143,7 @@
         _inDate = [NSString stringWithFormat:@"%@",Date];
         _outDate = [NSString stringWithFormat:@"%@",tomorrowDate];
     }
-
+    
     // 创建按钮对象
     _Btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W/4, 40)];
     [_Btn1 setTitle:[NSString stringWithFormat:@"入住%@",_inDate] forState:UIControlStateNormal];
@@ -178,10 +185,14 @@
     //添加事件3
     [_Btn4 addTarget:self action:@selector(Btn4Action) forControlEvents:UIControlEventTouchUpInside];
     
-
-
+    
+    
 }
 - (void)initial{
+    _shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, UI_SCREEN_H*2)];
+    _shadeView.backgroundColor =UIColorFromRGBA(235, 234, 235, 0.7);
+    _shadeView.hidden = YES;
+    [_HotelTableView addSubview:_shadeView];
     //创建uiview放置选项标签
     _uiv = [[UIView alloc]initWithFrame:CGRectMake(0, 205, UI_SCREEN_W, 200)];
     _uiv.backgroundColor = UIColorFromRGBA(255, 255, 255,1);
@@ -189,10 +200,7 @@
     [_HotelTableView addSubview:_uiv];
     _optionsTableView.frame = _uiv.bounds;
     [self collectionViewInitialize];
-    _shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, _uiv.frame.origin.y+205, UI_SCREEN_W, UI_SCREEN_H)];
-    _shadeView.backgroundColor =UIColorFromRGBA(235, 234, 235, 0.7);
-    _shadeView.hidden = YES;
-    [_HotelTableView addSubview:_shadeView];
+    
     [_uiv addSubview:_optionsTableView];
     //创建手势
     UITapGestureRecognizer *r5 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doTapChange)];
@@ -200,7 +208,7 @@
     //NSLog(@"阀门%lu",(unsigned long)r5.numberOfTapsRequired);
     [_shadeView addGestureRecognizer:r5];
     
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -212,7 +220,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
-        
+    
     
 }
 
@@ -280,14 +288,14 @@
         
         //成功以后要做的事情
         //NSLog(@"responseObject = %@",responseObject);
- //       [self endAnimation];
+        //       [self endAnimation];
         if ([responseObject[@"result"] integerValue] == 1) {
             //业务逻辑成功的情况下
             [_avi stopAnimating];
             //UIRefreshControl *强制转换
             UIRefreshControl *ref = (UIRefreshControl *)[_HotelTableView viewWithTag:10001];
             [ref endRefreshing];
-
+            
             NSDictionary *content = responseObject[@"content"];
             pageLast = [content[@"hotel"][@"isLastPage"] boolValue];
             NSArray *list = content[@"hotel"][@"list"];
@@ -308,18 +316,18 @@
                 //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
                 detailModel *detailmodel = [[detailModel alloc] initWhitDictionary:dict];
                 //将上述实例化好的ActivityModel对象插入_arr数组中
-               // NSLog(@"hotelID:%ld",(long)detailmodel.hotelID);
+                // NSLog(@"hotelID:%ld",(long)detailmodel.hotelID);
                 [_arr addObject:detailmodel];
             }
             //刷新表格（重载数据）
             [_HotelTableView reloadData];//reloadData重新加载activityTableView数据
-//
+            //
             if (_arr ==NULL) {
                 [self nothingForTableView];
             }
         }else{
             
-//            //业务逻辑失败的情况下
+            //            //业务逻辑失败的情况下
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"resultFlag"] integerValue]];
             [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self];
         }
@@ -327,18 +335,18 @@
         [_avi stopAnimating];
         UIRefreshControl *ref = (UIRefreshControl *)[_HotelTableView viewWithTag:10001];
         [ref endRefreshing];
-
-//        //失败以后要做的事情
-//        //NSLog(@"statusCode = %ld",(long)statusCode);
-//        [self endAnimation];
+        
+        //        //失败以后要做的事情
+        //        //NSLog(@"statusCode = %ld",(long)statusCode);
+        //        [self endAnimation];
         [Utilities popUpAlertViewWithMsg:@"请保持网络连接畅通" andTitle:nil onView:self];
     }];
-
-
-
+    
+    
+    
 }
 - (void) WeatherRequest{
-        // Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
     
     //NSString *weatherURLStr = @"http://api.openweathermap.org/data/2.5/weather?q=Wuxi,cn&appid=5ee88a19ade27e1f2dbc3730ea80d661";
     //获得全宇宙天气的接口（当前这一刻的天气）（api.openweathermap.org是一个开放天气接口提供商）
@@ -367,16 +375,16 @@
                 //NSLog(@"天气：%@",description);
                 _icon = jsonObject[@"weather"][0][@"icon"];
                 //NSLog(@"图片：%@",_icon);
-         
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _weatherLabel.text = description;
                     _tempLable.text = [NSString stringWithFormat:@"%ld°c",(long)temp];
                     [_weatherImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://openweathermap.org/img/w/%@.png",_icon]] placeholderImage:[UIImage imageNamed:@"png2"]];
                     
-
+                    
                     
                 });
-                 //NSLog(@"%@", jsonObject);
+                //NSLog(@"%@", jsonObject);
             } else {
                 //NSLog(@"%ld", (long)httpRes.statusCode);
             }
@@ -384,7 +392,7 @@
             //NSLog(@"%@", error.description);
         }
     }];
-        //让任务开始执行
+    //让任务开始执行
     [jsonDataTask resume];
 }
 
@@ -406,11 +414,11 @@
     imageViewDisplay.animationInterVale = 0.7;
     [self.headerView addSubview:imageViewDisplay];
     
-//    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
-//        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
-//        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [alter show];
-//    }];
+    //    [imageViewDisplay addTapEventForImageWithBlock:^(NSInteger imageIndex) {
+    //        NSString *str = [NSString stringWithFormat:@"我是第%ld张图片", imageIndex];
+    //        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    //        [alter show];
+    //    }];
     
 }
 #pragma mack - 地图定位
@@ -498,7 +506,7 @@
         [_cityBtn setTitle:[Utilities getUserDefaults:@"UserCity"] forState:UIControlStateNormal];
     }
     
-   
+    
     
     
     
@@ -567,10 +575,10 @@
             }
         }];
         [self WeatherRequest];
-    
         
-
-
+        
+        
+        
         [_locMgr stopUpdatingLocation];
     });
 }
@@ -630,14 +638,14 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 #pragma mack - tableView
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _HotelTableView) {
@@ -651,7 +659,7 @@
     if (tableView == _HotelTableView) {
         return _arr.count;
     }else{
-    
+        
         return _optionsArr.count;
     }
     
@@ -693,18 +701,19 @@
         UITableViewCell *beforecell = [_optionsTableView cellForRowAtIndexPath:_tableViewIndexPath];
         beforecell.textLabel.textColor = UIColorFromRGB(10, 127, 254);
         beforecell.accessoryType = UITableViewCellAccessoryCheckmark;
-
+        
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"optionsCell" forIndexPath:indexPath];
         cell.textLabel.text = _optionsArr[indexPath.row];
         cell.textLabel.textColor = [UIColor darkGrayColor];
         return cell;
     }
-   
-
+    
+    
     
 }
 //点击细胞事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _HotelTableView) {
         HotelOrdelViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"ordelDetail"];
         detailModel *detail = _arr [indexPath.row];
@@ -727,15 +736,15 @@
             _uiv.hidden = YES;
             _HotelTableView.scrollEnabled = YES;
             _shadeView.hidden = YES;
-
+            
         }
         
-    
+        
     }
 }
 //第一页最后一个细胞将要出现的时候
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    
     if (tableView ==_HotelTableView) {
         if (indexPath.row == _arr.count-1) {
             if (!pageLast) {
@@ -745,7 +754,7 @@
             }else{NSLog(@"最后一页");}
         }
     }
-        
+    
     
 }
 
@@ -791,7 +800,7 @@
         //[customView addSubview:headerLabel];
         return customView;
         
-
+        
     }else{
         return 0;
     }
@@ -815,7 +824,8 @@
     flag = 1;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
-    
+    _shadeView.hidden = NO;
+    _uiv.hidden = YES;
 }
 - (void)Btn2Action{
     NSLog(@"Btn2被按了");
@@ -823,7 +833,8 @@
     flag = 2;
     _picker.hidden = NO;
     _Toolbar.hidden = NO;
-    
+    _shadeView.hidden = NO;
+    _uiv.hidden = YES;
 }
 - (void)Btn3Action{
     
@@ -837,7 +848,8 @@
     _collectionView.scrollEnabled = NO;
     _collectionView.hidden = YES;
     _shadeView.hidden = NO;
-
+    _picker.hidden = YES;
+    _Toolbar.hidden = YES;
     
 }
 - (void)Btn4Action{
@@ -852,7 +864,7 @@
         [_HotelTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
     
-//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
     _optionsTableView.hidden = YES;
     _collectionView.hidden = NO;
     _HotelTableView.scrollEnabled = NO;
@@ -860,6 +872,9 @@
     _uiv.hidden = NO;
     
     _shadeView.hidden = NO;
+    
+    _picker.hidden = YES;
+    _Toolbar.hidden = YES;
     
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -872,7 +887,7 @@
 }
 
 - (IBAction)ctiyAction:(UIButton *)sender forEvent:(UIEvent *)event {
-     CityTableViewController *city = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"City"];
+    CityTableViewController *city = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"City"];
     city.flag =1;
     [self.navigationController pushViewController:city animated:NO];
 }
@@ -881,17 +896,19 @@
     SearchViewController *search = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"search"];
     search.inDate = _inDate;
     search.outDate = _outDate;
-        [self.navigationController pushViewController:search animated:YES];
+    [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)cancel:(UIBarButtonItem *)sender {
     _picker.hidden = YES;
     _Toolbar.hidden = YES;
+    _shadeView.hidden = YES;
 }
 
 - (IBAction)Done:(UIBarButtonItem *)sender {
     //拿到当前datepicker选择的时间
     NSDate *date= _picker.date;
-
+    
+    
     //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //定义日期的格式为yyyy-MM-dd
@@ -902,25 +919,35 @@
     
     
     if (flag ==1) {
+        
+        _indate = date;
         //_Btn1.titleLabel.text = theDate;
         NSString *str = [NSString stringWithFormat:@"入住%@",_theDate];
         [_Btn1 setTitle:str forState:UIControlStateNormal];
         //NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
         _inDate = _theDate;
+        _picker.hidden = YES;
+        _Toolbar.hidden = YES;
+        _shadeView.hidden = YES;
         [self InitializeData];
     }else if(flag == 2){
-        
-        NSString *str = [NSString stringWithFormat:@"离店%@",_theDate];
-        [_Btn2 setTitle:str forState:UIControlStateNormal];
-        _Btn2.titleLabel.text = _theDate;
-        //NSLog(@"离店时间3：%@",_Btn2.titleLabel.text);
-        _outDate = _theDate;
-        [self InitializeData];
+        if(_indate <=date){
+            _outdate = date;
+            NSString *str = [NSString stringWithFormat:@"离店%@",_theDate];
+            [_Btn2 setTitle:str forState:UIControlStateNormal];
+            //_Btn2.titleLabel.text = _theDate;
+            //NSLog(@"离店时间3：%@",_Btn2.titleLabel.text);
+            _outDate = _theDate;
+            _picker.hidden = YES;
+            _Toolbar.hidden = YES;
+            _shadeView.hidden = YES;
+            [self InitializeData];
+        }else{
+            [Utilities popUpAlertViewWithMsg:@"提示请输入正确日期" andTitle:@"提示" onView:self];
+        }
     }
     
-    _picker.hidden = YES;
-    _Toolbar.hidden = YES;
-    _shadeView.hidden = YES;
+    
 }
 #pragma mack - collectionView
 - (void)collectionViewInitialize{
@@ -968,7 +995,7 @@
     //添加事件
     [DoneBtn addTarget:self action:@selector(DoneAction) forControlEvents:UIControlEventTouchUpInside];
     [_collectionView addSubview:DoneBtn];
-
+    
 }
 //多少组
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -1009,7 +1036,7 @@
             LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_cellindexPathNowOne];
             beforecell.lable.textColor = UIColorFromRGB(104, 187, 238);
             beforecell.lable.layer.borderColor = [UIColorFromRGB(104, 187, 238) CGColor];
-              return cell;
+            return cell;
             
         }
     }else {
@@ -1032,8 +1059,8 @@
             cell.lable.text = _collectionCellTwo[indexPath.row];
             return cell;
         }
-
-    }    
+        
+    }
     
     
     
@@ -1056,9 +1083,9 @@
 
 //每个细胞的尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    CGFloat x = self.view.frame.size.width-40;
-//    CGFloat space = self.view.frame.size.width / 200;
-//    return CGSizeMake(( x-  space* 3) / 4, (x-  space* 3) / 4);
+    //    CGFloat x = self.view.frame.size.width-40;
+    //    CGFloat space = self.view.frame.size.width / 200;
+    //    return CGSizeMake(( x-  space* 3) / 4, (x-  space* 3) / 4);
     
     if (indexPath.row == 0) {
         return CGSizeMake(70, 40);
@@ -1068,12 +1095,12 @@
             return CGSizeMake(50, 27);
         }else{
             if(indexPath.row == 4){
-             return CGSizeMake(10, 27);
+                return CGSizeMake(10, 27);
             }
             return CGSizeMake(70, 27);
         }
     }
-
+    
     
 }
 //行间距
@@ -1082,17 +1109,17 @@
 }
 //细胞的横向间距（列间距）
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-//    if (section == 0) {
-//        return 20;
-//    }else{
-//        return 15;
-//    }
+    //    if (section == 0) {
+    //        return 20;
+    //    }else{
+    //        return 15;
+    //    }
     return 20;
 }
 //点击item方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {   _collectionView.allowsMultipleSelection = YES;
-//    HotelCollectionViewCell *cell = (HotelCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    //    HotelCollectionViewCell *cell = (HotelCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     NSInteger msg = (long)indexPath.row;
     //NSLog(@"%ld",msg);
     if (indexPath.row == 0) {
@@ -1102,7 +1129,7 @@
         if (indexPath.section == 0) {
             NSInteger str =indexPath.row;
             [[StorageMgr singletonStorageMgr]removeObjectForKey:@"start"];
-
+            
             [[StorageMgr singletonStorageMgr] addKey:@"start" andValue:@(str)];
             
             if(indexPath.row != _cellindexPathOne.row){
@@ -1110,10 +1137,10 @@
             }
             if(indexPath.row != _cellindexPathNowOne.row){
                 [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathNowOne];
-//                NSLog(@"星级：%ld.%ld",(long)_cellindexPathNowOne.row,_cellindexPathNowOne.section);
+                //                NSLog(@"星级：%ld.%ld",(long)_cellindexPathNowOne.row,_cellindexPathNowOne.section);
                 
             }
-
+            
         }else{
             NSInteger ns = indexPath.row;
             if (ns >3) {
@@ -1125,7 +1152,7 @@
                 _cellindexPathTwo = [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathTwo];
             }
             if (indexPath.row != _cellindexPathNowTwo.row) {
-                 [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathNowTwo];
+                [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathNowTwo];
                 
             }
         }
@@ -1145,26 +1172,26 @@
 }
 - (NSIndexPath *)selectedIndexPathNowpath:(NSIndexPath *)nowpath Beforepath:(NSIndexPath *)beforepath{
     
-        //NSLog(@"现在的%ld",(long)nowpath.row);
-        
-        //NSLog(@"旧的%ld",(long)beforepath.row);
-        LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:nowpath];
-        //cell.layer.cornerRadius = 5.0 ;
-        //cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
-        cell.lable.textColor = UIColorFromRGB(104, 187, 238);
-        cell.lable.layer.borderColor = [UIColorFromRGB(104, 187, 238) CGColor];
-        LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:beforepath];
-        beforecell.lable.textColor = [UIColor lightGrayColor];
+    //NSLog(@"现在的%ld",(long)nowpath.row);
+    
+    //NSLog(@"旧的%ld",(long)beforepath.row);
+    LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:nowpath];
+    //cell.layer.cornerRadius = 5.0 ;
+    //cell.backgroundColor = UIColorFromRGBA(93, 185, 238, 0.9);
+    cell.lable.textColor = UIColorFromRGB(104, 187, 238);
+    cell.lable.layer.borderColor = [UIColorFromRGB(104, 187, 238) CGColor];
+    LabelCollectionViewCell *beforecell = (LabelCollectionViewCell *)[_collectionView cellForItemAtIndexPath:beforepath];
+    beforecell.lable.textColor = [UIColor lightGrayColor];
     beforecell.lable.layer.borderColor =[ [UIColor lightGrayColor]CGColor];
-
-        //beforecell.selected = NO;
-        [_collectionView deselectItemAtIndexPath:beforepath animated:YES];//这句是防止取消后，前面取消的cell被动选中；
-        return nowpath;
+    
+    //beforecell.selected = NO;
+    [_collectionView deselectItemAtIndexPath:beforepath animated:YES];//这句是防止取消后，前面取消的cell被动选中；
+    return nowpath;
 }
 -(void)buttonAction{
     _uiv.hidden = YES;
     
-
+    
 }
 
 //footer的size
@@ -1201,7 +1228,7 @@
     _shadeView.hidden = YES;
     _HotelTableView.scrollEnabled = YES;
     _collectionView.scrollEnabled = YES;
-
+    
 }
 
 
@@ -1211,7 +1238,8 @@
     _shadeView.hidden = YES;
     _HotelTableView.scrollEnabled = YES;
     _collectionView.scrollEnabled = YES;
-
+    _picker.hidden = YES;
+    _Toolbar.hidden = YES;
 }
 #pragma mack - 选项卡tableView
 //tableView没东西的时候运行
