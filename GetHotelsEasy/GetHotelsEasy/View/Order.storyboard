@@ -440,57 +440,65 @@
                                     <action selector="buyBtnAction:forEvent:" destination="Wh8-Xl-Vpg" eventType="touchUpInside" id="48y-Qr-XUB"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Woq-bM-pzm">
-                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Woq-bM-pzm">
+                                <rect key="frame" x="0.0" y="667" width="375" height="260"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ATf-Fw-Fmf">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="216"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="525007851.35553902">
+                                            <!--2017-08-21 11:30:51 +0000-->
+                                        </date>
+                                        <date key="minimumDate" timeIntervalSinceReferenceDate="525956400">
+                                            <!--2017-09-01 11:00:00 +0000-->
+                                        </date>
+                                        <locale key="locale" localeIdentifier="zh"/>
+                                    </datePicker>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKX-Cn-UtG">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <items>
+                                            <barButtonItem title="取消" id="tma-hu-LE0">
+                                                <connections>
+                                                    <action selector="canceAction:" destination="Wh8-Xl-Vpg" id="qpf-Hu-UST"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="ZBg-Lu-Ocw"/>
+                                            <barButtonItem title="确定" id="Zvy-oI-AEK">
+                                                <connections>
+                                                    <action selector="confirmAction:" destination="Wh8-Xl-Vpg" id="rBX-78-G03"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                    </toolbar>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ATf-Fw-Fmf" secondAttribute="bottom" id="4sP-Ab-y6A"/>
+                                    <constraint firstAttribute="trailing" secondItem="ATf-Fw-Fmf" secondAttribute="trailing" id="B77-fC-XHx"/>
+                                    <constraint firstItem="ATf-Fw-Fmf" firstAttribute="top" secondItem="KKX-Cn-UtG" secondAttribute="bottom" id="E9V-oW-prW"/>
+                                    <constraint firstAttribute="trailing" secondItem="KKX-Cn-UtG" secondAttribute="trailing" id="Ge8-7s-YFC"/>
+                                    <constraint firstItem="ATf-Fw-Fmf" firstAttribute="top" secondItem="KKX-Cn-UtG" secondAttribute="bottom" id="JZh-jo-4kO"/>
+                                    <constraint firstItem="ATf-Fw-Fmf" firstAttribute="leading" secondItem="Woq-bM-pzm" secondAttribute="leading" id="NSb-vP-RfM"/>
+                                    <constraint firstAttribute="height" constant="260" id="OzK-Hc-l28"/>
+                                    <constraint firstAttribute="trailing" secondItem="ATf-Fw-Fmf" secondAttribute="trailing" id="Uib-6x-qUt"/>
+                                    <constraint firstItem="ATf-Fw-Fmf" firstAttribute="leading" secondItem="Woq-bM-pzm" secondAttribute="leading" id="eGb-cs-PPF"/>
+                                    <constraint firstItem="KKX-Cn-UtG" firstAttribute="leading" secondItem="Woq-bM-pzm" secondAttribute="leading" id="ki6-tu-6bQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="ATf-Fw-Fmf" secondAttribute="bottom" id="lNW-jE-gyf"/>
+                                </constraints>
                             </view>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ATf-Fw-Fmf">
-                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="525007851.35553902">
-                                    <!--2017-08-21 11:30:51 +0000-->
-                                </date>
-                                <date key="minimumDate" timeIntervalSinceReferenceDate="525956400">
-                                    <!--2017-09-01 11:00:00 +0000-->
-                                </date>
-                                <locale key="locale" localeIdentifier="zh"/>
-                            </datePicker>
-                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKX-Cn-UtG">
-                                <rect key="frame" x="0.0" y="407" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="取消" id="tma-hu-LE0">
-                                        <connections>
-                                            <action selector="canceAction:" destination="Wh8-Xl-Vpg" id="qpf-Hu-UST"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZBg-Lu-Ocw"/>
-                                    <barButtonItem title="确定" id="Zvy-oI-AEK">
-                                        <connections>
-                                            <action selector="confirmAction:" destination="Wh8-Xl-Vpg" id="rBX-78-G03"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ATf-Fw-Fmf" secondAttribute="trailing" id="5y3-Qa-kG8"/>
                             <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="8fK-12-81S" secondAttribute="bottom" id="8Tb-mE-nu0"/>
-                            <constraint firstItem="ATf-Fw-Fmf" firstAttribute="top" secondItem="KKX-Cn-UtG" secondAttribute="bottom" id="BJL-9y-GNE"/>
-                            <constraint firstItem="KKX-Cn-UtG" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="CWu-E5-rjv"/>
                             <constraint firstAttribute="trailing" secondItem="8fK-12-81S" secondAttribute="trailing" id="D4w-pL-VcJ"/>
                             <constraint firstItem="Woq-bM-pzm" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="HDx-TL-IzP"/>
                             <constraint firstItem="mCa-N2-Yhn" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="PbG-u4-vJn"/>
-                            <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="Woq-bM-pzm" secondAttribute="bottom" id="W5Z-7a-Zbb"/>
-                            <constraint firstItem="ATf-Fw-Fmf" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="bof-vF-0Xd"/>
+                            <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="Woq-bM-pzm" secondAttribute="bottom" constant="-260" id="W5Z-7a-Zbb"/>
                             <constraint firstAttribute="bottom" secondItem="mCa-N2-Yhn" secondAttribute="bottom" id="eyE-MF-V45"/>
-                            <constraint firstAttribute="trailing" secondItem="KKX-Cn-UtG" secondAttribute="trailing" id="hOf-lH-ZWT"/>
-                            <constraint firstAttribute="bottom" secondItem="ATf-Fw-Fmf" secondAttribute="bottom" id="iov-qr-w1a"/>
                             <constraint firstItem="8fK-12-81S" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="ohc-fK-gIR"/>
                             <constraint firstAttribute="trailing" secondItem="Woq-bM-pzm" secondAttribute="trailing" id="sbw-mJ-IfB"/>
                             <constraint firstItem="8fK-12-81S" firstAttribute="top" secondItem="n77-uv-fU9" secondAttribute="top" id="sxc-zT-wiJ"/>
                             <constraint firstAttribute="trailing" secondItem="mCa-N2-Yhn" secondAttribute="trailing" id="t9l-Nl-xLt"/>
-                            <constraint firstItem="ATf-Fw-Fmf" firstAttribute="top" secondItem="KKX-Cn-UtG" secondAttribute="bottom" id="v4h-oa-uKL"/>
-                            <constraint firstItem="Woq-bM-pzm" firstAttribute="height" secondItem="ATf-Fw-Fmf" secondAttribute="height" id="ypi-SP-1O2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="酒店预定" id="Stf-5C-ij1"/>
@@ -521,6 +529,7 @@
                         <outlet property="viewDate" destination="Woq-bM-pzm" id="UG8-Yh-uaJ"/>
                         <outlet property="wakeUpLabel" destination="aZK-YV-AaC" id="njc-wv-DA1"/>
                         <outlet property="wifiLabel" destination="BOt-LO-Z59" id="HjQ-nB-eXL"/>
+                        <outlet property="yPosition" destination="W5Z-7a-Zbb" id="lCb-0N-VNj"/>
                         <segue destination="jPA-dS-FI3" kind="show" identifier="MapsToLocation" id="ogO-Tg-Z67"/>
                     </connections>
                 </viewController>
