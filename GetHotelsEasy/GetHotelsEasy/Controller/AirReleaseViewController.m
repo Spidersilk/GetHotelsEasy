@@ -46,16 +46,18 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @property (strong, nonatomic) UIActivityIndicatorView *aiv;
-
-
+@property (strong, nonatomic) NSDate *date;
+@property (nonatomic) NSTimeInterval endTime;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yPosition;
 @end
 
 @implementation AirReleaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _date = [NSDate dateTomorrow];
     flag = 0;
+    _datePickerView.frame = CGRectMake(0, UI_SCREEN_H, UI_SCREEN_W, 260);
     [self naviConfig];
     [self uiLayout];
     [self setDefaultDateForButton];
@@ -94,6 +96,20 @@
 //    //[[NSNotificationCenter defaultCenter] removeObserver:self];
 //}
 
+- (void)layoutConstraints:(CGFloat)space {
+    CGFloat distance = 0;
+    if (space == 0) {
+        distance = _yPosition.constant;
+    } else {
+        distance = 200 - _yPosition.constant;
+    }
+    [UIView animateWithDuration:0.5 delay:0.f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        _yPosition.constant = space;
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 //这个方法专门做导航条的控制
 - (void)naviConfig{
     //设置导航条标题的文字
@@ -175,11 +191,25 @@
 
 // 滑动空白处隐藏键盘
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSInteger low = [_minimumPriceTextField.text integerValue];
+    NSInteger hight = [_mostPriceTextField.text integerValue] ;
+    if (low > hight) {
+        [Utilities popUpAlertViewWithMsg:@"请正确设置价格" andTitle:@"提示" onView:self onCompletion:^{}];
+        return;
+    }
+
     [self.view endEditing:YES];
 }
 
 // 点击空白处收键盘
 -(void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer {
+    NSInteger low = [_minimumPriceTextField.text integerValue];
+    NSInteger hight = [_mostPriceTextField.text integerValue] ;
+    if (low > hight) {
+        [Utilities popUpAlertViewWithMsg:@"请正确设置价格" andTitle:@"提示" onView:self onCompletion:^{}];
+        return;
+    }
+
     [self.view endEditing:YES];
 }
 
@@ -198,15 +228,7 @@
     _aiv = [Utilities getCoverOnView:self.view];
     MyInfoModel *usermodel = [[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
     //开始日期
-    //NSLog(@"");
-    NSTimeInterval startTime = [Utilities cTimestampFromString:_DepartureTimeBtn.titleLabel.text format:@"yyyy-MM-dd"];
-    //结束日期
-    NSTimeInterval endTime = [Utilities cTimestampFromString:_arrivalTimeBtn.titleLabel.text format:@"yyyy-MM-dd"];
-    if (startTime >= endTime) {
-        [_aiv stopAnimating];
-        [Utilities popUpAlertViewWithMsg:@"请正确设置开始日期和结束日期" andTitle:@"提示" onView:self onCompletion:^{}];
-        return;
-    }if ([_arrivalCityBtn.titleLabel.text isEqualToString:@"请选择城市"]) {
+    if ([_arrivalCityBtn.titleLabel.text isEqualToString:@"请选择城市"]) {
         [_aiv stopAnimating];
         [Utilities popUpAlertViewWithMsg:@"请选择抵达的城市" andTitle:@"提示" onView:self onCompletion:^{}];
         return;
@@ -228,19 +250,19 @@
 
 
 - (void)DepartureTime {
+    _datePicker.minimumDate = [NSDate dateTomorrow];
     _avi.hidden = NO;
     flag = 0;
-    _toolBar.hidden = NO;
-    _datePicker.hidden = NO;
     _datePickerView.hidden = NO;
+    [self layoutConstraints:0];
 }
 
 - (void)arrivalTime {
+    NSDate *nextDate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:_date];
+    _datePicker.minimumDate = nextDate;
     _avi.hidden = NO;
     flag = 1;
-    _toolBar.hidden = NO;
-    _datePicker.hidden = NO;
-    _datePickerView.hidden = NO;
+    [self layoutConstraints:0];
 }
 
 - (void)departureCity {
@@ -294,12 +316,12 @@
 }
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     _avi.hidden = YES;
-    _toolBar.hidden = YES;
-    _datePicker.hidden = YES;
-    _datePickerView.hidden = YES;
+    [self layoutConstraints:-260];
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    _avi.hidden = YES;
+    [self layoutConstraints:-260];
     //拿到当前datepicker选择的时间
     NSDate *date = _datePicker.date;
     //初始化一个日期格式器
@@ -311,11 +333,23 @@
     [NSString stringWithFormat:@""];
     //flag等于0 则开始按钮变为时间，反之结束按钮变为时间
     if (flag == 0 ) {
+        _date = date;
         _tomorrowLabel.hidden = NO;
         [_DepartureTimeBtn setTitle:theDate forState:UIControlStateNormal];
         if (![theDate isEqualToString: [formatter stringFromDate:[NSDate dateTomorrow]]]) {
             _tomorrowLabel.hidden = YES;
             [_DepartureTimeBtn setTitle:theDate forState:UIControlStateNormal];
+        }
+        NSTimeInterval startTime = [Utilities cTimestampFromString:theDate format:@"yyyy-MM-dd"];
+        //结束日期
+       
+        if (startTime >= _endTime) {
+            NSDate *nextDate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];
+            NSString *nextdate = [formatter stringFromDate:nextDate];
+            if (![nextdate isEqualToString: [formatter stringFromDate:[NSDate dateWithDaysFromNow:2]]]) {
+                _afterTomorrowLabel.hidden = YES;
+                [_arrivalTimeBtn setTitle:nextdate forState:UIControlStateNormal];
+            }
         }
     }else{
         _afterTomorrowLabel.hidden = NO;
@@ -324,10 +358,8 @@
             _afterTomorrowLabel.hidden = YES;
             [_arrivalTimeBtn setTitle:theDate forState:UIControlStateNormal];
         }
+         _endTime = [Utilities cTimestampFromString:theDate format:@"yyyy-MM-dd"];
 }
-    _avi.hidden = YES;
-    _toolBar.hidden = YES;
-    _datePicker.hidden = YES;
-    _datePickerView.hidden = YES;
 }
+
 @end

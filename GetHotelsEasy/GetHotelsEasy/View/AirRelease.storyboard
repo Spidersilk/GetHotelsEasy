@@ -419,43 +419,47 @@
                                     <constraint firstItem="QdC-Nv-CjP" firstAttribute="centerX" secondItem="uIr-q0-IHY" secondAttribute="centerX" id="vhB-4G-cdl"/>
                                 </constraints>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPy-9L-zFP">
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPy-9L-zFP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.32890089897260272" colorSpace="calibratedWhite"/>
                             </view>
-                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIR-dh-GBE">
-                                <rect key="frame" x="0.0" y="358" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="取消" id="7SR-pZ-Zib">
-                                        <connections>
-                                            <action selector="cancelAction:" destination="kaH-DS-6fG" id="QmA-ri-MpI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="PJY-8P-61K"/>
-                                    <barButtonItem title="确定" id="rTp-Ut-mBi">
-                                        <connections>
-                                            <action selector="confirmAction:" destination="kaH-DS-6fG" id="nA8-fh-VmQ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5C2-OG-SEz">
-                                <rect key="frame" x="0.0" y="402" width="375" height="216"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8B-VV-Jbd">
+                                <rect key="frame" x="0.0" y="618" width="375" height="260"/>
                                 <subviews>
-                                    <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-Ve-vbW">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-Ve-vbW">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="216"/>
                                         <date key="date" timeIntervalSinceReferenceDate="526198027.30439901">
                                             <!--2017-09-04 06:07:07 +0000-->
                                         </date>
                                         <locale key="locale" localeIdentifier="zh"/>
                                     </datePicker>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KMa-eJ-j0K">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <items>
+                                            <barButtonItem title="取消" id="TZw-WQ-EZW">
+                                                <connections>
+                                                    <action selector="cancelAction:" destination="kaH-DS-6fG" id="fAj-LT-hcE"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="GTw-wL-0Nl"/>
+                                            <barButtonItem title="确认" id="580-Iq-hFh">
+                                                <connections>
+                                                    <action selector="confirmAction:" destination="kaH-DS-6fG" id="Huv-s5-bjL"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                    </toolbar>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Mkg-Ve-vbW" secondAttribute="bottom" id="3l2-fl-vsQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="Mkg-Ve-vbW" secondAttribute="trailing" id="6Wy-7p-SbE"/>
-                                    <constraint firstItem="Mkg-Ve-vbW" firstAttribute="top" secondItem="5C2-OG-SEz" secondAttribute="top" id="Fkw-Qp-208"/>
-                                    <constraint firstItem="Mkg-Ve-vbW" firstAttribute="leading" secondItem="5C2-OG-SEz" secondAttribute="leading" id="RzQ-X3-Bqc"/>
+                                    <constraint firstItem="KMa-eJ-j0K" firstAttribute="leading" secondItem="U8B-VV-Jbd" secondAttribute="leading" id="3hd-wV-OKV"/>
+                                    <constraint firstItem="Mkg-Ve-vbW" firstAttribute="top" secondItem="KMa-eJ-j0K" secondAttribute="bottom" id="5ts-q7-EPQ"/>
+                                    <constraint firstAttribute="height" constant="260" id="8oA-Xc-NkV"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mkg-Ve-vbW" secondAttribute="trailing" id="IBa-al-flS"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mkg-Ve-vbW" secondAttribute="bottom" id="Ngl-SS-nac"/>
+                                    <constraint firstAttribute="trailing" secondItem="KMa-eJ-j0K" secondAttribute="trailing" id="ZYk-Hx-tYr"/>
+                                    <constraint firstItem="Mkg-Ve-vbW" firstAttribute="leading" secondItem="U8B-VV-Jbd" secondAttribute="leading" id="klH-zS-2hw"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -463,21 +467,14 @@
                         <constraints>
                             <constraint firstItem="uIr-q0-IHY" firstAttribute="top" secondItem="eYF-ly-QtR" secondAttribute="bottom" id="0R2-hl-XjL"/>
                             <constraint firstItem="eYF-ly-QtR" firstAttribute="top" secondItem="2Ua-iC-QgV" secondAttribute="top" id="2oC-9l-FWK"/>
-                            <constraint firstAttribute="bottom" secondItem="DPy-9L-zFP" secondAttribute="bottom" id="JGm-84-Y7g"/>
-                            <constraint firstItem="5C2-OG-SEz" firstAttribute="top" secondItem="aIR-dh-GBE" secondAttribute="bottom" id="KZN-It-7pr"/>
-                            <constraint firstItem="DPy-9L-zFP" firstAttribute="top" secondItem="2Ua-iC-QgV" secondAttribute="top" id="Nge-mb-WFi"/>
-                            <constraint firstAttribute="trailing" secondItem="DPy-9L-zFP" secondAttribute="trailing" id="TkT-3h-oVi"/>
+                            <constraint firstItem="U8B-VV-Jbd" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="Pg9-1U-VGZ"/>
                             <constraint firstItem="eYF-ly-QtR" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="WAG-vU-rRh"/>
+                            <constraint firstAttribute="trailing" secondItem="U8B-VV-Jbd" secondAttribute="trailing" id="Zwi-hu-4A2"/>
                             <constraint firstAttribute="trailing" secondItem="eYF-ly-QtR" secondAttribute="trailing" id="dX6-0D-IDq"/>
-                            <constraint firstItem="DPy-9L-zFP" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="iWT-nk-aZS"/>
+                            <constraint firstItem="hI6-t2-5cR" firstAttribute="top" secondItem="U8B-VV-Jbd" secondAttribute="bottom" constant="-260" id="kRJ-x5-Nhl"/>
                             <constraint firstAttribute="trailing" secondItem="uIr-q0-IHY" secondAttribute="trailing" id="lH3-T3-1Ah"/>
-                            <constraint firstAttribute="trailing" secondItem="aIR-dh-GBE" secondAttribute="trailing" id="o4o-eE-Acp"/>
                             <constraint firstAttribute="bottom" secondItem="uIr-q0-IHY" secondAttribute="bottom" id="r37-Xq-Nrs"/>
-                            <constraint firstItem="hI6-t2-5cR" firstAttribute="top" secondItem="5C2-OG-SEz" secondAttribute="bottom" id="sY4-S9-o69"/>
                             <constraint firstItem="uIr-q0-IHY" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="tIy-XR-eFp"/>
-                            <constraint firstAttribute="trailing" secondItem="5C2-OG-SEz" secondAttribute="trailing" id="td0-bj-CGA"/>
-                            <constraint firstItem="aIR-dh-GBE" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="wZP-Eh-l7J"/>
-                            <constraint firstItem="5C2-OG-SEz" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="wa6-U1-dCC"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="航空" image="aviation" id="iG7-Z5-tBR"/>
@@ -496,7 +493,7 @@
                         <outlet property="avi" destination="DPy-9L-zFP" id="WaE-nx-3e0"/>
                         <outlet property="backView" destination="exc-0O-y0R" id="ErM-uG-hm4"/>
                         <outlet property="datePicker" destination="Mkg-Ve-vbW" id="zb5-ls-aRh"/>
-                        <outlet property="datePickerView" destination="5C2-OG-SEz" id="0l8-Ml-Uhw"/>
+                        <outlet property="datePickerView" destination="U8B-VV-Jbd" id="H7h-Y9-yAs"/>
                         <outlet property="departureCityBtn" destination="wDO-09-dcc" id="7EF-KZ-o1R"/>
                         <outlet property="departureCityView" destination="2Kt-xb-xVB" id="lw8-2H-0ef"/>
                         <outlet property="detailTextField" destination="GFP-SS-SKL" id="zJB-No-dgj"/>
@@ -504,8 +501,9 @@
                         <outlet property="mostPriceTextField" destination="4rT-WX-0pk" id="k58-ig-CF0"/>
                         <outlet property="scrollView" destination="uIr-q0-IHY" id="c3x-uj-laU"/>
                         <outlet property="tomorrowLabel" destination="4aw-i1-neN" id="JSj-cX-pxF"/>
-                        <outlet property="toolBar" destination="aIR-dh-GBE" id="WxV-Kw-Kza"/>
+                        <outlet property="toolBar" destination="KMa-eJ-j0K" id="tVB-tX-sZC"/>
                         <outlet property="topConstraint" destination="b13-w9-PBD" id="hIq-Dq-BB8"/>
+                        <outlet property="yPosition" destination="kRJ-x5-Nhl" id="Ryg-9L-DB3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BA-I6-dCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
