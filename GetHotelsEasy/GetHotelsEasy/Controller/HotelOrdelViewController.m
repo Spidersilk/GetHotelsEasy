@@ -311,7 +311,7 @@
 }
 - (IBAction)canceAction:(UIBarButtonItem *)sender {
     
-    [self layoutConstraints:-260];
+    [self layoutConstraints:-314];
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
@@ -347,7 +347,7 @@
         //[[StorageMgr singletonStorageMgr] addKey:@"second" andValue:_secondDayBtn.titleLabel.text];
         
     }
-    [self layoutConstraints:-260];
+    [self layoutConstraints:-314];
 }
 - (IBAction)mapsAction:(UIButton *)sender forEvent:(UIEvent *)event {
     [self performSegueWithIdentifier:@"MapsToLocation" sender:nil];
