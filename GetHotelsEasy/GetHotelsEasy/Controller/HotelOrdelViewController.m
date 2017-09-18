@@ -154,11 +154,13 @@
 }
 - (void)request{
     //_avi = [Utilities getCoverOnView:self.view];
+    NSLog(@"firstDayBtn.titleLabel.text = %@",_firstDayBtn.titleLabel.text);
+    NSLog(@"firstDayBtn.titleLabel.text = %@",_secondDayBtn.titleLabel.text);
     //开始日期
     NSTimeInterval startTime = [Utilities cTimestampFromString:_firstDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
     //结束日期
     NSTimeInterval endTime = [Utilities cTimestampFromString:_secondDayBtn.titleLabel.text format:@"yyyy-MM-dd"];
-    
+
     if (startTime >= endTime) {
         [_avi stopAnimating];
         //UIRefreshControl *ref = [_historyTableView viewWithTag:10005];
@@ -169,11 +171,11 @@
     }else{
         [[StorageMgr singletonStorageMgr] addKey:@"first" andValue:_firstDayBtn.titleLabel.text];
         [[StorageMgr singletonStorageMgr] addKey:@"second" andValue:_secondDayBtn.titleLabel.text];
-        NSLog(@"eeeee%ld",(long)_hotelID);
+        //NSLog(@"eeeee%ld",(long)_hotelID);
     NSDictionary *para = @{@"id" : @(_hotelID)};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
-        NSLog(@"responseObjectOrder = %@",responseObject);
+        //NSLog(@"responseObjectOrder = %@",responseObject);
         if([responseObject[@"result"] integerValue] == 1)
         {
             NSDictionary *content = responseObject[@"content"];
@@ -320,10 +322,12 @@
             NSDate *secondDate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];
             NSString *str = [formatter stringFromDate:secondDate];
             [_secondDayBtn setTitle:str forState:UIControlStateNormal];
+            _secondDayBtn.titleLabel.text = str;
         }
         //[[StorageMgr singletonStorageMgr] addKey:@"first" andValue:_firstDayBtn.titleLabel.text];
         NSLog(@"firstDayBtn.titleLabel.text = %@",_firstDayBtn.titleLabel.text);
-        
+        NSLog(@"firstDayBtn.titleLabel.text = %@",_secondDayBtn.titleLabel.text);
+        [self request];
     }else{
         [_secondDayBtn setTitle:theDate forState:UIControlStateNormal];
         _secondDayBtn.titleLabel.text = theDate;
