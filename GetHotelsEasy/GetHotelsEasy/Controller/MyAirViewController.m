@@ -118,6 +118,8 @@
     _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     //设置未选中的标题样式
     _segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(230, 230, 230, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    _segmentedControl.borderType = HMSegmentedControlBorderTypeLeft;
+    _segmentedControl.borderColor = UIColorFromRGB(230, 230, 230);
     //选中时的标题样式
     _segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
     

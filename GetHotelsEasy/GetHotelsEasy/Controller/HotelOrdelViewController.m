@@ -54,6 +54,7 @@
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *is_petLabel;
 @property (strong, nonatomic) NSMutableArray *imageArray;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yPosition;
 @end
 
 @implementation HotelOrdelViewController
@@ -269,17 +270,29 @@
     }
 }
 #pragma mark - datePicker
+- (void)layoutConstraints:(CGFloat)space {
+    CGFloat distance = 0;
+    if (space == 0) {
+        distance = _yPosition.constant;
+    } else {
+        distance = 200 - _yPosition.constant;
+    }
+    [UIView animateWithDuration:0.5 delay:0.f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        _yPosition.constant = space;
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 - (IBAction)firstDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
     flag = 0;
-    _viewDate.hidden = NO;
-    _toolBar.hidden = NO;
-    _datePicker.hidden = NO;
+   
+    [self layoutConstraints:0];
 }
 - (IBAction)secondDayAction:(UIButton *)sender forEvent:(UIEvent *)event {
     flag = 1;
-    _viewDate.hidden = NO;
-    _toolBar.hidden = NO;
-    _datePicker.hidden = NO;
+    
+    [self layoutConstraints:0];
 }
 - (IBAction)chatBtnAction:(UIButton *)sender forEvent:(UIEvent *)event {
 }
@@ -297,9 +310,8 @@
     }
 }
 - (IBAction)canceAction:(UIBarButtonItem *)sender {
-    _viewDate.hidden = YES;
-    _toolBar.hidden = YES;
-    _datePicker.hidden = YES;
+    
+    [self layoutConstraints:-314];
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
@@ -335,9 +347,7 @@
         //[[StorageMgr singletonStorageMgr] addKey:@"second" andValue:_secondDayBtn.titleLabel.text];
         
     }
-    _viewDate.hidden = YES;
-    _toolBar.hidden = YES;
-    _datePicker.hidden = YES;
+    [self layoutConstraints:-314];
 }
 - (IBAction)mapsAction:(UIButton *)sender forEvent:(UIEvent *)event {
     [self performSegueWithIdentifier:@"MapsToLocation" sender:nil];

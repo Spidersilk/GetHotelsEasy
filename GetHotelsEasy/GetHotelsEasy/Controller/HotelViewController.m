@@ -84,6 +84,7 @@
 
 @property (nonatomic) NSInteger teg;
 @property (nonatomic) NSInteger teger;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yPosition;
 
 @end
 
@@ -505,11 +506,6 @@
         //不是第一次来到APP则将记忆城市与按钮上的城市名反向同步
         [_cityBtn setTitle:[Utilities getUserDefaults:@"UserCity"] forState:UIControlStateNormal];
     }
-    
-    
-    
-    
-    
 }
 
 //定位成功时
@@ -529,8 +525,8 @@
         //根据定位拿到城市
         [self getRegeoViaCoordinate];
     }
-    
 }
+
 - (void) getRegeoViaCoordinate {
     //duration表示从now开始过3个SEC
     dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
@@ -575,13 +571,10 @@
             }
         }];
         [self WeatherRequest];
-        
-        
-        
-        
         [_locMgr stopUpdatingLocation];
     });
 }
+
 - (void) checkCityStat:(NSNotification *)note {
     NSString *cityStr = note.object;
     if (![cityStr isEqualToString:_cityBtn.titleLabel.text]) {
@@ -595,7 +588,6 @@
         [self geoCoder:cityStr];//地理编码
         [self InitializeData];
     }
-    
 }
 //懒加载
 -(CLGeocoder *)geoC
@@ -624,18 +616,12 @@
     }];
 }
 
-
 - (void) Searc:(NSNotification *)note {
     NSMutableArray *arr = [NSMutableArray new];
     arr = note.object;
     _arr = arr;
-    
-    
     [_HotelTableView reloadData];
-    
-    
 }
-
 
 /*
  #pragma mark - Navigation
@@ -651,7 +637,6 @@
     if (tableView == _HotelTableView) {
         return 100;
     }else{
-        
         return _optionsTableView.frame.size.height/4;
     }
 }
@@ -659,11 +644,8 @@
     if (tableView == _HotelTableView) {
         return _arr.count;
     }else{
-        
         return _optionsArr.count;
     }
-    
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -671,10 +653,8 @@
         HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
         detailModel *detailmodel = _arr[indexPath.row];
         //NSLog(@"reee图片的网址%@",detailmodel.hotel_img);
-        
         NSString *userAgent = @"";
         userAgent = [NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleExecutableKey] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleIdentifierKey], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] ?: [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]];
-        
         if (userAgent) {
             if (![userAgent canBeConvertedToEncoding:NSASCIIStringEncoding]) {
                 NSMutableString *mutableUserAgent = [userAgent mutableCopy];
@@ -687,7 +667,6 @@
         /////////////////////////
         [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
                                      forHTTPHeaderField:@"Accept"];
-        
         [cell.hotelImg sd_setImageWithURL:[NSURL URLWithString:detailmodel.hotel_img] placeholderImage:[UIImage imageNamed:@"png2"]];
         cell.hotelName.text = detailmodel.hotel_name;
         cell.address.text = detailmodel.hotel_address;
@@ -697,7 +676,6 @@
         cell.priceLabel.text =[NSString stringWithFormat:@"%ld",(long)detailmodel.price];
         return cell;
     }else{
-        
         UITableViewCell *beforecell = [_optionsTableView cellForRowAtIndexPath:_tableViewIndexPath];
         beforecell.textLabel.textColor = UIColorFromRGB(10, 127, 254);
         beforecell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -707,9 +685,6 @@
         cell.textLabel.textColor = [UIColor darkGrayColor];
         return cell;
     }
-    
-    
-    
 }
 //点击细胞事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -736,10 +711,7 @@
             _uiv.hidden = YES;
             _HotelTableView.scrollEnabled = YES;
             _shadeView.hidden = YES;
-            
         }
-        
-        
     }
 }
 //第一页最后一个细胞将要出现的时候
@@ -826,6 +798,7 @@
     _Toolbar.hidden = NO;
     _shadeView.hidden = NO;
     _uiv.hidden = YES;
+    [self layoutConstraints:0];
 }
 - (void)Btn2Action{
     NSLog(@"Btn2被按了");
@@ -835,6 +808,7 @@
     _Toolbar.hidden = NO;
     _shadeView.hidden = NO;
     _uiv.hidden = YES;
+    [self layoutConstraints:0];
 }
 - (void)Btn3Action{
     
@@ -877,6 +851,24 @@
     _Toolbar.hidden = YES;
     
 }
+- (void)layoutConstraints:(CGFloat)space {
+    CGFloat distance = 0;
+    if (space == 0) {
+        distance = _yPosition.constant;
+    } else {
+        distance = 200 - _yPosition.constant;
+    }
+    CGFloat percentage = distance / 200.f;
+    [UIView animateWithDuration:0.8f * percentage delay:0.f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        NSLog(@"这里是pa位置的值%f",_yPosition.constant);
+        _yPosition.constant = space;
+        NSLog(@"这里是pa位置的值%f",_yPosition.constant);
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (tableView == _HotelTableView) {
         return 40;
@@ -899,12 +891,14 @@
     [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)cancel:(UIBarButtonItem *)sender {
-    _picker.hidden = YES;
-    _Toolbar.hidden = YES;
+    [self layoutConstraints:-260];
+//    _picker.hidden = YES;
+//    _Toolbar.hidden = YES;
     _shadeView.hidden = YES;
 }
 
 - (IBAction)Done:(UIBarButtonItem *)sender {
+    [self layoutConstraints:-260];
     //拿到当前datepicker选择的时间
     NSDate *date= _picker.date;
     
@@ -926,8 +920,8 @@
         [_Btn1 setTitle:str forState:UIControlStateNormal];
         //NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
         _inDate = _theDate;
-        _picker.hidden = YES;
-        _Toolbar.hidden = YES;
+//        _picker.hidden = YES;
+//        _Toolbar.hidden = YES;
         _shadeView.hidden = YES;
         [self InitializeData];
     }else if(flag == 2){
@@ -938,8 +932,8 @@
             //_Btn2.titleLabel.text = _theDate;
             //NSLog(@"离店时间3：%@",_Btn2.titleLabel.text);
             _outDate = _theDate;
-            _picker.hidden = YES;
-            _Toolbar.hidden = YES;
+//            _picker.hidden = YES;
+//            _Toolbar.hidden = YES;
             _shadeView.hidden = YES;
             [self InitializeData];
         }else{
@@ -1232,14 +1226,15 @@
 }
 
 
-
+//蒙层手势方法
 -(void)doTapChange{
+    [self layoutConstraints:-260];
     _uiv.hidden = YES;
     _shadeView.hidden = YES;
     _HotelTableView.scrollEnabled = YES;
     _collectionView.scrollEnabled = YES;
-    _picker.hidden = YES;
-    _Toolbar.hidden = YES;
+//    _picker.hidden = YES;
+//    _Toolbar.hidden = YES;
 }
 #pragma mack - 选项卡tableView
 //tableView没东西的时候运行

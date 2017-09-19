@@ -21,22 +21,62 @@
     [super viewDidLoad];
     _SearcArr = [NSMutableArray new];
     // Do any additional setup after loading the view.
-    [self setNavigationItem];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
+
+
 //将要来到此页面（隐藏导航栏）
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //去掉导航栏下面的线
+    //[self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+  
+    [self setNavigationItem];
+    //[self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setShadowImage:nil];
+    
+   
+    //[[UINavigationBar appearance]  setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    //[[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    
+    //[self.navigationController.navigationBar setBackgroundImage:nilforBarPosition:UIBarPositionAnybarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    //self.navigationController.navigationBar.clipsToBounds = YES;
+    //去除导航栏半透膜
+    [self useMethodToFindBlackLineAndHind];
+    [self findHairlineImageViewUnder:[[UIView alloc] init]];
+    self.navigationController.navigationBar.translucent = NO;
+    
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(14, 123, 235) ;
+    
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)useMethodToFindBlackLineAndHind
+{
+    UIImageView* blackLineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    //隐藏黑线（在viewWillAppear时隐藏，在viewWillDisappear时显示）
+    blackLineImageView.hidden = YES;
+}
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view
+{
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0)
+    {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
 }
 //设置导航栏样式
 -(void)setNavigationItem{
-    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(201,201,206)];
+    //[self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(201,201,206)];
     //设置导航条标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
@@ -44,6 +84,13 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     self.navigationItem.backBarButtonItem = item;
+}
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 //自定的返回按钮的事件
 - (void)leftButtonAction: (UIButton *)sender{
