@@ -14,10 +14,10 @@
     if (self){
         _hotelID = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:0] integerValue];
         _price = [[Utilities nullAndNilCheck:dict[@"now_price"] replaceBy:0]integerValue];
-        self.longitude = [[Utilities nullAndNilCheck:dict[@"longitude"] replaceBy:0] integerValue];
+        self.longitude = [Utilities nullAndNilCheck:dict[@"longitude"] replaceBy:0];
         self.hotel_img = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];
         self.hotel_name = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@""];
-        _latitude = [[Utilities nullAndNilCheck:dict[@"latitude"] replaceBy:0] integerValue];
+        _latitude = [Utilities nullAndNilCheck:dict[@"latitude"] replaceBy:0];
         _hotel_address = [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@""];
 
        
@@ -39,6 +39,8 @@
         _hotel_types = [Utilities nullAndNilCheck:dict[@"hotel_types"] replaceBy:@""];
         _remark = [Utilities nullAndNilCheck:dict[@"remark"] replaceBy:@""];
         _hotel_imgs = [Utilities nullAndNilCheck:dict[@"_hotel_imgs"] replaceBy:@""];
+        self.longitude = [Utilities nullAndNilCheck:dict[@"longitude"] replaceBy:0];
+        _latitude = [Utilities nullAndNilCheck:dict[@"latitude"] replaceBy:0];
         if([dict[@"is_pet"] isKindOfClass:[NSNull class]]){
             _is_pet = @"";
         }else{

@@ -75,6 +75,7 @@
     _latitudeLabel.font =[UIFont systemFontOfSize:17.f];
     _latitudeLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_latitudeLabel];
+    //[self position];
     // Do any additional setup after loading the view.
 }
 
@@ -100,8 +101,8 @@
 
 //当设备位置更新时调用
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    NSLog(@"MKUserLocation经度：%f", userLocation.coordinate.longitude);
-    NSLog(@"MKUserLocation纬度：%f", userLocation.coordinate.latitude);
+    NSLog(@"MKUserLocation经度：%ld", (long)_mapsModel.latitude);
+    NSLog(@"MKUserLocation纬度：%ld",(long)_mapsModel.longitude);
     
     //初始化MKCoordinateRegion这个视角对象
     MKCoordinateRegion region;
@@ -113,11 +114,12 @@
     //初始化CLLocationCoordinate2D这个坐标对象
     CLLocationCoordinate2D location;
     //设置具体经纬度作为视角中心点
-    location.longitude = userLocation.coordinate.longitude;
-    location.latitude = userLocation.coordinate.latitude;
+    location.longitude = [_mapsModel.longitude doubleValue];
+    location.latitude = [_mapsModel.latitude doubleValue];
     //将设置好点缩放值和中心点打包放入region结构中
     region.span = span;
     region.center = location;
+    [self pinAnnotationViaCoordinate:location];
     //将打包好的视角结构作为参数运用到map view的设置视角的方法中去
     [mapView setRegion:region animated:YES];
 }
@@ -186,7 +188,7 @@
     //初始化一个地理编码对象
     CLGeocoder *revGeo = [[CLGeocoder alloc] init];
     //将CLLocationCoordinate2D对象转换成CLLocation对象
-    CLLocation *annoLoc = [[CLLocation alloc] initWithLatitude:mapCoordinate.latitude longitude:mapCoordinate.longitude];
+    CLLocation *annoLoc = [[CLLocation alloc] initWithLatitude:[_mapsModel.latitude doubleValue] longitude:[_mapsModel.longitude doubleValue]];
     //执行逆地理编码方法
     [revGeo reverseGeocodeLocation:annoLoc completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!error) {

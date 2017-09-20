@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GetHotelsEasy/Controller/HotelOrdelViewController.m"
-            timestampString = "527417819.219471"
+            timestampString = "527515488.96559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405">
+            startingLineNumber = "411"
+            endingLineNumber = "411">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GetHotelsEasy/Controller/HotelOrdelViewController.m"
-            timestampString = "527417819.219471"
+            timestampString = "527515488.96559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406">
+            startingLineNumber = "412"
+            endingLineNumber = "412">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -671,7 +671,7 @@
         cell.hotelName.text = detailmodel.hotel_name;
         cell.address.text = detailmodel.hotel_address;
         //通过distanceBetweenOrderBy方法获取两地距离
-        NSString *str = [self distanceBetweenOrderBy:_location.coordinate.latitude :detailmodel.latitude :_location.coordinate.longitude :detailmodel.longitude];
+        NSString *str = [self distanceBetweenOrderBy:_location.coordinate.latitude :[detailmodel.latitude doubleValue]:_location.coordinate.longitude :[detailmodel.longitude doubleValue]];
         cell.distanceLabel.text = str;
         cell.priceLabel.text =[NSString stringWithFormat:@"%ld",(long)detailmodel.price];
         return cell;

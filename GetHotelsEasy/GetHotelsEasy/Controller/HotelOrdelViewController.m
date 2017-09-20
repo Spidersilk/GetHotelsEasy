@@ -10,6 +10,7 @@
 #import "ZLImageViewDisplayView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PurchaseTableViewController.h"
+#import "MapsViewController.h"
 @interface HotelOrdelViewController (){
     NSInteger flag;
 }
@@ -350,6 +351,8 @@
     [self layoutConstraints:-314];
 }
 - (IBAction)mapsAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    [self performSegueWithIdentifier:@"MapsToLocation" sender:nil];
+    MapsViewController *purchaseVC = [Utilities getStoryboardInstance:@"Order" byIdentity:@"Maps"];
+    purchaseVC.mapsModel = _detail;
+    [self.navigationController pushViewController:purchaseVC animated:YES];
 }
 @end

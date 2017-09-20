@@ -16,8 +16,8 @@
 @property (nonatomic) NSTimeInterval out_time;//离店时间
 @property (strong, nonatomic) NSString *room_img;//房间图片
 @property (nonatomic) NSInteger price; //价格
-@property (nonatomic) NSInteger longitude;//经度
-@property (nonatomic) NSInteger latitude;//纬度
+@property (strong, nonatomic) NSString *longitude;//经度
+@property (strong, nonatomic) NSString *latitude;//纬度
 @property (nonatomic) NSInteger hotelID; //酒店id
 @property (strong, nonatomic) NSString *is_pet;//宠物
 @property (strong, nonatomic) NSString *hotel_facilitys;//酒店设施
