@@ -9,7 +9,10 @@
 #import "PurchaseTableViewController.h"
 #import "HotelOrdelViewController.h"
 #import "OfferDetailViewController.h"
-@interface PurchaseTableViewController ()
+@interface PurchaseTableViewController (){
+    NSInteger selectid;
+}
+
 @property (weak, nonatomic) IBOutlet UILabel *hotelNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *inDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *outDateLabel;
@@ -113,12 +116,21 @@
 }
 //设置每一行被点击以后要做的事情
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row != selectid){
+        selectid = indexPath.row;
+    }
     //遍历表格视图中选中状态下的cell
     for(NSIndexPath *eachIP in tableView.indexPathsForSelectedRows){
         //当选中的cell不是当前正在按得时候
         if(eachIP != indexPath)
             //取消cell选中状态
             [tableView deselectRowAtIndexPath:eachIP animated:YES];
+    }
+}
+//支付宝默认选择不可取消
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == selectid) {
+        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
 }
 - (void)dataInitialize{
