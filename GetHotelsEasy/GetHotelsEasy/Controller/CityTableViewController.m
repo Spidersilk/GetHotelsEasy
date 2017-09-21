@@ -238,7 +238,8 @@
     //结合线程的通知，表示先让通知接收者完成它收到通知要做的事以后再执行别的任务
     [noteCenter performSelectorOnMainThread:@selector(postNotification:) withObject:note waitUntilDone:YES];
     //返回上一页
-    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:NO];
     
 }
 //定位失败时

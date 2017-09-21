@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *confirmTextField;
 @property (weak, nonatomic) IBOutlet UIButton *createBtn;
 - (IBAction)createAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 @end
 
@@ -55,6 +56,8 @@
     self.backView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     self.backView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
     self.backView.layer.shadowRadius = 4;//阴影半径，默认3
+    _photoImageView.layer.borderWidth = 1;//设置用户头像边框
+    _photoImageView.layer.borderColor = [[UIColor darkGrayColor] CGColor];
 }
 //键盘收回
 - (void) touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

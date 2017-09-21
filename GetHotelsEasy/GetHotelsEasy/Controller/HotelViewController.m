@@ -86,6 +86,7 @@
 @property (nonatomic) NSInteger teger;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *yPosition;
 
+@property (strong, nonatomic) UIImageView *Img;//没有数据添加的图片
 @end
 
 @implementation HotelViewController
@@ -104,7 +105,7 @@
     _collectionCellTwo = @[@"  价格区间",@"不限",@"300以下",@"301-500",@"",@"",@"501-1000",@"1000以上"];
     _optionsArr = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityStat:) name:@"ResetHome" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Searc:) name:@"SearcHome" object:nil];
+    //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Searc:) name:@"SearcHome" object:nil];
     
     
     _picker.minimumDate = [NSDate date];
@@ -118,6 +119,7 @@
     [self locationStart];//这个方法处理开始定位
     [self InitializeData];
     [self setRefreshControl];
+    [self nothingForTableView];
     _picker.backgroundColor = UIColorFromRGB(235, 235, 241);
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
@@ -284,6 +286,14 @@
     //NSLog(@"离店时间%@",_outDate);
     //NSLog(@"这是排序ID:%ld",(long)_sortingid);
     NSDictionary *prarmeter = @{@"city_name":_cityBtn.titleLabel.text,@"pageNum" :@(page),@"pageSize":@5 ,@"startId":@(start),@"priceId":@(price),@"sortingId":@(_sortingid) ,@"inTime":[NSString stringWithFormat:@"2017-%@",_inDate],@"outTime":[NSString stringWithFormat:@"2017-%@",_outDate],@"wxlongitude":@"",@"wxlatitude":@""};
+    
+    //    NSMutableDictionary *muteDict = [NSMutableDictionary dictionaryWithDictionary:@{@"name" : @"YYX", @"gender" : @0}];
+    //    if (/* DISABLES CODE */ (1) == 0) {
+    //        [muteDict setObject:@"20" forKey:@"age"];
+    //    } else {
+    //        [muteDict setObject:@"30" forKey:@"age"];
+    //    }
+    
     //开始请求
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         
@@ -323,8 +333,12 @@
             //刷新表格（重载数据）
             [_HotelTableView reloadData];//reloadData重新加载activityTableView数据
             //
-            if (_arr ==NULL) {
-                [self nothingForTableView];
+            
+            if (_arr.count ==0) {
+                _Img.hidden = NO;
+            }else{
+                _Img.hidden = YES;
+                
             }
         }else{
             
@@ -373,12 +387,24 @@
                 NSInteger temp= [jsonObject[@"main"][@"temp"]integerValue]/1;
                 //NSLog(@"温度：%ld",(long)temp);
                 NSString* description = jsonObject[@"weather"][0][@"description"];
-                //NSLog(@"天气：%@",description);
+                NSLog(@"天气：%@",description);
                 _icon = jsonObject[@"weather"][0][@"icon"];
                 //NSLog(@"图片：%@",_icon);
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    _weatherLabel.text = description;
+                    NSLog(@"字符个数：%lu",(unsigned long)description.length);
+                    
+                    if (description.length>3) {
+                        [_weatherLabel setFont:[UIFont boldSystemFontOfSize:7]];
+                        NSString *cca2 =  [description stringByReplacingOccurrencesOfString:@"，" withString:@","];
+                        
+                        NSLog(@"字符,：%@",cca2);
+                        _weatherLabel.text = cca2;
+                    }else{
+                        [_weatherLabel setFont:[UIFont boldSystemFontOfSize:9]];
+                        _weatherLabel.text = description;
+                    }
+                    
                     _tempLable.text = [NSString stringWithFormat:@"%ld°c",(long)temp];
                     [_weatherImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://openweathermap.org/img/w/%@.png",_icon]] placeholderImage:[UIImage imageNamed:@"png2"]];
                     
@@ -616,12 +642,12 @@
     }];
 }
 
-- (void) Searc:(NSNotification *)note {
-    NSMutableArray *arr = [NSMutableArray new];
-    arr = note.object;
-    _arr = arr;
-    [_HotelTableView reloadData];
-}
+//- (void) Searc:(NSNotification *)note {
+//    NSMutableArray *arr = [NSMutableArray new];
+//    arr = note.object;
+//    _arr = arr;
+//    [_HotelTableView reloadData];
+//}
 
 /*
  #pragma mark - Navigation
@@ -671,7 +697,8 @@
         cell.hotelName.text = detailmodel.hotel_name;
         cell.address.text = detailmodel.hotel_address;
         //通过distanceBetweenOrderBy方法获取两地距离
-        NSString *str = [self distanceBetweenOrderBy:_location.coordinate.latitude :[detailmodel.latitude doubleValue]:_location.coordinate.longitude :[detailmodel.longitude doubleValue]];
+        NSString *str = [self distanceBetweenOrderBy:_location.coordinate.latitude :[detailmodel.latitude doubleValue] :_location.coordinate.longitude :[detailmodel.longitude doubleValue]];
+                         //:_location.coordinate.latitude :detailmodel.latitude :_location.coordinate.longitude :detailmodel.longitude];
         cell.distanceLabel.text = str;
         cell.priceLabel.text =[NSString stringWithFormat:@"%ld",(long)detailmodel.price];
         return cell;
@@ -697,8 +724,10 @@
         [self.navigationController pushViewController:purchaseVC animated:YES];
     }else{
         if (indexPath !=_tableViewIndexPath) {
+            
             page = 1;
             UITableViewCell *cell = [_optionsTableView cellForRowAtIndexPath:indexPath];
+            cell.tintColor = UIColorFromRGB(10, 127, 254);
             cell.textLabel.textColor = UIColorFromRGB(10, 127, 254);
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             UITableViewCell *beforecell = [_optionsTableView cellForRowAtIndexPath:_tableViewIndexPath];
@@ -706,6 +735,8 @@
             beforecell.accessoryType = UITableViewCellAccessoryNone;
             _tableViewIndexPath = indexPath;
             _sortingid = indexPath.row+1;
+            NSString *str =_optionsArr[indexPath.row];
+            [_Btn3 setTitle:str forState:UIControlStateNormal];
             [self InitializeData];
             _optionsTableView.hidden = YES;
             _uiv.hidden = YES;
@@ -888,12 +919,13 @@
     SearchViewController *search = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"search"];
     search.inDate = _inDate;
     search.outDate = _outDate;
+    search.location = _location;
     [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)cancel:(UIBarButtonItem *)sender {
     [self layoutConstraints:-260];
-//    _picker.hidden = YES;
-//    _Toolbar.hidden = YES;
+    //    _picker.hidden = YES;
+    //    _Toolbar.hidden = YES;
     _shadeView.hidden = YES;
 }
 
@@ -913,17 +945,38 @@
     
     
     if (flag ==1) {
+        if(_outdate >date){
+            _indate = date;
+            //_Btn1.titleLabel.text = theDate;
+            NSString *str = [NSString stringWithFormat:@"入住%@",_theDate];
+            [_Btn1 setTitle:str forState:UIControlStateNormal];
+            //NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
+            _inDate = _theDate;
+            //        _picker.hidden = YES;
+            //        _Toolbar.hidden = YES;
+            _shadeView.hidden = YES;
+            [self InitializeData];
+        }else{
+            _indate = date;
+            //_Btn1.titleLabel.text = theDate;
+            NSString *str = [NSString stringWithFormat:@"入住%@",_theDate];
+            [_Btn1 setTitle:str forState:UIControlStateNormal];
+            //NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
+            _inDate = _theDate;
+            //        _picker.hidden = YES;
+            //        _Toolbar.hidden = YES;
+            NSLog(@"离店时间3：%@",_outdate);
+            _outdate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];
+            NSLog(@"离店时间3：%@",_outdate);
+            _theDate = [formatter stringFromDate:_outdate];
+            _outDate = _theDate;
+            NSString *str1 = [NSString stringWithFormat:@"离店%@",_theDate];
+            [_Btn2 setTitle:str1 forState:UIControlStateNormal];
+            
+            _shadeView.hidden = YES;
+            [self InitializeData];
+        }
         
-        _indate = date;
-        //_Btn1.titleLabel.text = theDate;
-        NSString *str = [NSString stringWithFormat:@"入住%@",_theDate];
-        [_Btn1 setTitle:str forState:UIControlStateNormal];
-        //NSLog(@"离店时间2：%@",_Btn1.titleLabel.text);
-        _inDate = _theDate;
-//        _picker.hidden = YES;
-//        _Toolbar.hidden = YES;
-        _shadeView.hidden = YES;
-        [self InitializeData];
     }else if(flag == 2){
         if(_indate <=date){
             _outdate = date;
@@ -932,8 +985,8 @@
             //_Btn2.titleLabel.text = _theDate;
             //NSLog(@"离店时间3：%@",_Btn2.titleLabel.text);
             _outDate = _theDate;
-//            _picker.hidden = YES;
-//            _Toolbar.hidden = YES;
+            //            _picker.hidden = YES;
+            //            _Toolbar.hidden = YES;
             _shadeView.hidden = YES;
             [self InitializeData];
         }else{
@@ -1233,18 +1286,18 @@
     _shadeView.hidden = YES;
     _HotelTableView.scrollEnabled = YES;
     _collectionView.scrollEnabled = YES;
-//    _picker.hidden = YES;
-//    _Toolbar.hidden = YES;
+    //    _picker.hidden = YES;
+    //    _Toolbar.hidden = YES;
 }
 #pragma mack - 选项卡tableView
 //tableView没东西的时候运行
 - (void)nothingForTableView{
-    UIImageView *Img;
-    Img = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"no_things" ]];
-    Img.frame = CGRectMake(UI_SCREEN_W+(UI_SCREEN_W-100)/2, 250, 100, 100);
+    
+    _Img = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"no_things" ]];
+    _Img.frame = CGRectMake((UI_SCREEN_W-100)/2, 250, 100, 100);
     
     
-    [_HotelTableView addSubview:Img];
+    [_HotelTableView addSubview:_Img];
     
 }
 

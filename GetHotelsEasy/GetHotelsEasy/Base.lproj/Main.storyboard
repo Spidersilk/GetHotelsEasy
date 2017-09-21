@@ -197,7 +197,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipse" translatesAutoresizingMaskIntoConstraints="NO" id="yIj-Gr-1YI">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="我的大" translatesAutoresizingMaskIntoConstraints="NO" id="yIj-Gr-1YI">
                                 <rect key="frame" x="150" y="104" width="75" height="74.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="yIj-Gr-1YI" secondAttribute="height" multiplier="1:1" id="t4E-ex-CYT"/>
@@ -243,9 +243,9 @@
                     <connections>
                         <outlet property="backView" destination="5kh-Oa-v96" id="Tg5-F6-DZM"/>
                         <outlet property="createUserBtn" destination="EGV-15-ITJ" id="MMe-km-4hV"/>
-                        <outlet property="imageView" destination="yIj-Gr-1YI" id="PLu-gX-4ru"/>
                         <outlet property="loginBtn" destination="S21-Qd-vYe" id="3Y3-GN-qsc"/>
                         <outlet property="phoneTextField" destination="lGu-WC-1CO" id="Zrp-ZD-qvw"/>
+                        <outlet property="photoimageView" destination="yIj-Gr-1YI" id="rqc-1e-UqS"/>
                         <outlet property="pwdTextField" destination="8Kf-Hg-mAs" id="MNl-6V-2MY"/>
                     </connections>
                 </viewController>
@@ -399,7 +399,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipse" translatesAutoresizingMaskIntoConstraints="NO" id="e9v-xY-RwI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="我的大" translatesAutoresizingMaskIntoConstraints="NO" id="e9v-xY-RwI">
                                 <rect key="frame" x="150.5" y="105" width="75" height="74.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="e9v-xY-RwI" secondAttribute="height" multiplier="1:1" id="Pwv-uX-YJn"/>
@@ -432,6 +432,7 @@
                         <outlet property="createBtn" destination="ZAI-wJ-qYI" id="pCc-WC-bDp"/>
                         <outlet property="imageView" destination="e9v-xY-RwI" id="cdd-Dp-2m2"/>
                         <outlet property="phoneTextField" destination="Mxo-ZJ-JoU" id="VSp-0O-wol"/>
+                        <outlet property="photoImageView" destination="e9v-xY-RwI" id="iLI-73-COV"/>
                         <outlet property="pwdTextField" destination="nPR-gV-moA" id="lX8-Jq-QY1"/>
                     </connections>
                 </viewController>
@@ -442,7 +443,7 @@
     </scenes>
     <resources>
         <image name="cellphone" width="15" height="23"/>
-        <image name="ellipse" width="87" height="87"/>
         <image name="validate" width="17" height="22"/>
+        <image name="我的大" width="40" height="40"/>
     </resources>
 </document>

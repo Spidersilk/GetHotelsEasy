@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *createUserBtn;
 - (IBAction)createUserAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UIView *backView;
+@property (weak, nonatomic) IBOutlet UIImageView *photoimageView;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 
 @end
@@ -30,6 +31,7 @@
     // Do any additional setup after loading the view.
     [self naviConfig];
     [self uiLayout];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +59,8 @@
 }
 
 - (void)uiLayout{
+    _photoimageView.layer.borderWidth = 1;//设置用户头像边框
+    _photoimageView.layer.borderColor = [[UIColor darkGrayColor] CGColor];
     self.backView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
     self.backView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     self.backView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
