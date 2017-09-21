@@ -241,11 +241,13 @@
             [Utilities popUpAlertViewWithMsg:@"发布成功！" andTitle:@"提示" onView:self onCompletion:^{
                 [self setDefaultDateForButton];
                 _departureCityBtn.titleLabel.text = @"无锡";
-                _arrivalCityBtn.titleLabel.text = @"请选择城市";
+                [_arrivalCityBtn setTitle:@"请选择城市" forState:UIControlStateNormal];
                 _minimumPriceTextField.text = @"";
                 _mostPriceTextField.text = @"";
                 _TitleTextField.text = @"";
                 _detailTextField.text =@"";
+                _tomorrowLabel.hidden = NO;
+                _afterTomorrowLabel.hidden = NO;
                 }];
         }else{
             [Utilities popUpAlertViewWithMsg:@"网络错误，稍后再试" andTitle:@"提示" onView:self onCompletion:^{}];
@@ -315,6 +317,21 @@
 
 - (IBAction)postedAction:(UIButton *)sender forEvent:(UIEvent *)event {
     if ([Utilities loginCheck]) {
+        if(_minimumPriceTextField.text.length == 0){
+            [Utilities popUpAlertViewWithMsg:@"请输入最低价格" andTitle:nil onView:self onCompletion:^{
+            }];
+            return;
+        }
+        if(_mostPriceTextField.text.length == 0){
+            [Utilities popUpAlertViewWithMsg:@"请输入最高价格" andTitle:nil onView:self onCompletion:^{
+            }];
+            return;
+        }
+        if(_detailTextField.text.length == 0){
+            [Utilities popUpAlertViewWithMsg:@"请输入详情" andTitle:nil onView:self onCompletion:^{
+            }];
+            return;
+        }
         [self Request];
     }else{
         //获取要跳转过去的那个页面
@@ -322,7 +339,6 @@
         //执行跳转
         [self presentViewController:signNavi animated:YES completion:nil];
     }
-    
 }
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     _avi.hidden = YES;
