@@ -290,6 +290,7 @@
                     <navigationItem key="navigationItem" id="Vda-uX-OrF"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="PhoneLabel" destination="X9A-Cr-Z2W" id="UT7-8Z-3Ma"/>
                         <outlet property="backView" destination="Ydt-bw-fAG" id="qba-Xi-lZ9"/>
                         <outlet property="cName" destination="sbT-zN-M6n" id="kkv-bk-PmU"/>
                         <outlet property="callingLab" destination="tLz-Pa-gfw" id="pcw-Y8-kI3"/>

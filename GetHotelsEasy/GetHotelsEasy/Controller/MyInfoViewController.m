@@ -10,12 +10,14 @@
 #import "MyInfoTableViewCell.h"
 #import "MyInfoModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     
 }
 
+@property (weak, nonatomic) IBOutlet UILabel *PhoneLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *heardImageView;
 @property (weak, nonatomic) IBOutlet UILabel *cName;
 @property (weak, nonatomic) IBOutlet UILabel *level;
@@ -214,7 +216,25 @@
 }
 
 - (IBAction)connetAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    NSString *phone = [self subString:_PhoneLabel.text fromCharacter:@"："];
+    NSString *callStr = [NSString stringWithFormat:@"tel:%@", phone];
+    NSURL *callURL = [NSURL URLWithString:callStr];
+    [[UIApplication sharedApplication] openURL:callURL];
+
 }
+//从string这个字符串内根据character这个字符去截取string中character之后的部分（不包含character本身）
+- (NSString *)subString:(NSString *)string fromCharacter:(NSString *)character {
+    NSString *result = nil;
+    //获取string字符串中character字符的位置
+    NSRange range = [string rangeOfString:character];
+    //判断range是否存在（判断string中如果包含character）
+    if (range.location != NSNotFound) {
+        //从character的range获得character之后部分的位置，然后根据这个位置截取这个之后部分
+        result = [string substringFromIndex:(range.location + range.length)];
+    }
+    return result;
+}
+
 
 - (IBAction)cancelAction:(UIButton *)sender forEvent:(UIEvent *)event {
     _backView.hidden = YES;
