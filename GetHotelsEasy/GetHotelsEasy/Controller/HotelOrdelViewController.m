@@ -177,7 +177,7 @@
     NSDictionary *para = @{@"id" : @(_hotelID)};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
-        //NSLog(@"responseObjectOrder = %@",responseObject);
+        NSLog(@"responseObjectOrder = %@",responseObject);
         if([responseObject[@"result"] integerValue] == 1)
         {
             NSDictionary *content = responseObject[@"content"];

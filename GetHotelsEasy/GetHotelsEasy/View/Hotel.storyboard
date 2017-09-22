@@ -455,7 +455,7 @@
         <!--选择城市-->
         <scene sceneID="f34-iu-rU2">
             <objects>
-                <tableViewController storyboardIdentifier="City" useStoryboardIdentifierAsRestorationIdentifier="YES" id="06J-nz-lU0" customClass="CityTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="City" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="06J-nz-lU0" customClass="CityTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="GW5-fA-qty">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

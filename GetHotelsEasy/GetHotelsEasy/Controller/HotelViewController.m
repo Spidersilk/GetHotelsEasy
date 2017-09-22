@@ -327,7 +327,7 @@
                 //用ActivityModel类中定义的初始化方法initWhitDictionary: 将遍历得来的字典dict转换成为initWhitDictionary对象
                 detailModel *detailmodel = [[detailModel alloc] initWhitDictionary:dict];
                 //将上述实例化好的ActivityModel对象插入_arr数组中
-                // NSLog(@"hotelID:%ld",(long)detailmodel.hotelID);
+                //NSLog(@"hotelID:%ld",(long)detailmodel.hotelID);
                 [_arr addObject:detailmodel];
             }
             //刷新表格（重载数据）
@@ -387,18 +387,18 @@
                 NSInteger temp= [jsonObject[@"main"][@"temp"]integerValue]/1;
                 //NSLog(@"温度：%ld",(long)temp);
                 NSString* description = jsonObject[@"weather"][0][@"description"];
-                NSLog(@"天气：%@",description);
+                //NSLog(@"天气：%@",description);
                 _icon = jsonObject[@"weather"][0][@"icon"];
                 //NSLog(@"图片：%@",_icon);
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"字符个数：%lu",(unsigned long)description.length);
+                    //NSLog(@"字符个数：%lu",(unsigned long)description.length);
                     
                     if (description.length>3) {
                         [_weatherLabel setFont:[UIFont boldSystemFontOfSize:7]];
                         NSString *cca2 =  [description stringByReplacingOccurrencesOfString:@"，" withString:@","];
                         
-                        NSLog(@"字符,：%@",cca2);
+                        //NSLog(@"字符,：%@",cca2);
                         _weatherLabel.text = cca2;
                     }else{
                         [_weatherLabel setFont:[UIFont boldSystemFontOfSize:9]];
@@ -637,7 +637,7 @@
             [self WeatherRequest];
         }else
         {
-            NSLog(@"错误");
+            //NSLog(@"错误");
         }
     }];
 }
@@ -753,8 +753,9 @@
             if (!pageLast) {
                 page++;
                 [self request];
-                NSLog(@"还有下一页");
-            }else{NSLog(@"最后一页");}
+                //NSLog(@"还有下一页");
+            }else{//NSLog(@"最后一页");
+            }
         }
     }
     
@@ -821,7 +822,7 @@
 //    return btn;
 //}
 - (void)Btn1Action{
-    NSLog(@"Btn1被按了");
+    //NSLog(@"Btn1被按了");
     
     //_picker.maximumDate = [NSDate dateTomorrow];//设置datePicker的最小时间
     flag = 1;
@@ -832,7 +833,7 @@
     [self layoutConstraints:0];
 }
 - (void)Btn2Action{
-    NSLog(@"Btn2被按了");
+    //NSLog(@"Btn2被按了");
     //_picker.minimumDate = [NSDate dateTomorrow];//设置datePicker的最小时间
     flag = 2;
     _picker.hidden = NO;
@@ -843,7 +844,7 @@
 }
 - (void)Btn3Action{
     
-    NSLog(@"Btn3被按了");
+    //NSLog(@"Btn3被按了");
     if (_arr.count != 0) {
         [_HotelTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
@@ -858,7 +859,7 @@
     
 }
 - (void)Btn4Action{
-    NSLog(@"Btn4被按了");
+    //NSLog(@"Btn4被按了");
     if (_cellindexPathOne != _cellindexPathNowOne) {
         [self selectedIndexPathNowpath:_cellindexPathNowOne Beforepath:_cellindexPathOne];
     }
@@ -891,9 +892,9 @@
     }
     CGFloat percentage = distance / 200.f;
     [UIView animateWithDuration:0.8f * percentage delay:0.f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        NSLog(@"这里是pa位置的值%f",_yPosition.constant);
+        //NSLog(@"这里是pa位置的值%f",_yPosition.constant);
         _yPosition.constant = space;
-        NSLog(@"这里是pa位置的值%f",_yPosition.constant);
+        //NSLog(@"这里是pa位置的值%f",_yPosition.constant);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         
@@ -965,9 +966,9 @@
             _inDate = _theDate;
             //        _picker.hidden = YES;
             //        _Toolbar.hidden = YES;
-            NSLog(@"离店时间3：%@",_outdate);
+            //NSLog(@"离店时间3：%@",_outdate);
             _outdate = [NSDate dateWithTimeInterval:24*60*60 sinceDate:date];
-            NSLog(@"离店时间3：%@",_outdate);
+            //NSLog(@"离店时间3：%@",_outdate);
             _theDate = [formatter stringFromDate:_outdate];
             _outDate = _theDate;
             NSString *str1 = [NSString stringWithFormat:@"离店%@",_theDate];
@@ -978,7 +979,7 @@
         }
         
     }else if(flag == 2){
-        if(_indate <=date){
+        if(_indate <date){
             _outdate = date;
             NSString *str = [NSString stringWithFormat:@"离店%@",_theDate];
             [_Btn2 setTitle:str forState:UIControlStateNormal];
@@ -991,6 +992,7 @@
             [self InitializeData];
         }else{
             [Utilities popUpAlertViewWithMsg:@"提示请输入正确日期" andTitle:@"提示" onView:self];
+            _shadeView.hidden = YES;
         }
     }
     
@@ -1033,11 +1035,11 @@
     UIButton* DoneBtn = [[UIButton alloc] initWithFrame:CGRectMake((UI_SCREEN_W/2-(UI_SCREEN_W/4+25)/2), 155, UI_SCREEN_W/4+30, 25)];
     [DoneBtn setTitle:@"确定" forState:UIControlStateNormal];
     [DoneBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];//设置字体大小
-    [DoneBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [DoneBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     DoneBtn.backgroundColor = UIColorFromRGBA(73, 162, 254, 1);
     //[DoneBtn.layer setBorderWidth:0.8];//设置边框
     DoneBtn.layer.cornerRadius = 5.0 ;
-    DoneBtn.titleLabel.textColor = [UIColor redColor];
+    //DoneBtn.titleLabel.textColor = [UIColor redColor];
     //DoneBtn.layer.borderColor=[UIColor lightGrayColor].CGColor;
     //添加事件
     [DoneBtn addTarget:self action:@selector(DoneAction) forControlEvents:UIControlEventTouchUpInside];
@@ -1184,7 +1186,7 @@
             }
             if(indexPath.row != _cellindexPathNowOne.row){
                 [self selectedIndexPathNowpath:indexPath Beforepath:_cellindexPathNowOne];
-                //                NSLog(@"星级：%ld.%ld",(long)_cellindexPathNowOne.row,_cellindexPathNowOne.section);
+                //NSLog(@"星级：%ld.%ld",(long)_cellindexPathNowOne.row,_cellindexPathNowOne.section);
                 
             }
             
