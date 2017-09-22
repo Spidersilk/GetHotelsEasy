@@ -342,12 +342,17 @@
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *result = responseObject[@"content"];
-            //NSArray *list = result[@"list"];
-            historyLastPage = [result[@"isLastPage"] boolValue];
-            //当页码为1的时候让数据先清空，再重新添加
+            NSArray *list = result[@"list"];
             if (historyPageNum == 1) {
                 [_historyArr removeAllObjects];
             }
+            for (NSDictionary *dict in list) {
+                MyAirModel *airmodel = [[MyAirModel alloc]initWithDictForHistory:dict];
+                [_historyArr addObject:airmodel];
+            }
+            historyLastPage = [result[@"isLastPage"] boolValue];
+            //当页码为1的时候让数据先清空，再重新添加
+            
 
             //当数组没有数据显示时，将图片显示，反之隐藏
             if (_historyArr.count == 0) {
@@ -395,7 +400,29 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _overDealTableView) {
         OverDealTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"overDealCell" forIndexPath:indexPath];
-        //MyAirModel *overDeal = _overDealArr[indexPath.section];
+        MyAirModel *overDeal = _overDealArr[indexPath.section];
+        NSString *str = [NSString stringWithFormat:@"%@ %@——%@ 机票",overDeal.start_time_str,overDeal.departure,overDeal.destination];
+        
+        cell.routeLabel.text = str;
+        //NSLog(@"cell.iRouteLabel.text = %@",issuing.route);
+        cell.priceLabel.text = [NSString stringWithFormat:@"成交价：%@",overDeal.final_price];
+        
+        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:overDeal.start_time/1000];
+        //        NSLog(@"hahaha%f",issuing.start_time);
+        //        NSLog(@"hahaha%@",issuing.lowPrice);
+        //初始化一个日期格式器
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        //定义日期的格式为yyyy-MM-dd
+        formatter.dateFormat = @"HH";
+        NSString *date = [formatter stringFromDate:confromTimesp];
+        NSInteger i = [date intValue];
+        if (i <= 12 && i>=0) {
+            cell.timeLabel.text = [NSString stringWithFormat:@"大约上午%ld点",(long)i];
+        }else{
+            i = i - 12;
+            cell.timeLabel.text = [NSString stringWithFormat:@"大约下午%ld点",(long)i];
+        }
+        cell.typeLabel.text = overDeal.demand;
         return cell;
     }else if (tableView == _issuingTableView){
         IssuingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssuingCell" forIndexPath:indexPath];
@@ -427,6 +454,29 @@
         return cell;
     }else{
         HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
+        MyAirModel *historyModel = _historyArr[indexPath.section];
+        
+        NSString *str = [NSString stringWithFormat:@"%@ %@——%@ 机票",historyModel.start_time_str,historyModel.departure,historyModel.destination];
+        
+        cell.hRouteLabel.text = str;
+        NSLog(@"cell.iRouteLabel.text = %@",historyModel.departure);
+        cell.hPriceLabel.text = [NSString stringWithFormat:@"成交价：%@",historyModel.final_price];
+        NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:historyModel.start_time/1000];
+        //        NSLog(@"hahaha%f",issuing.start_time);
+        //        NSLog(@"hahaha%@",issuing.lowPrice);
+        //初始化一个日期格式器
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        //定义日期的格式为yyyy-MM-dd
+        formatter.dateFormat = @"HH";
+        NSString *date = [formatter stringFromDate:confromTimesp];
+        NSInteger i = [date intValue];
+        if (i <= 12 && i>=0) {
+            cell.hTimeLabel.text = [NSString stringWithFormat:@"大约上午%ld点",(long)i];
+        }else{
+            i = i - 12;
+            cell.hTimeLabel.text = [NSString stringWithFormat:@"大约下午%ld点",(long)i];
+        }
+        cell.hTypeLabel.text = historyModel.demand;
         return cell;
     }
 }

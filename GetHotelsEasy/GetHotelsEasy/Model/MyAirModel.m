@@ -14,11 +14,11 @@
 - (instancetype)initWithDict: (NSDictionary *)dict{
     self = [super init];
     if (self) {
-        //self.route = [Utilities nullAndNilCheck:dict[@"aviation_demand_title"] replaceBy:@""];
+        self.destination = [Utilities nullAndNilCheck:dict[@"destination"] replaceBy:@""];
+        self.departure = [Utilities nullAndNilCheck:dict[@"departure"] replaceBy:@""];
         self.start_time_str = [Utilities nullAndNilCheck:dict[@"start_time_str"] replaceBy:@""];
-        _start_time = [dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"start_time"] integerValue];
-        self.price = [Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:@""];
-        self.company = [[Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""] integerValue];
+        self.final_price = [Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:@""];
+        self.demand = [Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""];
     }
     return self;
 }
@@ -29,6 +29,7 @@
         self.departure = [Utilities nullAndNilCheck:dict[@"departure"] replaceBy:@""];
         self.start_time_str = [Utilities nullAndNilCheck:dict[@"start_time_str"] replaceBy:@""];
         _start_time = [dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"start_time"] integerValue];
+        
         self.highPrice = [Utilities nullAndNilCheck:dict[@"high_price"] replaceBy:@""];
         self.lowPrice = [Utilities nullAndNilCheck:dict[@"low_price"] replaceBy:@""];
         self.demand = [Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""];
@@ -39,7 +40,15 @@
 - (instancetype)initWithDictForHistory: (NSDictionary *)dict{
     self = [super init];
     if (self) {
-        
+        self.destination = [Utilities nullAndNilCheck:dict[@"destination"] replaceBy:@""];
+        self.departure = [Utilities nullAndNilCheck:dict[@"departure"] replaceBy:@""];
+        self.start_time_str = [Utilities nullAndNilCheck:dict[@"start_time_str"] replaceBy:@""];
+        _start_time = [dict[@"start_time"] isKindOfClass:[NSNull class]] ? (NSTimeInterval)0 :(NSTimeInterval)[dict[@"start_time"] integerValue];
+        self.highPrice = [Utilities nullAndNilCheck:dict[@"high_price"] replaceBy:@""];
+        self.lowPrice = [Utilities nullAndNilCheck:dict[@"low_price"] replaceBy:@""];
+        self.demand = [Utilities nullAndNilCheck:dict[@"aviation_demand_detail"] replaceBy:@""];
+        self.final_price = [Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:@""];
+
     }
     return self;
 }

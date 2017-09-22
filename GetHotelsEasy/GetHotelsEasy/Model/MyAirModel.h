@@ -20,7 +20,7 @@
 @property(strong, nonatomic)NSString *demand;       //要求
 @property(nonatomic)NSInteger Id;                   //订单id
 @property (nonatomic) NSTimeInterval start_time;
-
+@property(strong, nonatomic)NSString *final_price;      //价格
 
 - (instancetype)initWithDict: (NSDictionary *)dict;
 - (instancetype)initWithDictForIssuing: (NSDictionary *)dict;

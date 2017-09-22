@@ -21,4 +21,39 @@
     }
     return self;
 }
+- (instancetype)initWithForAll:(NSDictionary *)dict{
+    self = [super init];
+    if (self) {
+        self.final_in_time_str = [Utilities nullAndNilCheck:dict[@"final_in_time_str"] replaceBy:0];
+        self.final_out_time_str = [Utilities nullAndNilCheck:dict[@"final_out_time_str"] replaceBy:@""];
+        self.state = [[Utilities nullAndNilCheck:dict[@"state"] replaceBy:@""] integerValue];
+        self.hotel_address = [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@"0"];
+        self.hotel_name = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@"0"];
+    }
+    return self;
+}
+
+- (instancetype)initWithDictForWork:(NSDictionary *)dict{
+    self = [super init];
+    if (self) {
+        self.final_in_time_str = [Utilities nullAndNilCheck:dict[@"final_in_time_str"] replaceBy:0];
+        self.final_out_time_str = [Utilities nullAndNilCheck:dict[@"final_out_time_str"] replaceBy:@""];
+        //self.final_price = [Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:@""];
+        self.hotel_address = [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@"0"];
+        self.hotel_name = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@"0"];
+    }
+    return self;
+}
+- (instancetype)initWithDictForExpired:(NSDictionary *)dict{
+    self = [super init];
+    if (self) {
+        self.final_in_time_str = [Utilities nullAndNilCheck:dict[@"final_in_time_str"] replaceBy:0];
+        self.final_out_time_str = [Utilities nullAndNilCheck:dict[@"final_out_time_str"] replaceBy:@""];
+        //self.final_price = [Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:@""];
+        self.hotel_address = [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@"0"];
+        self.hotel_name = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@"0"];
+    }
+    return self;
+}
+
 @end

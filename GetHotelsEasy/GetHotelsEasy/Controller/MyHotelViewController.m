@@ -102,7 +102,7 @@
     //设置线的高度
     _segmentedControl.selectionIndicatorHeight = 2.5f;
     //设置选中状态的样式
-    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     //选中时的标记的位置
     _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     //设置未选中的标题样式
@@ -254,7 +254,15 @@
         [ref endRefreshing];
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
-            
+            NSArray *content = responseObject[@"content"];
+            //当页码为1的时候让数据先清空，再重新添加
+            if (allOrdersPageNum == 1) {
+                [_allOrdersArr removeAllObjects];
+            }
+            for (NSDictionary *dict in content) {
+                MyInfoModel *airmodel = [[MyInfoModel alloc]initWithForAll:dict];
+                [_allOrdersArr addObject:airmodel];
+            }
             //当数组没有数据显示时，将图片显示，反之隐藏
             if (_allOrdersArr.count == 0) {
                 _allOrdersNothingImg.hidden = NO;
@@ -282,7 +290,15 @@
         [ref endRefreshing];
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
-            
+            NSArray *content = responseObject[@"content"];
+            //当页码为1的时候让数据先清空，再重新添加
+            if (workablePageNum == 1) {
+                [_workableArr removeAllObjects];
+            }
+            for (NSDictionary *dict in content) {
+                MyInfoModel *workmodel = [[MyInfoModel alloc]initWithDictForWork:dict];
+                [_workableArr addObject:workmodel];
+            }
             //当数组没有数据显示时，将图片显示，反之隐藏
             if (_workableArr.count == 0) {
                 _workableNothingImg.hidden = NO;
@@ -311,6 +327,15 @@
         UIRefreshControl *ref = (UIRefreshControl *)[_expiredTableView viewWithTag:10003];
         [ref endRefreshing];
         if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *content = responseObject[@"content"];
+            //当页码为1的时候让数据先清空，再重新添加
+            if (expiredPageNum == 1) {
+                [_expiredArr removeAllObjects];
+            }
+            for (NSDictionary *dict in content) {
+                MyInfoModel *expirdemodel = [[MyInfoModel alloc]initWithDictForExpired:dict];
+                [_expiredArr addObject:expirdemodel];
+            }
             //当数组没有数据显示时，将图片显示，反之隐藏
             if (_expiredArr.count == 0) {
                 _expiredNothingImg.hidden = NO;
@@ -346,16 +371,36 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _allOrdersTableView) {
         AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
-//        cell.roomLable.text = @"希尔顿套房";
-//        cell.typeLable.text = @"一人入住";
-//        cell.inTimeLable.text = @"2017-2-23";
-//        cell.outTimeLabel.text = @"2017-2-25";
+        MyInfoModel *allOrders = _allOrdersArr[indexPath.row];
+        if (allOrders.state == 1) {
+            cell.hotelImageView.image = [UIImage imageNamed:@"my_hotel"];
+            cell.roomLable.textColor = [UIColor grayColor];
+        }else{
+            cell.hotelImageView.image = [UIImage imageNamed:@"酒店蓝"];
+        }
+        cell.roomLable.text = allOrders.hotel_name;
+        cell.locationLable.text = allOrders.hotel_address;
+        cell.typeLable.text = @"一人入住";
+        cell.inTimeLable.text = allOrders.final_in_time_str;
+        cell.outTimeLabel.text = allOrders.final_out_time_str;
         return cell;
     }else if(tableView == _workableTableView){
         WorkableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"workableCell" forIndexPath:indexPath];
+        MyInfoModel *workable = _workableArr[indexPath.row];
+        cell.roomLable.text = workable.hotel_name;
+        cell.locationLable.text = workable.hotel_address;
+        cell.typeLable.text = @"一人入住";
+        cell.inTimeLable.text = workable.final_in_time_str;
+        cell.outTimeLabel.text = workable.final_out_time_str;
         return cell;
     }else{
         ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expiredCell" forIndexPath:indexPath];
+        MyInfoModel *expired = _expiredArr[indexPath.row];
+        cell.roomLable.text = expired.hotel_name;
+        cell.locationLable.text = expired.hotel_address;
+        cell.typeLable.text = @"一人入住";
+        cell.inTimeLable.text = expired.final_in_time_str;
+        cell.outTimeLabel.text = expired.final_out_time_str;
         return cell;
     }
 }
@@ -368,41 +413,41 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-//设置当一个细胞将要出现的时候要做的事情
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == _allOrdersTableView) {
-        //判断是否是最后一行细胞将要出现
-        if (indexPath.section == _allOrdersArr.count - 1) {
-            //判断还有没有下一页
-            if (!allOrdersLastPage) {
-                //在这里执行上拉翻页的数据操作
-                allOrdersPageNum++;
-                [self allOrdersRequest];
-            }
-        }
-        
-    }else if (tableView == _workableTableView){
-        //判断是否是最后一行细胞将要出现
-        if (indexPath.section == _workableArr.count - 1) {
-            //判断还有没有下一页
-            if (!workableLastpage) {
-                //在这里执行上拉翻页的数据操作
-                workablePageNum++;
-                [self workableRequest];
-            }
-        }
-    }else{
-        //判断是否是最后一行细胞将要出现
-        if (indexPath.section == _expiredArr.count - 1) {
-            //判断还有没有下一页
-            if (!expiredLastPage) {
-                //在这里执行上拉翻页的数据操作
-                expiredPageNum++;
-                [self expiredRequest];
-            }
-        }
-    }
-}
+////设置当一个细胞将要出现的时候要做的事情
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (tableView == _allOrdersTableView) {
+//        //判断是否是最后一行细胞将要出现
+//        if (indexPath.section == _allOrdersArr.count - 1) {
+//            //判断还有没有下一页
+//            if (!allOrdersLastPage) {
+//                //在这里执行上拉翻页的数据操作
+//                allOrdersPageNum++;
+//                [self allOrdersRequest];
+//            }
+//        }
+//        
+//    }else if (tableView == _workableTableView){
+//        //判断是否是最后一行细胞将要出现
+//        if (indexPath.section == _workableArr.count - 1) {
+//            //判断还有没有下一页
+//            if (!workableLastpage) {
+//                //在这里执行上拉翻页的数据操作
+//                workablePageNum++;
+//                [self workableRequest];
+//            }
+//        }
+//    }else{
+//        //判断是否是最后一行细胞将要出现
+//        if (indexPath.section == _expiredArr.count - 1) {
+//            //判断还有没有下一页
+//            if (!expiredLastPage) {
+//                //在这里执行上拉翻页的数据操作
+//                expiredPageNum++;
+//                [self expiredRequest];
+//            }
+//        }
+//    }
+//}
 
 
 @end

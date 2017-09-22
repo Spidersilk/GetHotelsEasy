@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ExpiredTableViewCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *roomLable;
+@property (weak, nonatomic) IBOutlet UILabel *locationLable;
+@property (weak, nonatomic) IBOutlet UILabel *typeLable;
+@property (weak, nonatomic) IBOutlet UILabel *inTimeLable;
+@property (weak, nonatomic) IBOutlet UILabel *outTimeLabel;
 @end

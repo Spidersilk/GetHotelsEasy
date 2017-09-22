@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *typeLable;
 @property (weak, nonatomic) IBOutlet UILabel *inTimeLable;
 @property (weak, nonatomic) IBOutlet UILabel *outTimeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *hotelImageView;
 
 @end
