@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zfO-NS-qR4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zfO-NS-qR4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -425,7 +426,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.32890089897260272" colorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8B-VV-Jbd">
-                                <rect key="frame" x="0.0" y="618" width="375" height="260"/>
+                                <rect key="frame" x="0.0" y="678" width="375" height="260"/>
                                 <subviews>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-Ve-vbW">
                                         <rect key="frame" x="0.0" y="44" width="375" height="216"/>
@@ -439,13 +440,13 @@
                                         <items>
                                             <barButtonItem title="取消" id="TZw-WQ-EZW">
                                                 <connections>
-                                                    <action selector="cancelAction:" destination="kaH-DS-6fG" id="fAj-LT-hcE"/>
+                                                    <action selector="cancelAction:" destination="kaH-DS-6fG" id="e1d-o3-2A1"/>
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="GTw-wL-0Nl"/>
                                             <barButtonItem title="确认" id="580-Iq-hFh">
                                                 <connections>
-                                                    <action selector="confirmAction:" destination="kaH-DS-6fG" id="Huv-s5-bjL"/>
+                                                    <action selector="confirmAction:" destination="kaH-DS-6fG" id="YaY-4r-3F9"/>
                                                 </connections>
                                             </barButtonItem>
                                         </items>
@@ -471,7 +472,7 @@
                             <constraint firstItem="eYF-ly-QtR" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="WAG-vU-rRh"/>
                             <constraint firstAttribute="trailing" secondItem="U8B-VV-Jbd" secondAttribute="trailing" id="Zwi-hu-4A2"/>
                             <constraint firstAttribute="trailing" secondItem="eYF-ly-QtR" secondAttribute="trailing" id="dX6-0D-IDq"/>
-                            <constraint firstItem="hI6-t2-5cR" firstAttribute="top" secondItem="U8B-VV-Jbd" secondAttribute="bottom" constant="-260" id="kRJ-x5-Nhl"/>
+                            <constraint firstItem="hI6-t2-5cR" firstAttribute="top" secondItem="U8B-VV-Jbd" secondAttribute="bottom" constant="-320" id="kRJ-x5-Nhl"/>
                             <constraint firstAttribute="trailing" secondItem="uIr-q0-IHY" secondAttribute="trailing" id="lH3-T3-1Ah"/>
                             <constraint firstAttribute="bottom" secondItem="uIr-q0-IHY" secondAttribute="bottom" id="r37-Xq-Nrs"/>
                             <constraint firstItem="uIr-q0-IHY" firstAttribute="leading" secondItem="2Ua-iC-QgV" secondAttribute="leading" id="tIy-XR-eFp"/>
@@ -518,7 +519,7 @@
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7b2-wY-TAm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

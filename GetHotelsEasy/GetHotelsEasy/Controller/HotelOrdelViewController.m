@@ -137,7 +137,7 @@
     //是否需要毛玻璃的效果
     self.navigationController.navigationBar.translucent = YES;
     //导航栏的返回按钮只保留那个箭头，去掉后边的文字
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    //[[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 }
 
 /*

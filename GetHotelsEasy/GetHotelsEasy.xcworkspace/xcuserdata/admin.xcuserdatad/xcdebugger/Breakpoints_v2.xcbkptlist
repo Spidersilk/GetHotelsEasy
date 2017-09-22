@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GetHotelsEasy/Controller/HotelOrdelViewController.m"
-            timestampString = "527417819.219471"
+            timestampString = "527772941.31355"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405">
+            startingLineNumber = "359"
+            endingLineNumber = "359">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GetHotelsEasy/Controller/HotelOrdelViewController.m"
-            timestampString = "527417819.219471"
+            timestampString = "527772941.313775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406">
+            startingLineNumber = "359"
+            endingLineNumber = "359">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -38,60 +38,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GetHotelsEasy/Controller/SearchViewController.m"
-            timestampString = "527670994.482313"
+            timestampString = "527772941.313915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "146"
             endingLineNumber = "146"
             landmarkName = "-touchesEnded:withEvent:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GetHotelsEasy/Controller/HotelViewController.m"
-            timestampString = "527742006.460027"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1212"
-            endingLineNumber = "1212"
-            landmarkName = "-DoneAction"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GetHotelsEasy/Controller/HotelViewController.m"
-            timestampString = "527742035.325476"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "983"
-            endingLineNumber = "983"
-            landmarkName = "-Done:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GetHotelsEasy/Controller/HotelViewController.m"
-            timestampString = "527742218.874726"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "994"
-            endingLineNumber = "994"
-            landmarkName = "-Done:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -721,7 +721,7 @@
         detailModel *detail = _arr [indexPath.row];
         //NSLog(@"zhebian:%ld",(long)detail.hotelID);
         purchaseVC.hotelID = detail.hotelID;
-        [self.navigationController pushViewController:purchaseVC animated:YES];
+        [self.navigationController pushViewController:purchaseVC animated:NO];
     }else{
         if (indexPath !=_tableViewIndexPath) {
             
@@ -892,9 +892,7 @@
     }
     CGFloat percentage = distance / 200.f;
     [UIView animateWithDuration:0.8f * percentage delay:0.f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        //NSLog(@"这里是pa位置的值%f",_yPosition.constant);
         _yPosition.constant = space;
-        //NSLog(@"这里是pa位置的值%f",_yPosition.constant);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         
@@ -924,7 +922,7 @@
     [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)cancel:(UIBarButtonItem *)sender {
-    [self layoutConstraints:320];
+    [self layoutConstraints:-320];
     //    _picker.hidden = YES;
     //    _Toolbar.hidden = YES;
     _shadeView.hidden = YES;

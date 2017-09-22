@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wh8-Xl-Vpg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wh8-Xl-Vpg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -495,13 +496,13 @@
                             <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="8fK-12-81S" secondAttribute="bottom" id="8Tb-mE-nu0"/>
                             <constraint firstAttribute="trailing" secondItem="8fK-12-81S" secondAttribute="trailing" id="D4w-pL-VcJ"/>
                             <constraint firstItem="Woq-bM-pzm" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="HDx-TL-IzP"/>
-                            <constraint firstItem="mCa-N2-Yhn" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="PbG-u4-vJn"/>
                             <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="Woq-bM-pzm" secondAttribute="bottom" constant="-314" id="W5Z-7a-Zbb"/>
-                            <constraint firstAttribute="bottom" secondItem="mCa-N2-Yhn" secondAttribute="bottom" id="eyE-MF-V45"/>
+                            <constraint firstItem="mCa-N2-Yhn" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="Xpp-99-nYa"/>
+                            <constraint firstAttribute="trailing" secondItem="mCa-N2-Yhn" secondAttribute="trailing" id="nNs-h4-rAd"/>
                             <constraint firstItem="8fK-12-81S" firstAttribute="leading" secondItem="n77-uv-fU9" secondAttribute="leading" id="ohc-fK-gIR"/>
+                            <constraint firstItem="yKe-WL-aem" firstAttribute="top" secondItem="mCa-N2-Yhn" secondAttribute="bottom" id="s4G-RV-xhx"/>
                             <constraint firstAttribute="trailing" secondItem="Woq-bM-pzm" secondAttribute="trailing" id="sbw-mJ-IfB"/>
                             <constraint firstItem="8fK-12-81S" firstAttribute="top" secondItem="n77-uv-fU9" secondAttribute="top" id="sxc-zT-wiJ"/>
-                            <constraint firstAttribute="trailing" secondItem="mCa-N2-Yhn" secondAttribute="trailing" id="t9l-Nl-xLt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="酒店预定" id="Stf-5C-ij1"/>
@@ -591,7 +592,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.01元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXz-0y-YLn">
-                                    <rect key="frame" x="15" y="89" width="101.5" height="39.5"/>
+                                    <rect key="frame" x="15" y="89" width="102" height="39.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
                                     <color key="textColor" red="0.94233819799999996" green="0.73790059139999997" blue="0.02856504168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>

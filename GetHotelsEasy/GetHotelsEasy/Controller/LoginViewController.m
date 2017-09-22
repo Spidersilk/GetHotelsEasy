@@ -154,7 +154,7 @@
             _pwdTextField.text = @"";
             
             //用model的方式返回上一页
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:NO completion:nil];
         }else{
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
             [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{

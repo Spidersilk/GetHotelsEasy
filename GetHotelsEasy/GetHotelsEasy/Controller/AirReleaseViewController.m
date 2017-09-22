@@ -342,12 +342,12 @@
 }
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     _avi.hidden = YES;
-    [self layoutConstraints:-260];
+    [self layoutConstraints:-320];
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
     _avi.hidden = YES;
-    [self layoutConstraints:-260];
+    [self layoutConstraints:-320];
     //拿到当前datepicker选择的时间
     NSDate *date = _datePicker.date;
     //初始化一个日期格式器
