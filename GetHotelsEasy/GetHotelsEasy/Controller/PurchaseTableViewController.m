@@ -75,9 +75,15 @@
         }
         if([obj isKindOfClass:[HotelOrdelViewController class]]){
             _hotelNameLabel.text = _detail.hotel_name;
-            _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price];
             _inDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"first" ];
             _outDateLabel.text = [[StorageMgr singletonStorageMgr] objectForKey:@"second"];
+            NSString *firstStr = [NSString stringWithFormat:@"%@",_inDateLabel.text];
+            NSTimeInterval dates = [Utilities cTimestampFromString:firstStr format:@"yyyy-MM-dd"];
+            NSString *secondStr = [NSString stringWithFormat:@"%@",_outDateLabel.text];
+            NSTimeInterval nextDate = [Utilities cTimestampFromString:secondStr format:@"yyyy-MM-dd"];
+            NSTimeInterval days = nextDate - dates;
+            NSInteger totaldays =days/(24*60*60*1000);
+            _priceLabel.text = [NSString stringWithFormat:@"%ld元",(long)_detail.price * totaldays];
         }
     }];
     self.tableView.tableFooterView = [UIView new];
